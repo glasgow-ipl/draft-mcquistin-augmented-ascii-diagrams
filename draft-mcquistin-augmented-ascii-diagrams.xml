@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='US-ASCII'?>
+<rfc ipr='trust200902' submissionType='IETF' category='info'>
+    <front>
+        <title abbrev='Augmented ASCII Diagrams'>
+            Fully Specifying Protocol Parsing with Augmented ASCII Diagrams
+        </title>
+        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-00' status="informational" />
+
+        <author fullname='Stephen McQuistin' initials='S.' surname='McQuistin'>
+            <organization>University of Glasgow</organization>
+            <address>
+                <postal>
+                    <street>School of Computing Science</street>
+                    <city>Glasgow</city>
+                    <code>G12 8QQ</code>
+                    <country>UK</country>
+                </postal>
+                <email>sm@smcquistin.uk</email>
+            </address>
+        </author>
+
+        <author fullname='Colin Perkins' initials='C.' surname='Perkins'>
+            <organization>University of Glasgow</organization>
+            <address>
+                <postal>
+                    <street>School of Computing Science</street>
+                    <city>Glasgow</city>
+                    <code>G12 8QQ</code>
+                    <country>UK</country>
+                </postal>
+                <email>csp@csperkins.org</email>
+            </address>
+        </author>
+
+        <date year='2019'/>
+
+        <abstract>
+            <t>
+                This document describes a format for fully specifying the process by which
+                a protocol can be parsed. This format combines a consistent ASCII packet
+                diagram format with the use of structured text, maintaining human
+                readability while enabling support for machine parsing. This document is
+                itself an example of how this format can be used, and it can be parsed
+                using code provided.
+            </t>
+        </abstract>
+    </front>
+
+    <middle>
+        <section anchor='intro'>
+            <name>Introduction</name>
+            <t>
+                ASCII packet header diagrams have become the de-facto format for
+                describing the syntax of binary protocols. In otherwise largely textual
+                documents, they allow for the visualisation of packet formats, reducing
+                human error, and aiding in the implementation of parser for the protocols
+                that they specify. Given their widespread use, and relatively structured
+                form, ASCII packet header diagrams provide a good base from which to
+                develop a format that enables the automatic generation of parser code from
+                protocol standards documents.
+            </t>
+            <t>
+                To support this new function, there are two broad issues with the existing
+                ASCII packet header format that must be addressed. Firstly, their use,
+                while sufficiently consistent for human readability, contains enough
+                variation to make machine parsing difficult: different documents tend to
+                use subtly different formats. Secondly, ASCII packet header diagrams alone
+                do not fully capture the parsing process for protocols, requiring
+                supplementary text. To support machine parsing, this supplementary text
+                must be structured.
+            </t>
+            <t>
+                This document describes a consistent ASCII packet header format and 
+                accompanying structured text constructs that allow for the parsing process
+                of a protocol to be fully specified. This provides support for the
+                automatic generation of parser code. Broad design principles, that seek
+                to maintain the primacy of human readability and flexibility in
+                authorship, are described, before the format itself is given.
+            </t>
+            <t>
+                This document is itself an example of the approach that it describes, with
+                code provided that can parse the ASCII packet diagrams and structured
+                text that this document contains.
+            </t> 
+        </section>
+        <section anchor='designprinciples'>
+            <name>Design Principles</name>
+            <t>
+                The use of structures that are designed to support machine readability
+                may potentially interfere with the existing ways in which standardisation
+                documents are used and authored. To the extent that these existing uses
+                are more important than machine readability, such interference must be
+                limited.
+            </t>
+            <t>
+                In this section, the broad design principles that underpin the structures
+                described by this document are given. However, these principles also
+                apply more generally.
+            </t>
+            
+            <section anchor='dp:humanreadablity'>
+                <name>Most readers are human</name>
+                <t>
+                    The primary users of standardisation documents are people, who require
+                    text and diagrams that they can parse. Structures that cannot be
+                    easily parsed by people should be avoided, and if included, should be
+                    clearly delineated from human-readable content.
+                </t>
+            </section>
+            
+            <section anchor='dp:authorship'>
+                <name>Authorship tools are diverse</name>
+                <t>
+                    Authorship is a distributed process that involves a diverse set of
+                    tools. Machine-readable structures should limit the extent to which
+                    specific tools are required to produce standards documents, such that
+                    existing workflows can be maintained. This does not preclude the
+                    development of tools that aid in the authoring machine-readable
+                    structures, but such tools should be optional.
+                </t>
+            </section>
+            
+            <section anchor='dp:singlespec'>
+                <name>Canonical specifications</name>
+                <t>
+                    As far as possible, machine-readable structures should not introduce
+                    an additional specification of the protocol within the same document.
+                    Such structures should form part of a canonical specification of the
+                    protocol. The inclusion of supplementary machine-readable structures
+                    creates the potential for divergent specifications.
+                </t>
+                <t>
+                    As an example, code that describes how a protocol should be parsed may
+                    be provided as an appendix within a standards document. This code
+                    provides a specification of the protocol that is separate to that
+                    given in the main body of the document. This introduces the potential
+                    for the code to specify behaviour that the text-based specification
+                    does not, and vice-versa.
+                </t>
+            </section>
+        </section>
+
+        <section anchor='augmentedascii'>
+            <name>Augmented ASCII Packet Header Diagrams</name>
+        </section>
+
+        <section anchor='example'>
+            <name>Example</name>
+        </section>
+
+        <section anchor='IANA'>
+            <name>IANA Considerations</name>
+            <t>
+                This document contains no actions for IANA.
+            </t>
+        </section>
+
+        <section anchor='security'>
+            <name>Security Considerations</name>
+        </section>
+
+        <section anchor='Acknowledgements'>
+            <name>Acknowledgements</name>
+        </section>
+    </middle>
+
+    <back>
+        <references>
+            <name>Normative References</name>
+        </references>
+        
+        <references>
+            <name>Informative References</name>
+        </references>
+    </back>
+ </rfc>
+ 
