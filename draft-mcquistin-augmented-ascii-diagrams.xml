@@ -170,6 +170,22 @@
 
         <section anchor='augmentedascii'>
             <name>Augmented ASCII Packet Header Diagrams</name>
+            
+            <section anchor='ascii:simple'>
+                <name>Simple packet structures</name>
+            </section>
+            
+            <section anchor='ascii:constraints'>
+                <name>Field constraints</name>
+            </section>
+            
+            <section anchor='ascii:context'>
+                <name>Parsing context</name>
+            </section>
+            
+            <section anchor='ascii:helpers'>
+                <name>Parsing helper functions</name>
+            </section>     
         </section>
 
         <section anchor='example'>
