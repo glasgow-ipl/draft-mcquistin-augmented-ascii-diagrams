@@ -150,6 +150,22 @@
                     does not, and vice-versa.
                 </t>
             </section>
+
+            <section anchor='dp:expressiveness'>
+                <name>Expressiveness</name>
+                <t>
+                    Any approach should be expressive enough to capture the syntax and
+                    parsing processes for most binary protocols.
+                </t>
+            </section>
+ 
+            <section anchor='dp:summary'>
+                <name>Summary</name>
+                <t>
+                    These are design _principles_: they are not involiable, but
+                    applicability and adoption is likely to be affected.
+                </t>
+            </section>
         </section>
 
         <section anchor='augmentedascii'>
