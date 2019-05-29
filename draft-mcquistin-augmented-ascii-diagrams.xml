@@ -109,63 +109,61 @@
                 described by this document are given. However, these principles also
                 apply more generally.
             </t>
-            
-            <section anchor='dp:humanreadablity'>
-                <name>Most readers are human</name>
-                <t>
+
+            <dl>
+                <dt>
+                    Most readers are human:
+                </dt>
+                <dd>
                     The primary users of standardisation documents are people, who require
                     text and diagrams that they can parse. Structures that cannot be
                     easily parsed by people should be avoided, and if included, should be
                     clearly delineated from human-readable content.
-                </t>
-            </section>
-            
-            <section anchor='dp:authorship'>
-                <name>Authorship tools are diverse</name>
-                <t>
+                </dd>
+
+                <dt>
+                    Authorship tools are diverse:
+                </dt>
+                <dd>
                     Authorship is a distributed process that involves a diverse set of
                     tools. Machine-readable structures should limit the extent to which
                     specific tools are required to produce standards documents, such that
                     existing workflows can be maintained. This does not preclude the
                     development of tools that aid in the authoring machine-readable
                     structures, but such tools should be optional.
-                </t>
-            </section>
-            
-            <section anchor='dp:singlespec'>
-                <name>Canonical specifications</name>
-                <t>
+                </dd>
+                
+                <dt>
+                    Canonical specifications:
+                </dt>
+                <dd>
                     As far as possible, machine-readable structures should not introduce
                     an additional specification of the protocol within the same document.
                     Such structures should form part of a canonical specification of the
                     protocol. The inclusion of supplementary machine-readable structures
                     creates the potential for divergent specifications.
-                </t>
-                <t>
+
                     As an example, code that describes how a protocol should be parsed may
                     be provided as an appendix within a standards document. This code
                     provides a specification of the protocol that is separate to that
                     given in the main body of the document. This introduces the potential
                     for the code to specify behaviour that the text-based specification
                     does not, and vice-versa.
-                </t>
-            </section>
-
-            <section anchor='dp:expressiveness'>
-                <name>Expressiveness</name>
-                <t>
+                </dd>
+                
+                <dt>
+                    Expressiveness:
+                </dt>
+                <dd>
                     Any approach should be expressive enough to capture the syntax and
                     parsing processes for most binary protocols.
-                </t>
-            </section>
+                </dd>                
+            </dl>
  
-            <section anchor='dp:summary'>
-                <name>Summary</name>
-                <t>
-                    These are design _principles_: they are not involiable, but
-                    applicability and adoption is likely to be affected.
-                </t>
-            </section>
+            <t>
+                These are design _principles_: they are not involiable, but applicability
+                and adoption is likely to be affected.
+            </t>
         </section>
 
         <section anchor='augmentedascii'>
