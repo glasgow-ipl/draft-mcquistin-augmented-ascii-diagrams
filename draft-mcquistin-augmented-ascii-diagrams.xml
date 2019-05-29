@@ -83,6 +83,18 @@
                 text that this document contains.
             </t> 
         </section>
+
+        <section anchor='background'>
+            <name>Background</name>
+            <section anchor='background:ascii'>
+                <name>Existing use of ASCII packet diagrams</name>
+            </section>
+            
+            <section anchor='background:others'>
+                <name>Formal languages in standards documents</name>
+            </section>
+        </section>
+
         <section anchor='designprinciples'>
             <name>Design Principles</name>
             <t>
