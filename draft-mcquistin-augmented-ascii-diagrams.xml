@@ -132,7 +132,7 @@
                     development of tools that aid in the authoring machine-readable
                     structures, but such tools should be optional.
                 </dd>
-                
+
                 <dt>
                     Canonical specifications:
                 </dt>
@@ -150,14 +150,22 @@
                     for the code to specify behaviour that the text-based specification
                     does not, and vice-versa.
                 </dd>
-                
+
                 <dt>
                     Expressiveness:
                 </dt>
                 <dd>
                     Any approach should be expressive enough to capture the syntax and
                     parsing processes for most binary protocols.
-                </dd>                
+                </dd>
+                
+                <dt>
+                    Minimise change:
+                </dt>
+                <dd>
+                    Any approach should require as few changes as possible to the way
+                    documents are formatted, authored, and published. 
+                </dd>
             </dl>
  
             <t>
