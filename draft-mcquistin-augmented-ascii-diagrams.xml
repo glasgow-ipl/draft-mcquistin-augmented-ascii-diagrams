@@ -86,8 +86,42 @@
 
         <section anchor='background'>
             <name>Background</name>
+            <t>
+                This section begins by considering how ASCII packet header diagrams are
+                used in existing documents. This exposes the limitations that the current
+                usage has in terms of machine-readability, guiding the design of the
+                format that this document proposes.
+            </t>
+            <t>
+                While this document focuses on the machine-readability of packet header
+                diagrams, this section discusses the use of other, structured or formal
+                languages within IETF languages. Considering how and why these languages
+                are used provides an instructive contrast to the relatively incremental
+                approach proposed here.
+            </t>
+            
             <section anchor='background:ascii'>
-                <name>Existing use of ASCII packet diagrams</name>
+                <name>Limitations of current use of ASCII packet diagrams</name>
+                    
+                <dl>
+                    <dt>
+                        Inconsistent syntax:
+                    </dt>
+                    <dd>
+                    </dd>
+                
+                    <dt>
+                        Ambiguous constraints:
+                    </dt>
+                    <dd>
+                    </dd>
+                
+                    <dt>
+                        Poor linking between sub-structures:
+                    </dt>
+                    <dd>
+                    </dd>
+                </dl>
             </section>
             
             <section anchor='background:others'>
