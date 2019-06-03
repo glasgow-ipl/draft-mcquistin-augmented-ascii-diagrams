@@ -241,6 +241,19 @@
             
             <section anchor='background:others'>
                 <name>Formal languages in standards documents</name>
+                
+                <t>
+                    A small proportion of IETF standards documents contain
+                    structured and formal languages, including ABNF, ASN.1, C, CBOR, JSON,
+                    the TLS presentation language, YANG models, and XML. While this broad
+                    range of languages may be problematic for the development of tooling
+                    to parse specifications, these, and other, languages serve a range of
+                    different use cases. ABNF, for example, is typically used to specify
+                    text protocols, while ASN.1 is used to specify the data structure
+                    serialisation. In summary, different languages serve different
+                    purposes. This document specifies a structure language for specifying
+                    the parsing of binary protocol data units.
+                </t>
             </section>
         </section>
 
