@@ -318,12 +318,24 @@
                     Authorship tools are diverse:
                 </dt>
                 <dd>
-                    Authorship is a distributed process that involves a diverse set of
-                    tools. Machine-readable structures should limit the extent to which
-                    specific tools are required to produce standards documents, such that
-                    existing workflows can be maintained. This does not preclude the
-                    development of tools that aid in the authoring machine-readable
-                    structures, but such tools should be optional.
+                    <t>
+                        Authorship is a distributed process that involves a diverse set of
+                        tools and workflows. The introduction of machine-readable
+                        structures should limit the extent to which specific tools are
+                        required to produce standards documents, such that existing
+                        workflows can be maintained. This does not preclude the
+                        development of optional, supplementary tools that aid in the
+                        authoring machine-readable structures.
+                    </t>
+                    <t>
+                        The immediate impact of requiring specific tooling is that
+                        adoption is likely to be limited. A long-term impact might be that
+                        authors whose workflows are incompatible might be alienated from
+                        the process.
+                    </t>
+                    <t>
+                        [todo: this last point feels weak.]
+                    </t>
                 </dd>
 
                 <dt>
