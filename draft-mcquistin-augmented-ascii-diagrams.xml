@@ -382,11 +382,16 @@
                 </dd>
                 
                 <dt>
-                    Minimise change:
+                    Minimise required change:
                 </dt>
                 <dd>
-                    Any approach should require as few changes as possible to the way
-                    documents are formatted, authored, and published. 
+                    <t>
+                        Any approach should require as few changes as possible to the way
+                        documents are formatted, authored, and published. Forcing adoption
+                        of a particular structured or formal language is incompatible with
+                        the IETF's standardisation process: there are very few components
+                        of standards documents that are non-optional.
+                    </t>
                 </dd>
             </dl>
         </section>
