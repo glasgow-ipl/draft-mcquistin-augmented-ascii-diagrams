@@ -342,18 +342,29 @@
                     Canonical specifications:
                 </dt>
                 <dd>
-                    As far as possible, machine-readable structures should not introduce
-                    an additional specification of the protocol within the same document.
-                    Such structures should form part of a canonical specification of the
-                    protocol. The inclusion of supplementary machine-readable structures
-                    creates the potential for divergent specifications.
-
-                    As an example, code that describes how a protocol should be parsed may
-                    be provided as an appendix within a standards document. This code
-                    provides a specification of the protocol that is separate to that
-                    given in the main body of the document. This introduces the potential
-                    for the code to specify behaviour that the text-based specification
-                    does not, and vice-versa.
+                    <t>
+                        As far as possible, machine-readable structures should not
+                        introduce an additional specification of the protocol within the
+                        same document. Such structures should form part of a canonical
+                        specification of the protocol. The inclusion of supplementary
+                        machine-readable structures creates the potential for divergent
+                        specifications.
+                    </t>
+                    <t>
+                        As an example, code that describes how a protocol should be parsed
+                        may be provided as an appendix within a standards document. This
+                        code provides a specification of the protocol that is separate to
+                        that given in the main body of the document. This introduces the
+                        potential for the code to specify behaviour that the text-based
+                        specification does not, and vice-versa.
+                    </t>
+                    <t>
+                        Ultimately, where supplementary code is given, the definition
+                        given in the prose specification takes precedence. As a result,
+                        any bugs in the code are likely to diminish the usefulness of this
+                        part of the document. This undermines the broad goal of
+                        introducing structured and formal languages.
+                    </t>
                 </dd>
 
                 <dt>
