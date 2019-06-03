@@ -277,10 +277,19 @@
             </t>
             <t>
                 In this section, the broad design principles that underpin the structures
-                described by this document are given. However, these principles also
-                apply more generally.
+                described by this document are given. However, these principles apply more
+                generally to any approach that introduces structured and formal languages
+                into standards documents.
             </t>
-
+            <t>
+                It should be noted that these are design principles: they expose the
+                trade-offs that are inherent within any given approach. Violating these
+                principles is sometimes necessary and beneficial, and this document sets
+                out the potential consequences of doing so.
+            </t>
+            <t>
+                The broad design principles we identify are:
+            </t>
             <dl>
                 <dt>
                     Most readers are human:
@@ -338,11 +347,6 @@
                     documents are formatted, authored, and published. 
                 </dd>
             </dl>
- 
-            <t>
-                These are design _principles_: they are not involiable, but applicability
-                and adoption is likely to be affected.
-            </t>
         </section>
 
         <section anchor='augmentedascii'>
