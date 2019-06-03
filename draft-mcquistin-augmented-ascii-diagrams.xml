@@ -254,6 +254,15 @@
                     purposes. This document specifies a structure language for specifying
                     the parsing of binary protocol data units.
                 </t>
+                <t>
+                    [todo: refs]
+                </t>
+                <t>
+                    [todo: might be better to flip "Background" and "Design Principles".
+                     The background would then be able to refer to the design principles,
+                     and how they relate to the current use of ASCII packet diagrams and
+                     other languages.]
+                </t>
             </section>
         </section>
 
