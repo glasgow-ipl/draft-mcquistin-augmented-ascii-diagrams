@@ -299,10 +299,19 @@
                     Most readers are human:
                 </dt>
                 <dd>
-                    The primary users of standardisation documents are people, who require
-                    text and diagrams that they can parse. Structures that cannot be
-                    easily parsed by people should be avoided, and if included, should be
-                    clearly delineated from human-readable content.
+                    <t>
+                        Primarily, standards documents should be written for people, who
+                        require text and diagrams that they can parse, Structures that
+                        cannot be easily parsed by people should be avoided, and if
+                        included, should be clearly delineated from human-readable
+                        content.
+                    </t>
+                    <t>
+                        Any approach that shifts this balance -- that is, that primarily
+                        targets machine readers -- is likely to be disruptive to the
+                        standardisation process, which relies upon discussion centered
+                        upon documents written in prose.
+                    </t>
                 </dd>
 
                 <dt>
