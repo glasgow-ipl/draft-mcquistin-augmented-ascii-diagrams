@@ -362,8 +362,7 @@
                         Ultimately, where supplementary code is given, the definition
                         given in the prose specification takes precedence. As a result,
                         any bugs in the code are likely to diminish the usefulness of this
-                        part of the document. This undermines the broad goal of
-                        introducing structured and formal languages.
+                        part of the document.
                     </t>
                 </dd>
 
@@ -371,8 +370,15 @@
                     Expressiveness:
                 </dt>
                 <dd>
-                    Any approach should be expressive enough to capture the syntax and
-                    parsing processes for most binary protocols.
+                    <t>
+                        Any approach should be expressive enough to capture the syntax
+                        and parsing process for the majority of binary protocols. If a
+                        given language is not sufficiently expressive, then adoption is
+                        likely to be limited. At the limits of what can be expressed by
+                        the language, authors are likely to revert to defining the
+                        protocol in prose: this undermines the broad goal of using
+                        structured and formal languages.
+                    </t>
                 </dd>
                 
                 <dt>
