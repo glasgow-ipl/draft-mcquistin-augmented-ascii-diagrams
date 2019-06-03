@@ -404,21 +404,41 @@
         <section anchor='augmentedascii'>
             <name>Augmented ASCII Packet Header Diagrams</name>
             
-            <section anchor='ascii:simple'>
-                <name>Simple packet structures</name>
+            <t>
+                A protocol data unit is specified as follows:
+                <sourcecode type="abnf">
+    pdu = preamble CRLF ascii-diagram CRLF field-list
+                </sourcecode>
+            </t>
+            <t>
+                [todo: better name, intro text]
+            </t>
+            
+            <section anchor='ascii:preamble'>
+                <name>Preamble</name>
+                <t>
+                    To allow the parser to identify that a protocol data unit is being
+                    defined, the following preamble is required:
+                    <sourcecode type="abnf">
+    preamble = ("A" / "An") SP pdu-name SP "packet is formatted as follows:"
+    pdu-name = ALPHA *(ALPHA / DIGIT)
+                    </sourcecode>
+                </t>
             </section>
             
-            <section anchor='ascii:constraints'>
-                <name>Field constraints</name>
+            <section anchor='ascii:diagram'>
+                <name>ASCII diagram</name>
+                <t>
+                    [todo]
+                </t>
             </section>
             
-            <section anchor='ascii:context'>
-                <name>Parsing context</name>
-            </section>
-            
-            <section anchor='ascii:helpers'>
-                <name>Parsing helper functions</name>
-            </section>     
+            <section anchor='ascii:fielddescriptions'>
+                <name>Field description list</name>
+                <t>
+                    [todo]
+                </t>
+            </section>  
         </section>
 
         <section anchor='example'>
