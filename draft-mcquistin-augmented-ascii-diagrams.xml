@@ -403,42 +403,32 @@
 
         <section anchor='augmentedascii'>
             <name>Augmented ASCII Packet Header Diagrams</name>
-            
             <t>
-                A protocol data unit is specified as follows:
-                <sourcecode type="abnf">
-    pdu = preamble CRLF ascii-diagram CRLF field-list
-                </sourcecode>
+                The design principles described in <xref target="designprinciples"/> can
+                largely be met by the existing uses of ASCII packet header diagrams. These
+                diagrams aid human readability, do not require new or specialised
+                authorship tools, do not split the specification into multiple parts,
+                can express most binary protocol features, and require no changes to the
+                existing publication processes.
             </t>
             <t>
-                [todo: better name, intro text]
+                However, as discussed in <xref target="background:ascii"/> there are
+                limitations to how ASCII diagrams are used that must be addressed if they
+                are to be parsed by machine. In this section, an augmented ASCII packet
+                header diagram format is described.
             </t>
-            
-            <section anchor='ascii:preamble'>
-                <name>Preamble</name>
-                <t>
-                    To allow the parser to identify that a protocol data unit is being
-                    defined, the following preamble is required:
-                    <sourcecode type="abnf">
-    preamble = ("A" / "An") SP pdu-name SP "packet is formatted as follows:"
-    pdu-name = ALPHA *(ALPHA / DIGIT)
-                    </sourcecode>
-                </t>
-            </section>
-            
-            <section anchor='ascii:diagram'>
-                <name>ASCII diagram</name>
-                <t>
-                    [todo]
-                </t>
-            </section>
-            
-            <section anchor='ascii:fielddescriptions'>
-                <name>Field description list</name>
-                <t>
-                    [todo]
-                </t>
-            </section>  
+            <t>
+                The format is described by example. This is appropriate, given the visual
+                nature of the language. Further, these examples can be parsed using
+                provided tools. A formal specification of the format is given in
+                <xref target="ABNF"/>.
+            </t>
+            <t>
+                In the format, each protocol data unit is described in its own section.
+                This enables cross-referencing between data units using section numbering.
+                In this specification-by-example, each element of the format will be
+                described as part of a separate PDU.
+            </t>
         </section>
 
         <section anchor='example'>
