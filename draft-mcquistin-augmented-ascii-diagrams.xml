@@ -94,7 +94,7 @@
             </t>
             <t>
                 While this document focuses on the machine-readability of packet header
-                diagrams, this section discusses the use of other, structured or formal
+                diagrams, this section also discusses the use of other, structured or formal
                 languages within IETF languages. Considering how and why these languages
                 are used provides an instructive contrast to the relatively incremental
                 approach proposed here.
@@ -103,7 +103,7 @@
             <section anchor='background:ascii'>
                 <name>Limitations of current use of ASCII packet diagrams</name>
                 <t>
-                    ASCII packet header diagrams are commonplace in the standards
+                    ASCII packet header diagrams are commonplace in the IETF standards
                     documents for binary protocols. While there is no standard for how
                     these diagrams should be formatted, they have a broadly similar structure,
                     where the layout of a PDU or structure is given in an ASCII diagram,
