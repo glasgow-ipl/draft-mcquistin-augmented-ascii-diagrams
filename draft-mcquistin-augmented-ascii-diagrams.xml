@@ -475,6 +475,62 @@
                     </dl>
                 </t>
             </section>
+            
+            <section anchor='ascii:variable'>
+                <name>Variable-width Field Format</name>
+                <t>
+                    A Variable-width Field Format packet is formatted as follows:
+                    <artwork>
+       0                   1                   2                   3
+       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |  Field Length |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |           Variable-width field w/ constrained length        ...
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |             Variable-width field w/ implicit length         ...
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                    </artwork>
+                    where:
+                    <dl>
+                        <dt>
+                            Field Length (FL): 8 bits
+                        </dt>
+                        <dd>
+                            This is a fixed-width field. As shown, the diagram can be
+                            formatted such that individual rows do not end on 32-bit
+                            boundaries. This allows the diagram to be formatted in a way
+                            that is more suitable for human readers.
+                        </dd>
+                        <dt>
+                            Variable-width field w/ constrained length (VF-Cons): 2^FL bits
+                        </dt>
+                        <dd>
+                            This is a variable-width field. This is indicated with using
+                            a full-row that ends with "..." rather than a pipe. The
+                            field's width is constrained by the expression given after the
+                            field's label. These width expressions use a simple algebraic
+                            notation, and field values can be referenced by the full or
+                            short labels. For this field, the width is defined as 2^FL
+                            bits -- that is 2 to the power of the value of the FL (Field
+                            Length) field.
+                        </dd>
+                        <dt>
+                            Variable-width field w/ implicit length: ? bytes
+                        </dt>
+                        <dd>
+                            This is a variable-width field whose length is implied by the
+                            lengths of the other fields. At parsing time, the length of
+                            the PDU is known, and this can be used to determine the length
+                            of fields whose length is undefined. Each PDU can only leave
+                            a single field's length undefined: all other fields must be
+                            fixed-length, or have their widths constrained.
+                        </dd>
+                    </dl>
+                </t>
+            </section>
+
         </section>
 
         <section anchor='example'>
