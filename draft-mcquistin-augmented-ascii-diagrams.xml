@@ -429,6 +429,52 @@
                 In this specification-by-example, each element of the format will be
                 described as part of a separate PDU.
             </t>
+        
+            <section anchor='ascii:simple'>
+                <name>Fixed-width Field Format</name>
+                <t>
+                    A Fixed-width Field Format packet is formatted as follows:
+                    <artwork>
+       0                   1                   2                   3
+       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |                   Standard Width Field                    |SF |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |                                                               |
+      |                        Multi-row Field                        |
+      |                                                               |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    </artwork>
+                    where:
+                    <dl>
+                        <dt>
+                            Standard Width Field: 30 bits
+                        </dt>
+                        <dd>
+                            This field spans at most one row, and is long enough for the
+                            diagram to hold its full label. The field width is given in
+                            the description list, after the field's label (separated by a
+                            colon).
+                        </dd>
+                        <dt>
+                            Short Field (SF): 2 bits
+                        </dt>
+                        <dd>
+                            This is a short field, and the diagram cannot show its full
+                            label. A short label (SF) is used in the diagram, and this
+                            short label is provided, in brackets, after the full label
+                            in the description list.
+                        </dd>
+                        <dt>
+                            Multi-row Field: 12 bytes
+                        </dt>
+                        <dd>
+                            This is a long field that spans more than one row. Where
+                            appropriate, field widths can be given in bytes.
+                        </dd>
+                    </dl>
+                </t>
+            </section>
         </section>
 
         <section anchor='example'>
