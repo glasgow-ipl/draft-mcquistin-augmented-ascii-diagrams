@@ -580,7 +580,7 @@
             <section anchor='ascii:xref'>
                 <name>Cross-referencing and Sequences Format</name>
                 <t>
-                    A Variable-width Field Format packet is formatted as follows:
+                    A Cross-referencing and Sequences Format packet is formatted as follows:
                     <artwork>
        0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -648,6 +648,44 @@
                             structures, square brackets can be used to indicate this in
                             the diagram. The length of the sequence can be defined using
                             the constraint expression grammar as described earlier.
+                        </dd>
+                    </dl>
+                </t>
+            </section>
+            
+            <section anchor='ascii:xref'>
+                <name>Optional Field Format</name>
+                <t>
+                    An Optional Field Format packet is formatted as follows:
+                    <artwork>
+       0                   1                   2                   3
+       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |     Field8    |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |                         OptionalField                         |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    </artwork>
+                    where:
+                    <dl>
+                        <dt>
+                            Field8 (F): 8 bits
+                        </dt>
+                        <dd>
+                            This is a fixed-width field, as described previously.
+                        </dd>
+                        <dt>
+                            OptionalField: 4 bytes
+                        </dt>
+                        <dd>
+                            This is a field whose presence is predicated on an expression
+                            given in the constraint expression grammar described earlier.
+                            Optional fields can be of any previously defined format (e.g.,
+                            fixed- or variable-width). Optional fields are indicated by
+                            the presence of a "Appears only when [expr]." as the final
+                            line in their description.
+                            
+                            Appears only when F > 3.
                         </dd>
                     </dl>
                 </t>
