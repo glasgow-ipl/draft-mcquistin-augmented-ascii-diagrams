@@ -438,39 +438,62 @@
        0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |                   Standard Width Field                    |SF |
+      |F2 |                         Field30                           |   
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       |                                                               |
-      |                        Multi-row Field                        |
+      +                           Field64                             +       
       |                                                               |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |                                                               |
+      +            Field48            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |                               | 
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |     Field8    |
+      +-+-+-+-+-+-+-+-+
                     </artwork>
                     where:
                     <dl>
                         <dt>
-                            Standard Width Field: 30 bits
-                        </dt>
-                        <dd>
-                            This field spans at most one row, and is long enough for the
-                            diagram to hold its full label. The field width is given in
-                            the description list, after the field's label (separated by a
-                            colon).
-                        </dd>
-                        <dt>
-                            Short Field (SF): 2 bits
+                            Field2 (F2): 2 bits
                         </dt>
                         <dd>
                             This is a short field, and the diagram cannot show its full
                             label. A short label (SF) is used in the diagram, and this
                             short label is provided, in brackets, after the full label
-                            in the description list.
+                            in the description list. The field's width -- 2 bits -- 
+                            given in the label of the description list, separated from
+                            the field's label by a colon.
                         </dd>
                         <dt>
-                            Multi-row Field: 12 bytes
+                            Field30: 30 bits
                         </dt>
                         <dd>
-                            This is a long field that spans more than one row. Where
-                            appropriate, field widths can be given in bytes.
+                            This is a longer field whose full label can be shown in the
+                            diagram. The field aligns with the 32-bit row boundary.
+                        </dd>
+                        <dt>
+                            Field64: 8 bytes
+                        </dt>
+                        <dd>
+                            This is a field that spans multiple rows, and ends on a 32-bit
+                            boundary. As shown, field widths can be given in bytes as
+                            appropriate.
+                        </dd>
+                        <dt>
+                            Field48: 48 bits
+                        </dt>
+                        <dd>
+                            This is longer, multi-row field, that does not end on a 32-bit
+                            boundary. 
+                        </dd>
+                        <dt>
+                            Field8: 1 byte
+                        </dt>
+                        <dd>
+                            This field has been drawn on the next line, where it would
+                            have fit on the previous line. Where possible, the formatting
+                            of the diagram should be flexible to meet the needs of human
+                            readers.
                         </dd>
                     </dl>
                 </t>
@@ -530,7 +553,6 @@
                     </dl>
                 </t>
             </section>
-
         </section>
 
         <section anchor='example'>
