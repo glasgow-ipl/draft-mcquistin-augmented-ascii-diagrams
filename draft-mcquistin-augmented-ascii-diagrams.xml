@@ -507,40 +507,56 @@
        0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |  Field Length |
+      |     Field8    |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |           Variable-width field w/ constrained length        ...
+      |                      FieldVar - single row                  ...
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |             Variable-width field w/ implicit length         ...
+      |                                                               |
+      ~                      FieldVar - multi-row                     ~       
+      |                                                               |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
+      |                                                               |
+      :             FieldVar - multi-row, boundary aligned            :       
+      |                                                               |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   
                     </artwork>
                     where:
                     <dl>
                         <dt>
-                            Field Length (FL): 8 bits
+                            Field8 (F): 8 bits
                         </dt>
                         <dd>
-                            This is a fixed-width field. As shown, the diagram can be
-                            formatted such that individual rows do not end on 32-bit
-                            boundaries. This allows the diagram to be formatted in a way
-                            that is more suitable for human readers.
+                            This is a fixed-width field, as described previously.
                         </dd>
                         <dt>
-                            Variable-width field w/ constrained length (VF-Cons): 2^FL bits
+                            FieldVar - single row: 2^F bits
                         </dt>
                         <dd>
-                            This is a variable-width field. This is indicated with using
-                            a full-row that ends with "..." rather than a pipe. The
-                            field's width is constrained by the expression given after the
-                            field's label. These width expressions use a simple algebraic
-                            notation, and field values can be referenced by the full or
-                            short labels. For this field, the width is defined as 2^FL
-                            bits -- that is 2 to the power of the value of the FL (Field
-                            Length) field.
+                            This is a variable-length field, whose length is defined by
+                            the value of the field with short label F (Field8). Constraint
+                            expressions can be used in place of constant values: the
+                            grammar for the expression language is defined in
+                            <xref target="ABNF"/>. Where fields labels are used in a
+                            constraint, the field being referred to must have been
+                            defined before its label is used.
+                            
+                            Short variable-length fields are indicated by "..." instead of
+                            a pipe at the end of the row.
                         </dd>
                         <dt>
-                            Variable-width field w/ implicit length: ? bytes
+                            FieldVar - multi-row: 2^F bits
+                        </dt>
+                        <dd>
+                            This is a multi-row variable-length field, again constrained
+                            by the value of field F. Instead of the "..." notation, "~" is
+                            used to indicate that the field is variable-length. The use
+                            of "~" instead of "..." indicates the field is likely to be
+                            a longer, multi-row field. However, semantically, there is no
+                            difference: these different notations are for the benefit of
+                            human readers.
+                        </dd>
+                        <dt>
+                            FieldVar - multi-row, boundary aligned:
                         </dt>
                         <dd>
                             This is a variable-width field whose length is implied by the
@@ -549,6 +565,13 @@
                             of fields whose length is undefined. Each PDU can only leave
                             a single field's length undefined: all other fields must be
                             fixed-length, or have their widths constrained.
+                            
+                            In addition, ":" notation is used to indicate, in contrast
+                            to the "~" notation, that the field width will align with a
+                            32-bit boundary. Again, this notation is for the benefit of
+                            human readers: there is no semantic difference. Any hard
+                            constraints must be expressed using the constraint grammar in
+                            the description list.
                         </dd>
                     </dl>
                 </t>
