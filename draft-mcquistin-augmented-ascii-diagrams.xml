@@ -576,6 +576,82 @@
                     </dl>
                 </t>
             </section>
+            
+            <section anchor='ascii:xref'>
+                <name>Cross-referencing and Sequences Format</name>
+                <t>
+                    A Variable-width Field Format packet is formatted as follows:
+                    <artwork>
+       0                   1                   2                   3
+       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |     Field8    |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |                                                               |
+      +                                                               +       
+      |                                                               |
+      +                       FieldFixedXRef                          +       
+      |                                                               |
+      +                                                               +
+      |                                                               |
+      +                                               +-+-+-+-+-+-+-+-+
+      |                                               |               |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               ~
+      |                                                               |
+      ~                         FieldVarXref                          ~
+      |                                                               |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  
+      |                                                               |
+      +                                                               +       
+      |                                                               |
+      +                       [SeqFieldFixedXRef]                     +       
+      |                                                               |
+      +                                                               +
+      |                                                               |
+      +                                               +-+-+-+-+-+-+-+-+
+      |                                               |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    </artwork>
+                    where:
+                    <dl>
+                        <dt>
+                            Field8 (F): 8 bits
+                        </dt>
+                        <dd>
+                            This is a fixed-width field, as described previously.
+                        </dd>
+                        <dt>
+                            FieldFixedXRef: 1 Fixed-width Field Format
+                        </dt>
+                        <dd>
+                            This is a field whose structure is a previously defined PDU
+                            format. To indicate this, the width of the field is given in
+                            units of the cross-referenced structure (here, Fixed-width
+                            Field Format).
+                        </dd>
+                        <dt>
+                            FieldVarXref: 1 Variable-width Field Format
+                        </dt>
+                        <dd>
+                            This field references a variable-width structure. It can be
+                            drawn to any width as appropriate, but must use a
+                            variable-width notation. Where multiple variable-width field
+                            format structures are referenced, the requirement that only
+                            one field's length can be unspecified applies to the enclosing
+                            structure.
+                        </dd>
+                        <dt>
+                            SeqFieldFixedXRef: 2 Fixed-width Field Format
+                        </dt>
+                        <dd>
+                            Where a field is comprised of a sequence of previously defined
+                            structures, square brackets can be used to indicate this in
+                            the diagram. The length of the sequence can be defined using
+                            the constraint expression grammar as described earlier.
+                        </dd>
+                    </dl>
+                </t>
+            </section>
         </section>
 
         <section anchor='example'>
