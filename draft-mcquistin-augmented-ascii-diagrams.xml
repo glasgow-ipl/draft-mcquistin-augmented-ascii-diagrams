@@ -653,7 +653,7 @@
                 </t>
             </section>
             
-            <section anchor='ascii:xref'>
+            <section anchor='ascii:opt'>
                 <name>Optional Field Format</name>
                 <t>
                     An Optional Field Format packet is formatted as follows:
