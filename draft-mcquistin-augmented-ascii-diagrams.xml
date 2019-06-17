@@ -32,7 +32,7 @@
             </address>
         </author>
 
-        <date year='2019'/>
+        <date year='2019' month='June' day='17'/>
 
         <abstract>
             <t>
@@ -53,26 +53,26 @@
                 ASCII packet header diagrams have become the de-facto format for
                 describing the syntax of binary protocols. In otherwise largely textual
                 documents, they allow for the visualisation of packet formats, reducing
-                human error, and aiding in the implementation of parser for the protocols
+                human error, and aiding in the implementation of parsers for the protocols
                 that they specify. Given their widespread use, and relatively structured
                 form, ASCII packet header diagrams provide a good base from which to
-                develop a format that enables the automatic generation of parser code from
+                develop tooling to support the automatic generation of parser code from
                 protocol standards documents.
             </t>
             <t>
-                To support this new function, there are two broad issues with the existing
-                ASCII packet header format that must be addressed. Firstly, their use,
+                To support this, there are two broad issues with the existing
+                ASCII packet header diagrams that need to be addressed. First, their use,
                 while sufficiently consistent for human readability, contains enough
                 variation to make machine parsing difficult: different documents tend to
-                use subtly different formats. Secondly, ASCII packet header diagrams alone
-                do not fully capture the parsing process for protocols, requiring
-                supplementary text. To support machine parsing, this supplementary text
-                must be structured.
+                use subtly different formats and conventions. Second, ASCII packet header
+                diagrams alone do not fully capture the parsing process for protocols,
+                requiring supplementary text. To support machine parsing, this supplementary
+                text must be consistently structured.
             </t>
             <t>
                 This document describes a consistent ASCII packet header format and 
                 accompanying structured text constructs that allow for the parsing process
-                of a protocol to be fully specified. This provides support for the
+                of protocol headers to be fully specified. This provides support for the
                 automatic generation of parser code. Broad design principles, that seek
                 to maintain the primacy of human readability and flexibility in
                 authorship, are described, before the format itself is given.
@@ -193,6 +193,10 @@
                         <xref target="dhcpv6-relaysrcopt"/> gives a further example, where
                         the description lists a field "Option-Code" that does not appear
                         in the ASCII diagram.
+                        A further example is in RFC6958, where the packet
+                        header diagram showing the structure of the Burst/Gap Loss Metrics
+                        Report Block shows the Number of Bursts field as being 12 bits wide
+                        but the corresponding text describes it as 16 bits.
                         
                         Comparing <xref target="quic-reset-stream"/> with
                         <xref target="dhcpv6-relaysrcopt"/> exposes external
@@ -257,12 +261,6 @@
                 <t>
                     [todo: refs]
                 </t>
-                <t>
-                    [todo: might be better to flip "Background" and "Design Principles".
-                     The background would then be able to refer to the design principles,
-                     and how they relate to the current use of ASCII packet diagrams and
-                     other languages.]
-                </t>
             </section>
         </section>
 
@@ -270,8 +268,8 @@
             <name>Design Principles</name>
             <t>
                 The use of structures that are designed to support machine readability
-                may potentially interfere with the existing ways in which standardisation
-                documents are used and authored. To the extent that these existing uses
+                may potentially interfere with the existing ways in which protocol
+                specifications are used and authored. To the extent that these existing uses
                 are more important than machine readability, such interference must be
                 limited.
             </t>
@@ -306,7 +304,7 @@
                 <dd>
                     <t>
                         Primarily, standards documents should be written for people, who
-                        require text and diagrams that they can parse, Structures that
+                        require text and diagrams that they can understand, Structures that
                         cannot be easily parsed by people should be avoided, and if
                         included, should be clearly delineated from human-readable
                         content.
@@ -326,9 +324,9 @@
                     <t>
                         Authorship is a distributed process that involves a diverse set of
                         tools and workflows. The introduction of machine-readable
-                        structures should limit the extent to which specific tools are
-                        required to produce standards documents, such that existing
-                        workflows can be maintained. This does not preclude the
+                        structure into specifications should not require specific tools be
+                        used to produce standards documents, to ensure that disruption to
+                        existing workflows is minimised. This does not preclude the
                         development of optional, supplementary tools that aid in the
                         authoring machine-readable structures.
                     </t>
@@ -349,25 +347,21 @@
                 <dd>
                     <t>
                         As far as possible, machine-readable structures should not
-                        introduce an additional specification of the protocol within the
-                        same document. Such structures should form part of a canonical
-                        specification of the protocol. The inclusion of supplementary
-                        machine-readable structures creates the potential for divergent
-                        specifications.
+                        replicate the human readable specification of the protocol
+                        within the same document. Such structures should form part
+                        of a canonical specification of the protocol. Adding supplementary
+                        machine-readable structures, in parallel to the existing
+                        human readable text, is undesirable because it would create
+                        the potential for inconsistency.
                     </t>
                     <t>
-                        As an example, code that describes how a protocol should be parsed
-                        may be provided as an appendix within a standards document. This
-                        code provides a specification of the protocol that is separate to
-                        that given in the main body of the document. This introduces the
-                        potential for the code to specify behaviour that the text-based
+                        As an example, program code that describes how a protocol data
+                        unit can be parsed might be provided as an appendix within a
+                        standards document. This code would provide a specification of
+                        the protocol that's separate to the prose description in the
+                        main body of the document, introducing the potential for the
+                        program code to specify behaviour that the prose-based
                         specification does not, and vice-versa.
-                    </t>
-                    <t>
-                        Ultimately, where supplementary code is given, the definition
-                        given in the prose specification takes precedence. As a result,
-                        any bugs in the code are likely to diminish the usefulness of this
-                        part of the document.
                     </t>
                 </dd>
 
@@ -382,7 +376,11 @@
                         likely to be limited. At the limits of what can be expressed by
                         the language, authors are likely to revert to defining the
                         protocol in prose: this undermines the broad goal of using
-                        structured and formal languages.
+                        structured and formal languages. Equally, though, understandable
+                        specifications and ease of use are critical for adoption. A
+                        tool that is simple to use and addresses the most common use
+                        cases might be preferred to a complex tool that addresses all
+                        use cases.
                     </t>
                 </dd>
                 
@@ -418,13 +416,14 @@
                 header diagram format is described.
             </t>
             <t>
-                The format is described by example. This is appropriate, given the visual
+                The concept is first illustrated by example. This is appropriate, given the visual
                 nature of the language. Further, these examples can be parsed using
-                provided tools. A formal specification of the format is given in
-                <xref target="ABNF"/>.
+                provided tools. A formal specification of the augmented ASCII packet
+                diagrams is then given in <xref target="ABNF"/>.
             </t>
             <t>
-                In the format, each protocol data unit is described in its own section.
+                In the augmented ASCII packet diagrams, each protocol data unit (PDU) is
+                described in its own section of the document.
                 This enables cross-referencing between data units using section numbering.
                 In this specification-by-example, each element of the format will be
                 described as part of a separate PDU.
@@ -432,6 +431,12 @@
         
             <section anchor='ascii:simple'>
                 <name>Fixed-width Field Format</name>
+                <t>
+                    The simplest PDU is one that contains only a set of fixed-width
+                    fields in a known order, with no optional fields or variation
+                    in the packet format.
+                </t>
+
                 <t>
                     A Fixed-width Field Format packet is formatted as follows:
                     <artwork>
@@ -469,22 +474,23 @@
                         </dt>
                         <dd>
                             This is a longer field whose full label can be shown in the
-                            diagram. The field aligns with the 32-bit row boundary.
+                            diagram.
                         </dd>
                         <dt>
                             Field64: 8 bytes
                         </dt>
                         <dd>
-                            This is a field that spans multiple rows, and ends on a 32-bit
-                            boundary. As shown, field widths can be given in bytes as
-                            appropriate.
+                            This is a field that spans multiple rows.  Where fields are
+                            an integral number of bytes in size, and start and end on a
+                            byte boundary, the field length can be given in bytes rather
+                            than in bits.
                         </dd>
                         <dt>
                             Field48: 48 bits
                         </dt>
                         <dd>
-                            This is longer, multi-row field, that does not end on a 32-bit
-                            boundary. 
+                            This is another multi-row field. As illustrated, fields are
+                            not required to end of a 32-bit boundary.
                         </dd>
                         <dt>
                             Field8: 1 byte
@@ -502,6 +508,14 @@
             <section anchor='ascii:variable'>
                 <name>Variable-width Field Format</name>
                 <t>
+                    Some packet formats include variable-width fields, where
+                    the size of a field is either derived from the value of
+                    some previous field, or is unspecified and inferred from
+                    the total size of the packet and the size of the other
+                    fields. A packet can contain only one unspecified size
+                    field, to ensure there is no ambiguity.
+                </t>
+                <t>
                     A Variable-width Field Format packet is formatted as follows:
                     <artwork>
        0                   1                   2                   3
@@ -511,13 +525,13 @@
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       |                      FieldVar - single row                  ...
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |                                                               |
-      ~                      FieldVar - multi-row                     ~       
-      |                                                               |
+      |                                                               :
+      :                      FieldVar - multi-row                     :       
+      :                                                               |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |                                                               |
-      :             FieldVar - multi-row, boundary aligned            :       
-      |                                                               |
+      |                                                               :
+      :              FieldVar - multi-row, unspecified length         :       
+      :                                                               |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   
                     </artwork>
                     where:
@@ -548,15 +562,15 @@
                         </dt>
                         <dd>
                             This is a multi-row variable-length field, again constrained
-                            by the value of field F. Instead of the "..." notation, "~" is
+                            by the value of field F. Instead of the "..." notation, ":" is
                             used to indicate that the field is variable-length. The use
-                            of "~" instead of "..." indicates the field is likely to be
+                            of ":" instead of "..." indicates the field is likely to be
                             a longer, multi-row field. However, semantically, there is no
                             difference: these different notations are for the benefit of
                             human readers.
                         </dd>
                         <dt>
-                            FieldVar - multi-row, boundary aligned:
+                            FieldVar - multi-row, unspecified length
                         </dt>
                         <dd>
                             This is a variable-width field whose length is implied by the
@@ -565,13 +579,6 @@
                             of fields whose length is undefined. Each PDU can only leave
                             a single field's length undefined: all other fields must be
                             fixed-length, or have their widths constrained.
-                            
-                            In addition, ":" notation is used to indicate, in contrast
-                            to the "~" notation, that the field width will align with a
-                            32-bit boundary. Again, this notation is for the benefit of
-                            human readers: there is no semantic difference. Any hard
-                            constraints must be expressed using the constraint grammar in
-                            the description list.
                         </dd>
                     </dl>
                 </t>
@@ -595,11 +602,11 @@
       +                                                               +
       |                                                               |
       +                                               +-+-+-+-+-+-+-+-+
-      |                                               |               |
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               ~
-      |                                                               |
-      ~                         FieldVarXref                          ~
-      |                                                               |
+      |                                               |               :
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               :
+      :                                                               :
+      :                         FieldVarXref                          :
+      :                                                               |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  
       |                                                               |
       +                                                               +       
@@ -677,15 +684,16 @@
                         <dt>
                             OptionalField: 4 bytes
                         </dt>
-                        <dd>
+                        <dd> 
+                            Present only when F > 3.
+
                             This is a field whose presence is predicated on an expression
                             given in the constraint expression grammar described earlier.
                             Optional fields can be of any previously defined format (e.g.,
                             fixed- or variable-width). Optional fields are indicated by
-                            the presence of a "Appears only when [expr]." as the final
+                            the presence of a "Present only when [expr]." as the first
                             line in their description.
                             
-                            Appears only when F > 3.
                         </dd>
                     </dl>
                 </t>
@@ -705,12 +713,21 @@
 
         <section anchor='security'>
             <name>Security Considerations</name>
+            <t>
+                Poorly implemented parsers are a frequent source of security
+                vulnerabilities in protocol implementations. Structuring the
+                description of a protocol data unit so that a parser can be
+                automatically derived from the specification can reduce the
+                likelihood of vulnerable implementation.
+            </t>
         </section>
 
         <section anchor='Acknowledgements'>
             <name>Acknowledgements</name>
             <t>
-                David Southgate
+                The authors would like to than David Southgate for preparing
+                a prototype implementation of some of the ideas described here.
+
             </t>
             <t>
                 This work has received funding from the UK Engineering and Physical
@@ -726,7 +743,6 @@
         
         <references>
             <name>Informative References</name>
-            
             <reference  anchor="RFC8357" target='https://www.rfc-editor.org/info/rfc8357'>
                 <front>
                     <title>Generalized UDP Source Port for DHCP Relay</title>
