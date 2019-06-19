@@ -465,7 +465,7 @@
                             This is a short field, and the diagram cannot show its full
                             label. A short label (SF) is used in the diagram, and this
                             short label is provided, in brackets, after the full label
-                            in the description list. The field's width -- 2 bits -- 
+                            in the description list. The field's width -- 2 bits -- is
                             given in the label of the description list, separated from
                             the field's label by a colon.
                         </dd>
