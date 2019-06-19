@@ -767,12 +767,21 @@
                 <seriesInfo name='Internet-Draft' value='draft-ietf-quic-transport-20' />
             </reference>
         </references>
-        
+
         <section anchor='ABNF'>
             <name>ABNF specification</name>
-            <t>
-                [todo]
-            </t>
+            <section anchor='ABNF:constraints'>
+                <name>Constraint Expressions</name>
+                <sourcecode type="abnf">
+    cond-expr = eq-expr '?' cond-expr ':' eq-expr
+    eq-expr   = bool-expr ('==' / '!=') bool-expr
+    bool-expr = ord-expr ('&amp;&amp;' / '||' / '!') ord-expr
+    add-expr  = mul-expr ('+' / '-') mul-expr
+    expr      = *DIGIT / field-name
+                
+    field-name = *ALPHA
+                </sourcecode>
+            </section>
         </section>
     </back>
  </rfc>
