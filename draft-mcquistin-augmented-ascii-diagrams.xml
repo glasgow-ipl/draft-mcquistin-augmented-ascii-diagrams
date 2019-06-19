@@ -774,12 +774,21 @@
                 <name>Constraint Expressions</name>
                 <sourcecode type="abnf">
     cond-expr = eq-expr '?' cond-expr ':' eq-expr
-    eq-expr   = bool-expr ('==' / '!=') bool-expr
-    bool-expr = ord-expr ('&amp;&amp;' / '||' / '!') ord-expr
-    add-expr  = mul-expr ('+' / '-') mul-expr
+    eq-expr   = bool-expr eq-op   bool-expr
+    bool-expr = ord-expr  bool-op ord-expr
+    ord-expr  = add-expr  ord-op  add-expr
+    
+    add-expr  = mul-expr  add-op  mul-expr
+    mul-expr  = expr      mul-op  expr
     expr      = *DIGIT / field-name
-                
+    
     field-name = *ALPHA
+    
+    mul-op  = '*' / '/' / '%'
+    add-op  = '+' / '-'
+    ord-op  = '&lt;=' / '&lt;' / '&gt;=' / '&gt;'
+    bool-op = '&amp;&amp;' / '||' / '!'
+    eq-op   = '==' / '!='
                 </sourcecode>
             </section>
         </section>
