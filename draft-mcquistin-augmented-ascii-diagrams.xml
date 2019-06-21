@@ -587,7 +587,7 @@
             <section anchor='ascii:xref'>
                 <name>Cross-referencing and Sequences Format</name>
                 <t>
-                    A Cross-referencing and Sequences Format packet is formatted as follows:
+                    A Cross-referencing And Sequences Format packet is formatted as follows:
                     <artwork>
        0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
