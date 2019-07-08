@@ -736,16 +736,15 @@
                 vulnerabilities in protocol implementations. Structuring the
                 description of a protocol data unit so that a parser can be
                 automatically derived from the specification can reduce the
-                likelihood of vulnerable implementation.
+                likelihood of vulnerable implementations.
             </t>
         </section>
 
         <section anchor='Acknowledgements'>
             <name>Acknowledgements</name>
             <t>
-                The authors would like to than David Southgate for preparing
+                The authors would like to thank David Southgate for preparing
                 a prototype implementation of some of the ideas described here.
-
             </t>
             <t>
                 This work has received funding from the UK Engineering and Physical
@@ -755,10 +754,6 @@
     </middle>
 
     <back>
-        <references>
-            <name>Normative References</name>
-        </references>
-        
         <references>
             <name>Informative References</name>
             <reference  anchor="RFC8357" target='https://www.rfc-editor.org/info/rfc8357'>
