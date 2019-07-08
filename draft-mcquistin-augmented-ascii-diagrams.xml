@@ -55,12 +55,12 @@
                 human error, and aiding in the implementation of parsers for the protocols
                 that they specify. Given their widespread use, and relatively structured
                 form, ASCII packet header diagrams provide a good base from which to
-                develop tooling to support the automatic generation of parser code from
+                develop a format that supports the automatic generation of parser code from
                 protocol standards documents.
             </t>
             <t>
-                To support this, there are two broad issues with the existing
-                ASCII packet header diagrams that need to be addressed. First, their use,
+                There are two broad issues with the existing
+                ASCII packet header diagrams that need to be addressed to enable machine-readability. First, their use,
                 while sufficiently consistent for human readability, contains enough
                 variation to make machine parsing difficult: different documents tend to
                 use subtly different formats and conventions. Second, ASCII packet header
@@ -78,9 +78,14 @@
             </t>
             <t>
                 This document is itself an example of the approach that it describes, with
-                code provided that can parse the ASCII packet diagrams and structured
-                text that this document contains.
-            </t> 
+                the ASCII packet diagrams and structured text format described by example.
+            </t>
+            <t>
+                This draft describes early work. As consensus builds around the
+                particular syntax of the format described, both a formal ABNF
+                specification and code that parses it (and, as described above, this
+                document) will be provided.
+            </t>
         </section>
 
         <section anchor='background'>
