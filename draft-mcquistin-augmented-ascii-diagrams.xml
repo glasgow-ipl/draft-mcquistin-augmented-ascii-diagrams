@@ -867,6 +867,19 @@
     eq-op   = "==" / "!="
                 </sourcecode>
             </section>
+            
+            <section anchor='ABNF:diagrams'>
+                <name>Augmented ASCII diagrams</name>
+                <t>
+                    Future revisions of this draft will include an ABNF specification for
+                    the augmented ASCII diagram format described in
+                    <xref target="augmentedascii"/>. Such a specification is omitted from
+                    this draft given that the format is likely to change as its syntax is
+                    developed. Given the visual nature of the format, it is more
+                    appropriate for discussion to focus on the examples given in
+                    <xref target="augmentedascii"/>.
+                </t>
+            </section>
         </section>
     </back>
  </rfc>
