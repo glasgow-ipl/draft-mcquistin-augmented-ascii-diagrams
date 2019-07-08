@@ -123,7 +123,7 @@
                     ASCII packet header diagrams are commonplace in the IETF standards
                     documents for binary protocols. While there is no standard for how
                     these diagrams should be formatted, they have a broadly similar structure,
-                    where the layout of a PDU or structure is given in an ASCII diagram,
+                    where the layout of a protocol data unit (PDU) or structure is given in an ASCII diagram,
                     and a description list of the fields that it contains are given
                     immediately below. An example of this format is given in
                     <xref target="quic-reset-stream"/>.
@@ -436,12 +436,12 @@
             </t>
             <t>
                 The concept is first illustrated by example. This is appropriate, given the visual
-                nature of the language. Further, these examples can be parsed using
-                provided tools. A formal specification of the augmented ASCII packet
-                diagrams is then given in <xref target="ABNF"/>.
+                nature of the language. In future drafts, these examples will be parsable using
+                provided tools, and a formal specification of the augmented ASCII packet
+                diagrams will be given in <xref target="ABNF"/>.
             </t>
             <t>
-                In the augmented ASCII packet diagrams, each protocol data unit (PDU) is
+                In the augmented ASCII packet diagrams, each protocol data unit is
                 described in its own section of the document.
                 This enables cross-referencing between data units using section numbering.
                 In this specification-by-example, each element of the format will be
@@ -481,12 +481,14 @@
                             Field2 (F2): 2 bits
                         </dt>
                         <dd>
-                            This is a short field, and the diagram cannot show its full
-                            label. A short label (SF) is used in the diagram, and this
-                            short label is provided, in brackets, after the full label
-                            in the description list. The field's width -- 2 bits -- is
-                            given in the label of the description list, separated from
-                            the field's label by a colon.
+                            <t>
+                                This is a short field, and the diagram cannot show its full
+                                label. A short label (F2) is used in the diagram, and this
+                                short label is provided, in brackets, after the full label
+                                in the description list. The field's width -- 2 bits -- is
+                                given in the label of the description list, separated from
+                                the field's label by a colon.
+                            </t>                            
                         </dd>
                         <dt>
                             Field30: 30 bits
@@ -531,7 +533,7 @@
                     the size of a field is either derived from the value of
                     some previous field, or is unspecified and inferred from
                     the total size of the packet and the size of the other
-                    fields. A packet can contain only one unspecified size
+                    fields. A packet can contain only one unspecified length
                     field, to ensure there is no ambiguity.
                 </t>
                 <t>
@@ -559,7 +561,9 @@
                             Field8 (F): 8 bits
                         </dt>
                         <dd>
-                            This is a fixed-width field, as described previously.
+                            This is a fixed-width field, as described previously. As shown,
+                            while this field has a short label (F), this does not need to
+                            be used in the diagram.
                         </dd>
                         <dt>
                             FieldVar - single row: 2^F bits
@@ -569,7 +573,7 @@
                             the value of the field with short label F (Field8). Constraint
                             expressions can be used in place of constant values: the
                             grammar for the expression language is defined in
-                            <xref target="ABNF"/>. Where fields labels are used in a
+                            <xref target="ABNF:constraints"/>. Where fields labels are used in a
                             constraint, the field being referred to must have been
                             defined before its label is used.
                             
@@ -606,7 +610,7 @@
             <section anchor='ascii:xref'>
                 <name>Cross-referencing and Sequences Format</name>
                 <t>
-                    A Cross-referencing And Sequences Format packet is formatted as follows:
+                    A Cross-referencing and Sequences Format packet is formatted as follows:
                     <artwork>
        0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -703,7 +707,7 @@
                         <dt>
                             OptionalField: 4 bytes
                         </dt>
-                        <dd> 
+                        <dd>
                             Present only when F > 3.
 
                             This is a field whose presence is predicated on an expression
@@ -711,8 +715,7 @@
                             Optional fields can be of any previously defined format (e.g.,
                             fixed- or variable-width). Optional fields are indicated by
                             the presence of a "Present only when [expr]." as the first
-                            line in their description.
-                            
+                            line in their description
                         </dd>
                     </dl>
                 </t>
