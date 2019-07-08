@@ -297,10 +297,10 @@
                 may potentially interfere with the existing ways in which protocol
                 specifications are used and authored. To the extent that these existing uses
                 are more important than machine readability, such interference must be
-                limited.
+                minimised.
             </t>
             <t>
-                In this section, the broad design principles that underpin the structures
+                In this section, the broad design principles that underpin the format
                 described by this document are given. However, these principles apply more
                 generally to any approach that introduces structured and formal languages
                 into standards documents.
@@ -319,10 +319,6 @@
                 adoption. However, the standards process can be improved with appropriate
                 approaches, as guided by the following broad design principles:
             </t>
-            <t>
-                [todo: this list is currently unordered. It should probably remain
-                 unordered, but it might be worth highlighting this in the text.]
-            </t>
             <dl>
                 <dt>
                     Most readers are human:
@@ -330,7 +326,7 @@
                 <dd>
                     <t>
                         Primarily, standards documents should be written for people, who
-                        require text and diagrams that they can understand, Structures that
+                        require text and diagrams that they can understand. Structures that
                         cannot be easily parsed by people should be avoided, and if
                         included, should be clearly delineated from human-readable
                         content.
@@ -339,7 +335,7 @@
                         Any approach that shifts this balance -- that is, that primarily
                         targets machine readers -- is likely to be disruptive to the
                         standardisation process, which relies upon discussion centered
-                        upon documents written in prose.
+                        around documents written in prose.
                     </t>
                 </dd>
 
@@ -350,7 +346,7 @@
                     <t>
                         Authorship is a distributed process that involves a diverse set of
                         tools and workflows. The introduction of machine-readable
-                        structure into specifications should not require specific tools be
+                        structures into specifications should not require that specific tools are
                         used to produce standards documents, to ensure that disruption to
                         existing workflows is minimised. This does not preclude the
                         development of optional, supplementary tools that aid in the
@@ -361,9 +357,6 @@
                         adoption is likely to be limited. A long-term impact might be that
                         authors whose workflows are incompatible might be alienated from
                         the process.
-                    </t>
-                    <t>
-                        [todo: this last point feels weak.]
                     </t>
                 </dd>
 
@@ -377,17 +370,17 @@
                         within the same document. Such structures should form part
                         of a canonical specification of the protocol. Adding supplementary
                         machine-readable structures, in parallel to the existing
-                        human readable text, is undesirable because it would create
+                        human readable text, is undesirable because it could create
                         the potential for inconsistency.
                     </t>
                     <t>
                         As an example, program code that describes how a protocol data
                         unit can be parsed might be provided as an appendix within a
                         standards document. This code would provide a specification of
-                        the protocol that's separate to the prose description in the
-                        main body of the document, introducing the potential for the
-                        program code to specify behaviour that the prose-based
-                        specification does not, and vice-versa.
+                        the protocol that is separate to the prose description in the
+                        main body of the document. This has the undesirable effect of
+                        introducing the potential for the program code to specify behaviour
+                        that the prose-based specification does not, and vice-versa.
                     </t>
                 </dd>
 
