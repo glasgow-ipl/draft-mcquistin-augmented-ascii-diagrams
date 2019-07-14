@@ -458,7 +458,8 @@
 
                 <t>
                     A Fixed-width Field Format packet is formatted as follows:
-                    <artwork>
+                </t>
+                <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -474,56 +475,57 @@
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |     Field8    |
    +-+-+-+-+-+-+-+-+
-                    </artwork>
+                </artwork>
+                <t>
                     where:
-                    <dl>
-                        <dt>
-                            Field2 (F2): 2 bits
-                        </dt>
-                        <dd>
-                            <t>
-                                This is a short field, and the diagram cannot show its full
-                                label. A short label (F2) is used in the diagram, and this
-                                short label is provided, in brackets, after the full label
-                                in the description list. The field's width -- 2 bits -- is
-                                given in the label of the description list, separated from
-                                the field's label by a colon.
-                            </t>                            
-                        </dd>
-                        <dt>
-                            Field30: 30 bits
-                        </dt>
-                        <dd>
-                            This is a longer field whose full label can be shown in the
-                            diagram.
-                        </dd>
-                        <dt>
-                            Field64: 8 bytes
-                        </dt>
-                        <dd>
-                            This is a field that spans multiple rows.  Where fields are
-                            an integral number of bytes in size, and start and end on a
-                            byte boundary, the field length can be given in bytes rather
-                            than in bits.
-                        </dd>
-                        <dt>
-                            Field48: 48 bits
-                        </dt>
-                        <dd>
-                            This is another multi-row field. As illustrated, fields are
-                            not required to end of a 32-bit boundary.
-                        </dd>
-                        <dt>
-                            Field8: 1 byte
-                        </dt>
-                        <dd>
-                            This field has been drawn on the next line, where it would
-                            have fit on the previous line. Where possible, the formatting
-                            of the diagram should be flexible to meet the needs of human
-                            readers.
-                        </dd>
-                    </dl>
                 </t>
+                <dl>
+                    <dt>
+                        Field2 (F2): 2 bits
+                    </dt>
+                    <dd>
+                        <t>
+                            This is a short field, and the diagram cannot show its full
+                            label. A short label (F2) is used in the diagram, and this
+                            short label is provided, in brackets, after the full label
+                            in the description list. The field's width -- 2 bits -- is
+                            given in the label of the description list, separated from
+                            the field's label by a colon.
+                        </t>                            
+                    </dd>
+                    <dt>
+                        Field30: 30 bits
+                    </dt>
+                    <dd>
+                        This is a longer field whose full label can be shown in the
+                        diagram.
+                    </dd>
+                    <dt>
+                        Field64: 8 bytes
+                    </dt>
+                    <dd>
+                        This is a field that spans multiple rows.  Where fields are
+                        an integral number of bytes in size, and start and end on a
+                        byte boundary, the field length can be given in bytes rather
+                        than in bits.
+                    </dd>
+                    <dt>
+                        Field48: 48 bits
+                    </dt>
+                    <dd>
+                        This is another multi-row field. As illustrated, fields are
+                        not required to end of a 32-bit boundary.
+                    </dd>
+                    <dt>
+                        Field8: 1 byte
+                    </dt>
+                    <dd>
+                        This field has been drawn on the next line, where it would
+                        have fit on the previous line. Where possible, the formatting
+                        of the diagram should be flexible to meet the needs of human
+                        readers.
+                    </dd>
+                </dl>
             </section>
             
             <section anchor='ascii:variable'>
@@ -687,7 +689,8 @@
                 <name>Optional Field Format</name>
                 <t>
                     An Optional Field Format packet is formatted as follows:
-                    <artwork>
+                </t>
+                <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -695,30 +698,31 @@
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                         OptionalField                         |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    </artwork>
+                </artwork>
+                <t>
                     where:
-                    <dl>
-                        <dt>
-                            Field8 (F): 8 bits
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            OptionalField: 4 bytes
-                        </dt>
-                        <dd>
-                            Present only when F > 3.
-
-                            This is a field whose presence is predicated on an expression
-                            given in the constraint expression grammar described earlier.
-                            Optional fields can be of any previously defined format (e.g.,
-                            fixed- or variable-width). Optional fields are indicated by
-                            the presence of a "Present only when [expr]." as the first
-                            line in their description
-                        </dd>
-                    </dl>
                 </t>
+                <dl>
+                    <dt>
+                        Field8 (F): 8 bits
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        OptionalField: 4 bytes
+                    </dt>
+                    <dd>
+                        Present only when F > 3.
+
+                        This is a field whose presence is predicated on an expression
+                        given in the constraint expression grammar described earlier.
+                        Optional fields can be of any previously defined format (e.g.,
+                        fixed- or variable-width). Optional fields are indicated by
+                        the presence of a "Present only when [expr]." as the first
+                        line in their description
+                    </dd>
+                </dl>
             </section>
         </section>
 
