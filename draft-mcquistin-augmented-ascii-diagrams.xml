@@ -45,7 +45,7 @@
             </address>
         </author>
 
-        <date year='2019' month='July' day='8'/>
+        <?date year='2019' month='July' day='8'/?>
 
         <abstract>
             <t>
@@ -724,6 +724,42 @@
                     </dd>
                 </dl>
             </section>
+            
+            <section anchor='ascii:split'>
+                <name>Split-fields Format</name>
+                <t>
+                    A Split-fields Format packet is formatted as follows:
+                    <artwork>
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |A|B|B|A|A|A|B|B|
+   |0|0|1|1|2|3|2|3|
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    </artwork>
+                    where:
+                    <dl>
+                        <dt>
+                            FieldA (A): 4 bits
+                        </dt>
+                        <dd>
+                            This field is comprised of multiple sub-fields (A0 through
+                            A3) as shown in the diagram. That these sub-fields should be
+                            concatenated, after parsing, into a single field is indicated
+                            by their being labelled using the 'A' short field name
+                            followed by an integer starting at 0 and increasing in
+                            sequence. 
+                        </dd>
+                        <dt>
+                            FieldB (B): 4 bits
+                        </dt>
+                        <dd>
+                            This field follows the same format as FieldA described above.
+                        </dd>
+                    </dl>
+                </t>
+            </section>
+
         </section>
 
         <section anchor='IANA'>
