@@ -82,7 +82,7 @@
                 text must be consistently structured.
             </t>
             <t>
-                This document describes a consistent ASCII packet header format and 
+                This document describes a consistent ASCII packet header format and
                 accompanying structured text constructs that allow for the parsing process
                 of protocol headers to be fully specified. This provides support for the
                 automatic generation of parser code. Broad design principles, that seek
@@ -116,7 +116,7 @@
                 are used provides an instructive contrast to the relatively incremental
                 approach proposed here.
             </t>
-            
+
             <section anchor='background:ascii'>
                 <name>Limitations of current ASCII packet diagrams usage</name>
                 <t>
@@ -176,7 +176,7 @@
                             machine parsing, there is sufficient variability in how they are
                             formatted that parsing is difficult.
                         </t>
-                        
+
                         <figure anchor="dhcpv6-relaysrcopt">
                             <name>DHCPv6's Relay Source Port Option (from <xref target="RFC8357"/>)</name>
                             <artwork>
@@ -202,7 +202,7 @@
       agent uses the non-DHCP UDP port (not 547).
                             </artwork>
                         </figure>
-                        
+
                         <t>
                             <xref target="quic-reset-stream"/> gives an example of internal
                             inconsistency. Here, the ASCII diagram shows a field labelled
@@ -245,7 +245,7 @@
                         Port") can take a value from a constrained set. This constraint
                         is expressed in prose that can easily be parsed by humans, but not
                         by machines.
-                    </dd>                
+                    </dd>
                     <dt>
                         Poor linking between sub-structures:
                     </dt>
@@ -258,7 +258,7 @@
                             a protocol data unit is only fully expressed if all elements can
                             be parsed.
                         </t>
-                        <t>                        
+                        <t>
                             <xref target="quic-reset-stream"/> highlights the difficulty that
                             machine parsers have in chaining structures together. Two fields
                             ("Stream ID" and "Final Size") are described as being encoded as
@@ -270,10 +270,10 @@
                     </dd>
                 </dl>
             </section>
-            
+
             <section anchor='background:others'>
                 <name>Formal languages in standards documents</name>
-                
+
                 <t>
                     A small proportion of IETF standards documents contain
                     structured and formal languages, including ABNF <xref target="RFC5234"/>,
@@ -402,7 +402,7 @@
                         use cases.
                     </t>
                 </dd>
-                
+
                 <dt>
                     Minimise required change:
                 </dt>
@@ -447,7 +447,7 @@
                 In this specification-by-example, each element of the format will be
                 described as part of a separate PDU.
             </t>
-        
+
             <section anchor='ascii:simple'>
                 <name>Fixed-width Field Format</name>
                 <t>
@@ -463,15 +463,15 @@
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |F2 |                         Field30                           |   
+   |F2 |                         Field30                           |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
-   +                           Field64                             +       
+   +                           Field64                             +
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
    +            Field48            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                               | 
+   |                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |     Field8    |
    +-+-+-+-+-+-+-+-+
@@ -491,7 +491,7 @@
                             in the description list. The field's width -- 2 bits -- is
                             given in the label of the description list, separated from
                             the field's label by a colon.
-                        </t>                            
+                        </t>
                     </dd>
                     <dt>
                         Field30: 30 bits
@@ -527,7 +527,7 @@
                     </dd>
                 </dl>
             </section>
-            
+
             <section anchor='ascii:variable'>
                 <name>Variable-width Field Format</name>
                 <t>
@@ -549,13 +549,13 @@
    |                      FieldVar - single row                  ...
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               :
-   :                      FieldVar - multi-row                     :       
+   :                      FieldVar - multi-row                     :
    :                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               :
-   :              FieldVar - multi-row, unspecified length         :       
+   :              FieldVar - multi-row, unspecified length         :
    :                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                     </artwork>
                     where:
                     <dl>
@@ -578,7 +578,7 @@
                             <xref target="ABNF:constraints"/>. Where fields labels are used in a
                             constraint, the field being referred to must have been
                             defined before its label is used.
-                            
+
                             Short variable-length fields are indicated by "..." instead of
                             a pipe at the end of the row.
                         </dd>
@@ -608,7 +608,7 @@
                     </dl>
                 </t>
             </section>
-            
+
             <section anchor='ascii:xref'>
                 <name>Cross-referencing and Sequences Format</name>
                 <t>
@@ -620,9 +620,9 @@
    |     Field8    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
-   +                                                               +       
+   +                                                               +
    |                                                               |
-   +                       FieldFixedXRef                          +       
+   +                       FieldFixedXRef                          +
    |                                                               |
    +                                                               +
    |                                                               |
@@ -632,11 +632,11 @@
    :                                                               :
    :                         FieldVarXref                          :
    :                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
-   +                                                               +       
+   +                                                               +
    |                                                               |
-   +                       [SeqFieldFixedXRef]                     +       
+   +                       [SeqFieldFixedXRef]                     +
    |                                                               |
    +                                                               +
    |                                                               |
@@ -684,7 +684,7 @@
                     </dl>
                 </t>
             </section>
-            
+
             <section anchor='ascii:opt'>
                 <name>Optional Field Format</name>
                 <t>
@@ -724,7 +724,7 @@
                     </dd>
                 </dl>
             </section>
-            
+
             <section anchor='ascii:split'>
                 <name>Split-fields Format</name>
                 <t>
@@ -748,7 +748,7 @@
                             concatenated, after parsing, into a single field is indicated
                             by their being labelled using the 'A' short field name
                             followed by an integer starting at 0 and increasing in
-                            sequence. 
+                            sequence.
                         </dd>
                         <dt>
                             FieldB (B): 4 bits
@@ -799,7 +799,7 @@
             <reference  anchor="RFC8357" target='https://www.rfc-editor.org/info/rfc8357'>
                 <front>
                     <title>Generalized UDP Source Port for DHCP Relay</title>
-                    
+
                     <author initials='S.' surname='Deering' fullname='S. Deering'><organization /></author>
                     <author initials='R.' surname='Hinden' fullname='R. Hinden'><organization /></author>
 
@@ -810,7 +810,7 @@
             <reference anchor="QUIC-TRANSPORT" target="http://www.ietf.org/internet-drafts/draft-ietf-quic-transport-20.txt">
                 <front>
                     <title>QUIC: A UDP-Based Multiplexed and Secure Transport</title>
-                    
+
                     <author initials='J' surname='Iyengar' fullname='Jana Iyengar'><organization /></author>
                     <author initials='M' surname='Thomson' fullname='Martin Thomson'><organization /></author>
 
@@ -822,7 +822,7 @@
             <reference anchor="RFC6958" target="https://www.rfc-editor.org/info/rfc6958">
                 <front>
                     <title>RTP Control Protocol (RTCP) Extended Report (XR) Block for Burst/Gap Loss Metric Reporting</title>
-                    
+
                     <author initials='A' surname='Clark' fullname='Alan Clark'><organization /></author>
                     <author initials='S' surname='Zhang' fullname='Sunshine Zhang'><organization /></author>
                     <author initials='J' surname='Zhao' fullname='Jing Zhao'><organization /></author>
@@ -835,7 +835,7 @@
             <reference anchor="RFC7950" target="https://www.rfc-editor.org/info/rfc7950">
                 <front>
                     <title>The YANG 1.1 Data Modeling Language</title>
-                    
+
                     <author initials='M' surname='Bjorklund' fullname='Martin Bjorklund'><organization /></author>
 
                     <date month='August' year='2016' />
@@ -845,7 +845,7 @@
             <reference anchor="RFC8446" target="https://www.rfc-editor.org/info/rfc8446">
                 <front>
                     <title>The Transport Layer Security (TLS) Protocol Version 1.3</title>
-                    
+
                     <author initials='E' surname='Rescorla' fullname='Eric Rescorla'><organization /></author>
 
                     <date month='August' year='2018' />
@@ -855,7 +855,7 @@
             <reference anchor="RFC5234" target="https://www.rfc-editor.org/info/rfc5234">
                 <front>
                     <title>Augmented BNF for Syntax Specifications: ABNF</title>
-                    
+
                     <author initials='D' surname='Crocker' fullname='Dave Crocker'><organization /></author>
                     <author initials='P' surname='Overell' fullname='Paul Overell'><organization /></author>
 
@@ -866,7 +866,7 @@
             <reference anchor="ASN1">
                 <front>
                     <title>ITU-T Recommendation X.680, X.681, X.682, and X.683</title>
-                    
+
                     <author fullname='ITU-T'><organization /></author>
                 </front>
                 <seriesInfo name='ITU-T Recommendation' value='X.680, X.681, X.682, and X.683'/>
@@ -874,7 +874,7 @@
             <reference anchor="RFC7049" target="https://www.rfc-editor.org/info/rfc7049">
                 <front>
                     <title>Concise Binary Object Representation (CBOR)</title>
-                    
+
                     <author initials='C' surname='Bormann' fullname='Carsten Bormann'><organization /></author>
                     <author initials='P' surname='Hoffman' fullname='Paul Hoffman'><organization /></author>
 
@@ -893,13 +893,13 @@
     eq-expr   = bool-expr eq-op   bool-expr
     bool-expr = ord-expr  bool-op ord-expr
     ord-expr  = add-expr  ord-op  add-expr
-    
+
     add-expr  = mul-expr  add-op  mul-expr
     mul-expr  = expr      mul-op  expr
     expr      = *DIGIT / field-name
-    
+
     field-name = *ALPHA
-    
+
     mul-op  = "*" / "/" / "%"
     add-op  = "+" / "-"
     ord-op  = "&lt;=" / "&lt;" / "&gt;=" / "&gt;"
@@ -907,7 +907,7 @@
     eq-op   = "==" / "!="
                 </sourcecode>
             </section>
-            
+
             <section anchor='ABNF:diagrams'>
                 <name>Augmented ASCII diagrams</name>
                 <t>
@@ -921,6 +921,20 @@
                 </t>
             </section>
         </section>
+
+        <section anchor='examples'>
+            <name>Example specifications</name>
+            <section anchor='examples:quic'>
+                <name>QUIC</name>
+            </section>
+
+            <section anchor='examples:rtp'>
+                <name>RTP</name>
+            </section>
+
+            <section anchor='examples:stun'>
+                <name>STUN</name>
+            </section>
+        </section>
     </back>
  </rfc>
- 
