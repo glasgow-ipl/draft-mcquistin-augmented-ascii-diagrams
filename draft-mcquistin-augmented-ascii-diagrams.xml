@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='US-ASCII'?>
-<rfc ipr='trust200902' submissionType='IETF' category='info' docName="draft-mcquistin-augmented-ascii-diagrams-00">
+<rfc ipr='trust200902' submissionType='IETF' category='info' docName="draft-mcquistin-augmented-ascii-diagrams-01">
     <front>
         <title abbrev='Augmented ASCII Diagrams'>
             Fully Specifying Protocol Parsing with Augmented ASCII Diagrams
         </title>
-        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-00' status="informational" />
+        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-01' status="informational" />
 
         <author fullname='Stephen McQuistin' initials='S.' surname='McQuistin'>
             <organization>University of Glasgow</organization>
