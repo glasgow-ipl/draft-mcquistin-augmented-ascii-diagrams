@@ -62,7 +62,7 @@
         <section anchor='intro'>
             <name>Introduction</name>
             <t>
-                ASCII packet header diagrams have become the de-facto format for
+                ASCII packet header diagrams have become a widely used format for
                 describing the syntax of binary protocols. In otherwise largely textual
                 documents, they allow for the visualisation of packet formats, reducing
                 human error, and aiding in the implementation of parsers for the protocols
