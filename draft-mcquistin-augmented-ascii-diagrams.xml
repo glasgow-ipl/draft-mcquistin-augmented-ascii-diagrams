@@ -455,7 +455,9 @@
                     fields in a known order, with no optional fields or variation
                     in the packet format.
                 </t>
-
+                <t>
+                    This format is illustrated using the IPv6 Header Format.
+                </t>
                 <t>
                     A Fixed-width Field Format packet is formatted as follows:
                 </t>
@@ -463,25 +465,33 @@
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |F2 |                         Field30                           |
+   |   V   | Traffic Class |             Flow Label                |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |         Payload Length        |  Next Header  |   Hop Limit   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
-   +                           Field64                             +
+   +                                                               +
+   |                                                               |
+   +                         Source Address                        +
+   |                                                               |
+   +                                                               +
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
-   +            Field48            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |     Field8    |
-   +-+-+-+-+-+-+-+-+
+   +                                                               +
+   |                                                               |
+   +                      Destination Address                      +
+   |                                                               |
+   +                                                               +
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                 </artwork>
                 <t>
                     where:
                 </t>
                 <dl>
                     <dt>
-                        Field2 (F2): 2 bits
+                        Version (V): 4 bits
                     </dt>
                     <dd>
                         <t>
@@ -881,6 +891,17 @@
                     <date month='October' year='2013' />
                 </front>
                 <seriesInfo name='RFC' value='7049'/>
+            </reference>
+            <reference anchor="RFC8200" target="https://www.rfc-editor.org/info/rfc8200">
+                <front>
+                    <title>Internet Protocol, Version 6 (IPv6) Specification</title>
+
+                    <author initials='S' surname='Deering' fullname='Stephen E. Deering'><organization /></author>
+                    <author initials='R' surname='Hinden' fullname='Robert M. Hinden'><organization /></author>
+
+                    <date month='July' year='2017' />
+                </front>
+                <seriesInfo name='RFC' value='8200'/>
             </reference>
         </references>
 
