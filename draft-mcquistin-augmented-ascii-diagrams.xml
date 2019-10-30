@@ -567,40 +567,41 @@
                     field, to ensure there is no ambiguity.
                 </t>
                 <t>
+                    This format is illustrated using the Canonical End-Point Identifier SDES Item <xref target="RFC3550"/>.
+                </t>
+                <t>
                     A Variable-width Field Format packet is formatted as follows:
                     <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |     Field8    |
+   |      Type     |     Length    |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                      FieldVar - single row                  ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               :
-   :                      FieldVar - multi-row                     :
-   :                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               :
-   :              FieldVar - multi-row, unspecified length         :
-   :                                                               |
+   |                         CNAME Value                         ...
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                     </artwork>
                     where:
                     <dl>
                         <dt>
-                            Field8 (F): 8 bits
+                            Type (T): 8 bits
                         </dt>
                         <dd>
                             This is a fixed-width field, as described previously. As shown,
-                            while this field has a short label (F), this does not need to
+                            while this field has a short label (T), this does not need to
                             be used in the diagram.
                         </dd>
                         <dt>
-                            FieldVar - single row: 2^F bits
+                            Length (L): 1 byte
+                        </dt>
+                        <dd>
+                            This is a fixed-width field, as described previously.
+                        </dd>
+                        <dt>
+                            CNAME Value: 2^L bits
                         </dt>
                         <dd>
                             This is a variable-length field, whose length is defined by
-                            the value of the field with short label F (Field8). Constraint
+                            the value of the field with short label L (Length). Constraint
                             expressions can be used in place of constant values: the
                             grammar for the expression language is defined in
                             <xref target="ABNF:constraints"/>. Where fields labels are used in a
@@ -609,29 +610,10 @@
 
                             Short variable-length fields are indicated by "..." instead of
                             a pipe at the end of the row.
-                        </dd>
-                        <dt>
-                            FieldVar - multi-row: 2^F bits
-                        </dt>
-                        <dd>
-                            This is a multi-row variable-length field, again constrained
-                            by the value of field F. Instead of the "..." notation, ":" is
-                            used to indicate that the field is variable-length. The use
-                            of ":" instead of "..." indicates the field is likely to be
-                            a longer, multi-row field. However, semantically, there is no
-                            difference: these different notations are for the benefit of
-                            human readers.
-                        </dd>
-                        <dt>
-                            FieldVar - multi-row, unspecified length
-                        </dt>
-                        <dd>
-                            This is a variable-width field whose length is implied by the
-                            lengths of the other fields. At parsing time, the length of
-                            the PDU is known, and this can be used to determine the length
-                            of fields whose length is undefined. Each PDU can only leave
-                            a single field's length undefined: all other fields must be
-                            fixed-length, or have their widths constrained.
+
+                            This field has been drawn on the next line, where it would have fit
+                            on the previous line. Where possible, the formatting of the diagram
+                            should be flexible to meet the needs of human readers.
                         </dd>
                     </dl>
                 </t>
@@ -920,6 +902,19 @@
                     <date month='July' year='2017' />
                 </front>
                 <seriesInfo name='RFC' value='8200'/>
+            </reference>
+            <reference anchor="RFC3550" target="https://www.rfc-editor.org/info/rfc3550">
+                <front>
+                    <title>RTP: A Transport Protocol for Real-Time Applications</title>
+
+                    <author initials='H' surname='Schulzrinne' fullname='Henning Schulzrinne'><organization /></author>
+                    <author initials='S' surname='Casner' fullname='Stephen L. Casner'><organization /></author>
+                    <author initials='R' surname='Frederick' fullname='Ron Frederick'><organization /></author>
+                    <author initials='V' surname='Jacobson' fullname='Van Jacobson'><organization /></author>
+
+                    <date month='July' year='2003' />
+                </front>
+                <seriesInfo name='RFC' value='3550'/>
             </reference>
         </references>
 
