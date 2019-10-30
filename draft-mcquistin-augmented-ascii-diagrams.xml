@@ -62,6 +62,9 @@
         <section anchor='intro'>
             <name>Introduction</name>
             <t>
+                [todo: change narrative -- start by giving an example of good, consistent format. Emphasis here
+                 is on how small the change is that we're proposing]
+
                 ASCII packet header diagrams have become a widely used format for
                 describing the syntax of binary protocols. In otherwise largely textual
                 documents, they allow for the visualisation of packet formats, reducing
@@ -451,6 +454,7 @@
             <section anchor='ascii:simple'>
                 <name>Fixed-width Field Format</name>
                 <t>
+                    [todo: motivating text]
                     The simplest PDU is one that contains only a set of fixed-width
                     fields in a known order, with no optional fields or variation
                     in the packet format.
@@ -559,6 +563,7 @@
             <section anchor='ascii:variable'>
                 <name>Variable-width Field Format</name>
                 <t>
+                    [todo: motivating text]
                     Some packet formats include variable-width fields, where
                     the size of a field is either derived from the value of
                     some previous field, or is unspecified and inferred from
@@ -622,12 +627,14 @@
             <section anchor='ascii:xref'>
                 <name>Cross-referencing and Sequences Format</name>
                 <t>
+                    [todo: motivating text]
                     A Cross-referencing and Sequences Format packet is formatted as follows:
+                    [todo: fix this -- need to make a separate format for each source]
                     <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |     Field8    |
+   | V |P|    SC   |       PT      |            Length             |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                                                               |
    +                                                               +
@@ -698,6 +705,8 @@
             <section anchor='ascii:opt'>
                 <name>Optional Field Format</name>
                 <t>
+                    [todo: motivating text]
+                    [todo: use RTP/RTCP example]
                     An Optional Field Format packet is formatted as follows:
                 </t>
                 <artwork>
@@ -738,6 +747,8 @@
             <section anchor='ascii:split'>
                 <name>Split-fields Format</name>
                 <t>
+                    [todo: motivating text]
+                    [todo: use STUNbis example]
                     A Split-fields Format packet is formatted as follows:
                     <artwork>
     0                   1                   2                   3
