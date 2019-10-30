@@ -456,7 +456,7 @@
                     in the packet format.
                 </t>
                 <t>
-                    This format is illustrated using the IPv6 Header Format.
+                    This format is illustrated using the IPv6 Header Format <xref target="RFC8200"/>.
                 </t>
                 <t>
                     A Fixed-width Field Format packet is formatted as follows:
