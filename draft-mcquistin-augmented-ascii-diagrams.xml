@@ -495,45 +495,63 @@
                     </dt>
                     <dd>
                         <t>
-                            This is a short field, and the diagram cannot show its full
-                            label. A short label (F2) is used in the diagram, and this
+                            This is a short field, and the diagram does not show its full
+                            label. A short label (V) is used in the diagram, and this
                             short label is provided, in brackets, after the full label
-                            in the description list. The field's width -- 2 bits -- is
+                            in the description list. The field's width -- 4 bits -- is
                             given in the label of the description list, separated from
                             the field's label by a colon.
                         </t>
                     </dd>
                     <dt>
-                        Field30: 30 bits
+                        Traffic Class: 1 byte
                     </dt>
                     <dd>
-                        This is a longer field whose full label can be shown in the
-                        diagram.
+                        This is a longer field whose full label is shown in the
+                        diagram. Where fields are an integral number of bytes in
+                        size, the field length can be given in bytes rather than
+                        in bits.
                     </dd>
                     <dt>
-                        Field64: 8 bytes
+                        Flow Label: 20 bits
                     </dt>
                     <dd>
-                        This is a field that spans multiple rows.  Where fields are
-                        an integral number of bytes in size, and start and end on a
-                        byte boundary, the field length can be given in bytes rather
-                        than in bits.
+                        This is another long field whose full label is shown in
+                        the diagram.
                     </dd>
                     <dt>
-                        Field48: 48 bits
+                        Payload Length: 2 bytes
                     </dt>
                     <dd>
-                        This is another multi-row field. As illustrated, fields are
-                        not required to end of a 32-bit boundary.
+                        This is another long field whose full label is shown in
+                        the diagram.
                     </dd>
                     <dt>
-                        Field8: 1 byte
+                        Next Header: 1 byte
                     </dt>
                     <dd>
-                        This field has been drawn on the next line, where it would
-                        have fit on the previous line. Where possible, the formatting
-                        of the diagram should be flexible to meet the needs of human
-                        readers.
+                        This is another long field whose full label is shown in
+                        the diagram.
+                    </dd>
+                    <dt>
+                        Hop Limit: 1 byte
+                    </dt>
+                    <dd>
+                        This is another long field whose full label is shown in
+                        the diagram.
+                    </dd>
+                    <dt>
+                        Source Address: 16 bytes
+                    </dt>
+                    <dd>
+                        This is a long field that spans multiple rows.
+                    </dd>
+                    <dt>
+                        Destination Address: 128 bits
+                    </dt>
+                    <dd>
+                        This is a long field that spans multiple rows. As shown,
+                        the field length can be expressed in bits if desired.
                     </dd>
                 </dl>
             </section>
