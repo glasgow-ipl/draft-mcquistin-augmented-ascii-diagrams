@@ -1059,19 +1059,12 @@
             </section>
         </section>
 
-        <section anchor='examples'>
-            <name>Example specifications</name>
-            <section anchor='examples:quic'>
-                <name>QUIC</name>
-            </section>
-
-            <section anchor='examples:rtp'>
-                <name>RTP</name>
-            </section>
-
-            <section anchor='examples:stun'>
-                <name>STUN</name>
-            </section>
+        <section anchor='source'>
+            <name>Source code repository</name>
+            <t>
+                The source code for tooling that can be used to parse this document is available
+                from <eref target="https://github.com/lumisota/improving-protocol-standards" />.
+            </t>
         </section>
     </back>
  </rfc>
