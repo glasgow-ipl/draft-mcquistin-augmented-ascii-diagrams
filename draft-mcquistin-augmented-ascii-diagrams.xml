@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='US-ASCII'?>
-<rfc ipr='trust200902' submissionType='IETF' category='info' docName="draft-mcquistin-augmented-ascii-diagrams-01">
+<rfc version='3' ipr='trust200902' submissionType='IETF' category='info' docName="draft-mcquistin-augmented-ascii-diagrams-01">
     <front>
         <title abbrev='Augmented ASCII Diagrams'>
             Fully Specifying Protocol Parsing with Augmented ASCII Diagrams
@@ -145,7 +145,7 @@
                 approach proposed here.
             </t>
 
-            <section anchor='background:ascii'>
+            <section anchor='background-ascii'>
                 <name>Limitations of current ASCII packet diagrams usage</name>
                 <t>
                     ASCII packet header diagrams are commonplace in the IETF standards
@@ -299,7 +299,7 @@
                 </dl>
             </section>
 
-            <section anchor='background:others'>
+            <section anchor='background-others'>
                 <name>Formal languages in standards documents</name>
 
                 <t>
@@ -457,7 +457,7 @@
                 existing publication processes.
             </t>
             <t>
-                However, as discussed in <xref target="background:ascii"/> there are
+                However, as discussed in <xref target="background-ascii"/> there are
                 limitations to how ASCII diagrams are used that must be addressed if they
                 are to be parsed by machine. In this section, an augmented ASCII packet
                 header diagram format is described.
@@ -476,7 +476,7 @@
                 described as part of a separate PDU.
             </t>
 
-            <section anchor='ascii:simple'>
+            <section anchor='ascii-simple'>
                 <name>Fixed and Variable-width Field Format</name>
                 <t>
                     The simplest PDU is one that contains only a set of fixed-width
@@ -618,7 +618,7 @@
                       by the value of the field with short label IHL (Internet
                       Header Length).  Constraint expressions can be used in place of
                       constant values: the grammar for the expression language is
-                      defined in Section <xref target="ABNF:constraints"/>.  Where
+                      defined in Section <xref target="ABNF-constraints"/>.  Where
                       fields labels are used in a constraint, the field being
                       referred to must have been defined before its label is used.
                       Short variable-length fields are indicated by "..." instead of a pipe at the end of the row.
@@ -638,7 +638,7 @@
                 </dl>
             </section>
 
-            <section anchor="ascii:xref-part1">
+            <section anchor="ascii-xref-part1">
               <name>Cross-referencing Fields Format</name>
               <t>
                   Binary formats often contain sub-structures that have been
@@ -651,26 +651,28 @@
               </t>
               <t>
                   A Cross-referencing Fields Format packet is formatted as follows:
-                  <artwork>
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                      Source Identifier                        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                  </artwork>
-                  where:
-                  <dl>
-                      <dt>
-                          Source Identifier: 32 bits
-                      </dt>
-                      <dd>
-                          This is a fixed-width field, as described previously.
-                      </dd>
-                  </dl>
               </t>
+              <artwork>
+0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                      Source Identifier                        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+              </artwork>
+              <t>
+                  where:
+              </t>
+              <dl>
+                  <dt>
+                      Source Identifier: 32 bits
+                  </dt>
+                  <dd>
+                      This is a fixed-width field, as described previously.
+                  </dd>
+              </dl>
             </section>
 
-            <section anchor='ascii:xref'>
+            <section anchor='ascii-xref'>
                 <name>Cross-referencing, Sequences, and Optional Fields Format</name>
                 <t>
                     As described in the previous section, it is desirable for one
@@ -685,7 +687,8 @@
                 </t>
                 <t>
                     A Cross-referencing and Sequences Format packet is formatted as follows:
-                    <artwork>
+                </t>
+                <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -701,109 +704,110 @@
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                         Padding Octet                         |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    </artwork>
+                </artwork>
+                <t>
                     where:
-                    <dl>
-                        <dt>
-                            Version (V): 2 bits
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            Padding (P): 1 bit
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            Extension (X): 1 bit
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            CSRC count (CC): 4 bits
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            Marker (M): 1 bit
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            Payload Type (PT): 7 bits
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            Sequence Number (PT): 16 bits
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            Timestamp (PT): 32 bits
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            Synchronization Source (SSRC) identifier: 1 Cross-referencing Fields Format
-                        </dt>
-                        <dd>
-                          This is a field whose structure is a previously defined PDU format.
-                          To indicate this, the width of the field is given in units of the
-                          cross-referenced structure (here, Cross-referencing Fields Format).
-                        </dd>
-                        <dt>
-                            Contributing Source (CSRC) identifiers: CC Cross-referencing Fields Format
-                        </dt>
-                        <dd>
-                            Where a field is comprised of a sequence of previously defined structures, square
-                            brackets can be used to indicate this in the diagram.  The length
-                            of the sequence can be defined using the constraint expression
-                            grammar as described earlier.
-                        </dd>
-                        <dt>
-                            Header Extension: 32 bits
-                        </dt>
-                        <dd>
-                            <t>
-                              Present only when X == 1. This is a field whose presence is predicated on an expression
-                              given using the constraint expression grammar described earlier.  Optional fields can be of
-                              any previously defined format (e.g., fixed- or variable-width).  Optional fields are
-                              indicated by the presence of a "Present only when [expr]." as the first line in their
-                              description.
-                            </t>
-                            <t>
-                              [Note that this example deviates from the format as described in <xref target="RFC3550"/>. As
-                               specified in that document, the Header Extension would be a cross-referenced structure. This
-                               is not shown here for brevity.]
-                            </t>
-                        </dd>
-                        <dt>
-                            Padding Octet: 1 byte
-                        </dt>
-                        <dd>
-                            <t>
-                              Present only when P == 1. This is a fixed-width field, as previously defined.
-                            </t>
-                            <t>
-                              [Note that this example deviates from the format as described in <xref target="RFC3550"/>. As
-                               specified in that document, the Padding Octet would be a cross-referenced structure. This
-                               is not shown here for brevity.]
-                            </t>
-                        </dd>
-                    </dl>
                 </t>
+                <dl>
+                    <dt>
+                        Version (V): 2 bits
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        Padding (P): 1 bit
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        Extension (X): 1 bit
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        CSRC count (CC): 4 bits
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        Marker (M): 1 bit
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        Payload Type (PT): 7 bits
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        Sequence Number (PT): 16 bits
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        Timestamp (PT): 32 bits
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as described previously.
+                    </dd>
+                    <dt>
+                        Synchronization Source (SSRC) identifier: 1 Cross-referencing Fields Format
+                    </dt>
+                    <dd>
+                      This is a field whose structure is a previously defined PDU format.
+                      To indicate this, the width of the field is given in units of the
+                      cross-referenced structure (here, Cross-referencing Fields Format).
+                    </dd>
+                    <dt>
+                        Contributing Source (CSRC) identifiers: CC Cross-referencing Fields Format
+                    </dt>
+                    <dd>
+                        Where a field is comprised of a sequence of previously defined structures, square
+                        brackets can be used to indicate this in the diagram.  The length
+                        of the sequence can be defined using the constraint expression
+                        grammar as described earlier.
+                    </dd>
+                    <dt>
+                        Header Extension: 32 bits
+                    </dt>
+                    <dd>
+                        <t>
+                          Present only when X == 1. This is a field whose presence is predicated on an expression
+                          given using the constraint expression grammar described earlier.  Optional fields can be of
+                          any previously defined format (e.g., fixed- or variable-width).  Optional fields are
+                          indicated by the presence of a "Present only when [expr]." as the first line in their
+                          description.
+                        </t>
+                        <t>
+                          [Note that this example deviates from the format as described in <xref target="RFC3550"/>. As
+                           specified in that document, the Header Extension would be a cross-referenced structure. This
+                           is not shown here for brevity.]
+                        </t>
+                    </dd>
+                    <dt>
+                        Padding Octet: 1 byte
+                    </dt>
+                    <dd>
+                        <t>
+                          Present only when P == 1. This is a fixed-width field, as previously defined.
+                        </t>
+                        <t>
+                          [Note that this example deviates from the format as described in <xref target="RFC3550"/>. As
+                           specified in that document, the Padding Octet would be a cross-referenced structure. This
+                           is not shown here for brevity.]
+                        </t>
+                    </dd>
+                </dl>
             </section>
 
-            <section anchor='ascii:split'>
+            <section anchor='ascii-split'>
                 <name>Split-fields Format</name>
                 <t>
                     In some binary formats, fields are striped across multiple
@@ -817,35 +821,37 @@
                 </t>
                 <t>
                     A Split-fields Format packet is formatted as follows:
-                    <artwork>
+                </t>
+                <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |M|M|M|M|M|C|M|M|M|C|M|M|M|M|
    |B|A|9|8|7|1|6|5|4|0|3|2|1|0|
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    </artwork>
+                </artwork>
+                <t>
                     where:
-                    <dl>
-                        <dt>
-                            Method (M): 12 bits
-                        </dt>
-                        <dd>
-                            This field is comprised of multiple sub-fields (M0 through
-                            MB) as shown in the diagram. That these sub-fields should be
-                            concatenated, after parsing, into a single field is indicated
-                            by their being labelled using the 'M' short field name
-                            followed by a single hexadecimal digit, with the least significant
-                            bit labelled with 0, and subsequent bits labelled in sequence.
-                        </dd>
-                        <dt>
-                            Class (C): 2 bits
-                        </dt>
-                        <dd>
-                            This field follows the same format as M described above.
-                        </dd>
-                    </dl>
                 </t>
+                <dl>
+                    <dt>
+                        Method (M): 12 bits
+                    </dt>
+                    <dd>
+                        This field is comprised of multiple sub-fields (M0 through
+                        MB) as shown in the diagram. That these sub-fields should be
+                        concatenated, after parsing, into a single field is indicated
+                        by their being labelled using the 'M' short field name
+                        followed by a single hexadecimal digit, with the least significant
+                        bit labelled with 0, and subsequent bits labelled in sequence.
+                    </dd>
+                    <dt>
+                        Class (C): 2 bits
+                    </dt>
+                    <dd>
+                        This field follows the same format as M described above.
+                    </dd>
+                </dl>
             </section>
 
         </section>
@@ -1023,7 +1029,7 @@
 
         <section anchor='ABNF'>
             <name>ABNF specification</name>
-            <section anchor='ABNF:constraints'>
+            <section anchor='ABNF-constraints'>
                 <name>Constraint Expressions</name>
                 <sourcecode type="abnf">
     cond-expr = eq-expr "?" cond-expr ":" eq-expr
@@ -1045,7 +1051,7 @@
                 </sourcecode>
             </section>
 
-            <section anchor='ABNF:diagrams'>
+            <section anchor='ABNF-diagrams'>
                 <name>Augmented ASCII diagrams</name>
                 <t>
                     Future revisions of this draft will include an ABNF specification for
