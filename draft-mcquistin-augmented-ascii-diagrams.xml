@@ -452,42 +452,45 @@
             </t>
 
             <section anchor='ascii:simple'>
-                <name>Fixed-width Field Format</name>
+                <name>Fixed and Variable-width Field Format</name>
                 <t>
-                    [todo: motivating text]
                     The simplest PDU is one that contains only a set of fixed-width
                     fields in a known order, with no optional fields or variation
                     in the packet format.
                 </t>
                 <t>
-                    This format is illustrated using the IPv6 Header Format <xref target="RFC8200"/>.
+                  Some packet formats include variable-width fields, where
+                  the size of a field is either derived from the value of
+                  some previous field, or is unspecified and inferred from
+                  the total size of the packet and the size of the other
+                  fields. A packet can contain only one unspecified length
+                  field, to ensure there is no ambiguity.
                 </t>
                 <t>
-                    A Fixed-width Field Format packet is formatted as follows:
+                    This format is illustrated using the IPv4 Header Format <xref target="RFC791"/>.
+                </t>
+                <t>
+                    A Fixed and Variable-width Field Format packet is formatted as follows:
                 </t>
                 <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   V   | Traffic Class |             Flow Label                |
+   |Version|   IHL |    DSCP   |ECN|         Total Length          |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |         Payload Length        |  Next Header  |   Hop Limit   |
+   |         Identification        |Flags|     Fragment Offset     |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               |
-   +                                                               +
-   |                                                               |
-   +                         Source Address                        +
-   |                                                               |
-   +                                                               +
-   |                                                               |
+   | Time to Live  |    Protocol   |        Header Checksum        |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               |
-   +                                                               +
-   |                                                               |
-   +                      Destination Address                      +
-   |                                                               |
-   +                                                               +
-   |                                                               |
+   |                         Source Address                        |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                      Destination Address                      |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                            Options                          ...
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               :
+   :                            Payload                            :
+   :                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                 </artwork>
                 <t>
@@ -499,129 +502,115 @@
                     </dt>
                     <dd>
                         <t>
-                            This is a short field, and the diagram does not show its full
-                            label. A short label (V) is used in the diagram, and this
-                            short label is provided, in brackets, after the full label
-                            in the description list. The field's width -- 4 bits -- is
-                            given in the label of the description list, separated from
-                            the field's label by a colon.
+                            This is a fixed-width field, whose full label is shown
+                            in the diagram. The field's width -- 4 bits -- is given
+                            in the label of the description list, separated from the
+                            field's label by a colon.
                         </t>
                     </dd>
                     <dt>
-                        Traffic Class: 1 byte
+                        Internet Header Length (IHL): 4 bits
                     </dt>
                     <dd>
-                        This is a longer field whose full label is shown in the
-                        diagram. Where fields are an integral number of bytes in
-                        size, the field length can be given in bytes rather than
-                        in bits.
+                        This is a shorter field, whose full label is too large to be
+                        shown in the diagram. A short label (IHL) is used in the diagram, and this
+                        short label is provided, in brackets, after the full label
+                        in the description list.
                     </dd>
                     <dt>
-                        Flow Label: 20 bits
+                        Differentiated Services Code Point (DSCP): 6 bits
                     </dt>
                     <dd>
-                        This is another long field whose full label is shown in
-                        the diagram.
+                        This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Payload Length: 2 bytes
+                        Explicit Congestion Notification (ECN): 2 bits
                     </dt>
                     <dd>
-                        This is another long field whose full label is shown in
-                        the diagram.
+                        This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Next Header: 1 byte
+                        Total Length (TL): 2 bytes
                     </dt>
                     <dd>
-                        This is another long field whose full label is shown in
-                        the diagram.
+                        This is a fixed-width field, as previously defined. Where
+                        fields are an integral number of bytes in size, the field
+                        length can be given in bytes rather than in bits.
                     </dd>
                     <dt>
-                        Hop Limit: 1 byte
+                        Identification: 2 bytes
                     </dt>
                     <dd>
-                        This is another long field whose full label is shown in
-                        the diagram.
+                        This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Source Address: 16 bytes
+                        Flags: 3 bits
                     </dt>
                     <dd>
-                        This is a long field that spans multiple rows.
+                        This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Destination Address: 128 bits
+                        Fragment Offset: 13 bits
                     </dt>
                     <dd>
-                        This is a long field that spans multiple rows. As shown,
-                        the field length can be expressed in bits if desired.
+                        This is a fixed-width field, as previously defined.
+                    </dd>
+                    <dt>
+                        Time To Live (TTL): 1 byte
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as previously defined.
+                    </dd>
+                    <dt>
+                        Protocol: 1 byte
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as previously defined.
+                    </dd>
+                    <dt>
+                        Header Checksum: 2 bytes
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as previously defined.
+                    </dd>
+                    <dt>
+                        Source Address: 32 bits
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as previously defined.
+                    </dd>
+                    <dt>
+                        Destination Address: 32 bits
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, as previously defined.
+                    </dd>
+                    <dt>
+                        Options: (IHL-5)*32 bits
+                    </dt>
+                    <dd>
+                      This is a variable-length field, whose length is defined
+                      by the value of the field with short label IHL (Internet
+                      Header Length).  Constraint expressions can be used in place of
+                      constant values: the grammar for the expression language is
+                      defined in Section <xref target="ABNF:constraints"/>.  Where
+                      fields labels are used in a constraint, the field being
+                      referred to must have been defined before its label is used.
+                      Short variable-length fields are indicated by "..." instead of a pipe at the end of the row.
+                    </dd>
+                    <dt>
+                        Payload: TL - ((IHL*32)/8) bytes
+                    </dt>
+                    <dd>
+                      This is a multi-row variable-length field, constrained by
+                      the values of fields TL and IHL.  Instead of the "..." notation,
+                      ":" is used to indicate that the field is variable-length.
+                      The use of ":" instead of "..." indicates the field is likely
+                      to be a longer, multi-row field.  However, semantically, there
+                      is no difference: these different notations are for the benefit
+                      of human readers.
                     </dd>
                 </dl>
-            </section>
-
-            <section anchor='ascii:variable'>
-                <name>Variable-width Field Format</name>
-                <t>
-                    [todo: motivating text]
-                    Some packet formats include variable-width fields, where
-                    the size of a field is either derived from the value of
-                    some previous field, or is unspecified and inferred from
-                    the total size of the packet and the size of the other
-                    fields. A packet can contain only one unspecified length
-                    field, to ensure there is no ambiguity.
-                </t>
-                <t>
-                    This format is illustrated using the Canonical End-Point Identifier SDES Item <xref target="RFC3550"/>.
-                </t>
-                <t>
-                    A Variable-width Field Format packet is formatted as follows:
-                    <artwork>
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |      Type     |     Length    |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                         CNAME Value                         ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    </artwork>
-                    where:
-                    <dl>
-                        <dt>
-                            Type (T): 8 bits
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously. As shown,
-                            while this field has a short label (T), this does not need to
-                            be used in the diagram.
-                        </dd>
-                        <dt>
-                            Length (L): 1 byte
-                        </dt>
-                        <dd>
-                            This is a fixed-width field, as described previously.
-                        </dd>
-                        <dt>
-                            CNAME Value: 2^L bits
-                        </dt>
-                        <dd>
-                            This is a variable-length field, whose length is defined by
-                            the value of the field with short label L (Length). Constraint
-                            expressions can be used in place of constant values: the
-                            grammar for the expression language is defined in
-                            <xref target="ABNF:constraints"/>. Where fields labels are used in a
-                            constraint, the field being referred to must have been
-                            defined before its label is used.
-
-                            Short variable-length fields are indicated by "..." instead of
-                            a pipe at the end of the row.
-
-                            This field has been drawn on the next line, where it would have fit
-                            on the previous line. Where possible, the formatting of the diagram
-                            should be flexible to meet the needs of human readers.
-                        </dd>
-                    </dl>
-                </t>
             </section>
 
             <section anchor="ascii:xref-part1">
@@ -956,17 +945,6 @@
                 </front>
                 <seriesInfo name='RFC' value='7049'/>
             </reference>
-            <reference anchor="RFC8200" target="https://www.rfc-editor.org/info/rfc8200">
-                <front>
-                    <title>Internet Protocol, Version 6 (IPv6) Specification</title>
-
-                    <author initials='S' surname='Deering' fullname='Stephen E. Deering'><organization /></author>
-                    <author initials='R' surname='Hinden' fullname='Robert M. Hinden'><organization /></author>
-
-                    <date month='July' year='2017' />
-                </front>
-                <seriesInfo name='RFC' value='8200'/>
-            </reference>
             <reference anchor="RFC3550" target="https://www.rfc-editor.org/info/rfc3550">
                 <front>
                     <title>RTP: A Transport Protocol for Real-Time Applications</title>
@@ -995,6 +973,16 @@
                 </front>
 
                 <seriesInfo name='Internet-Draft' value='draft-ietf-tram-stunbis-21' />
+            </reference>
+            <reference anchor="RFC791" target="https://www.rfc-editor.org/info/rfc791">
+                <front>
+                    <title>Internet Protocol</title>
+
+                    <author initials='J' surname='Postel' fullname='Jon Postel'><organization /></author>
+
+                    <date month='September' year='1981' />
+                </front>
+                <seriesInfo name='RFC' value='791'/>
             </reference>
         </references>
 
