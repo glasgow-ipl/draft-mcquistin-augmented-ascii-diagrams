@@ -62,28 +62,53 @@
         <section anchor='intro'>
             <name>Introduction</name>
             <t>
-                [todo: change narrative -- start by giving an example of good, consistent format. Emphasis here
-                 is on how small the change is that we're proposing]
-
                 ASCII packet header diagrams have become a widely used format for
                 describing the syntax of binary protocols. In otherwise largely textual
                 documents, they allow for the visualisation of packet formats, reducing
                 human error, and aiding in the implementation of parsers for the protocols
-                that they specify. Given their widespread use, and relatively structured
-                form, ASCII packet header diagrams provide a good base from which to
-                develop a format that supports the automatic generation of parser code from
-                protocol standards documents.
+                that they specify.
             </t>
             <t>
-                There are two broad issues with the existing
-                ASCII packet header diagrams that need to be addressed to enable machine-readability. First, their use,
-                while sufficiently consistent for human readability, contains enough
-                variation to make machine parsing difficult: different documents tend to
-                use subtly different formats and conventions. Second, ASCII packet header
-                diagrams alone do not fully capture the parsing process for protocols,
-                requiring supplementary text. To support machine parsing, this supplementary
-                text must be consistently structured.
+                <xref target="tcp-header-format"/> shows how ASCII diagrams are
+                typically used to define binary protocol formats. As shown, this format
+                is well structured: the diagram clearly delineates each field,
+                showing their widths and positions. It should be possible to develop
+                code that generates a parser for a protocol from its diagram.
             </t>
+        <figure anchor="tcp-header-format">
+            <name>TCP's header format (from <xref target="RFC793"/>)</name>
+            <artwork>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Source Port          |       Destination Port        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        Sequence Number                        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Acknowledgment Number                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Data |           |U|A|P|R|S|F|                               |
+| Offset| Reserved  |R|C|S|S|Y|I|            Window             |
+|       |           |G|K|H|T|N|N|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|           Checksum            |         Urgent Pointer        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Options                    |    Padding    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             data                              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            </artwork>
+        </figure>
+            <t>
+                However, while the format of these diagrams is sufficiently
+                consistent for human readability, it varies enough within and
+                between documents to make machine parsing difficult. Tooling
+                could be developed to generate parser code for many protocols
+                just by encouraging the adoption of a consistent format. Indeed,
+                that underpins the format described by this draft: we want to
+                retain the benefits that ASCII diagrams provide, while identifying
+                the benefits of adopting a consistent format.
+             </t>
             <t>
                 This document describes a consistent ASCII packet header format and
                 accompanying structured text constructs that allow for the parsing process
@@ -983,6 +1008,16 @@
                     <date month='September' year='1981' />
                 </front>
                 <seriesInfo name='RFC' value='791'/>
+            </reference>
+            <reference anchor="RFC793" target="https://www.rfc-editor.org/info/rfc793">
+                <front>
+                    <title>Transmission Control Protocol</title>
+
+                    <author initials='J' surname='Postel' fullname='Jon Postel'><organization /></author>
+
+                    <date month='September' year='1981' />
+                </front>
+                <seriesInfo name='RFC' value='793'/>
             </reference>
         </references>
 
