@@ -2,7 +2,7 @@
 <rfc version='3' ipr='trust200902' submissionType='IETF' category='info' docName="draft-mcquistin-augmented-ascii-diagrams-01">
     <front>
         <title abbrev='Augmented ASCII Diagrams'>
-            Fully Specifying Protocol Parsing with Augmented ASCII Diagrams
+            Describing Protocol Data Units with Augmented Packet Header Diagrams
         </title>
         <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-01' status="informational" />
 
@@ -49,11 +49,13 @@
 
         <abstract>
             <t>
-                This document describes a machine-readable format for fully specifying the process by which
-                a protocol can be parsed. This format combines a consistent ASCII packet
-                diagram format with the use of structured text, maintaining human
-                readability while enabling support for machine parsing. This document is
-                itself an example of how this format can be used.
+              This document describes a machine-readable format for describing
+              the syntax of protocol data units within a protocol specification.
+              This format consists of a consistently formatted packet header
+              format diagram, followed by structured explanatory text. It is
+              designed to maintain human readability while enabling support for
+              automated code generation from the specification text. This
+              document is itself an example of how the format can be used.
             </t>
         </abstract>
     </front>
