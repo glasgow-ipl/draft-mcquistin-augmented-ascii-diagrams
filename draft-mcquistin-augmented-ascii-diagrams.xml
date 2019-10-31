@@ -747,35 +747,43 @@
             <section anchor='ascii:split'>
                 <name>Split-fields Format</name>
                 <t>
-                    [todo: motivating text]
-                    [todo: use STUNbis example]
+                    In some binary formats, fields are striped across multiple
+                    noncontiguous bits. This is often to allow for backwards
+                    compatibility with previous definitions of the same fields
+                    in earlier documents: striping in this way allows for
+                    careful use of the possible range of values.
+                </t>
+                <t>
+                    This format is illustrated using the STUN Message Type Field format <xref target="draft-ietf-tram-stunbis-21"/>.
+                </t>
+                <t>
                     A Split-fields Format packet is formatted as follows:
                     <artwork>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |A|B|B|A|A|A|B|B|
-   |0|0|1|1|2|3|2|3|
+   |M|M|M|M|M|C|M|M|M|C|M|M|M|M|
+   |B|A|9|8|7|1|6|5|4|0|3|2|1|0|
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                     </artwork>
                     where:
                     <dl>
                         <dt>
-                            FieldA (A): 4 bits
+                            Method (M): 12 bits
                         </dt>
                         <dd>
-                            This field is comprised of multiple sub-fields (A0 through
-                            A3) as shown in the diagram. That these sub-fields should be
+                            This field is comprised of multiple sub-fields (M0 through
+                            MB) as shown in the diagram. That these sub-fields should be
                             concatenated, after parsing, into a single field is indicated
-                            by their being labelled using the 'A' short field name
-                            followed by an integer starting at 0 and increasing in
-                            sequence.
+                            by their being labelled using the 'M' short field name
+                            followed by a single hexadecimal digit, with the least significant
+                            bit labelled with 0, and subsequent bits labelled in sequence.
                         </dd>
                         <dt>
-                            FieldB (B): 4 bits
+                            Class (C): 2 bits
                         </dt>
                         <dd>
-                            This field follows the same format as FieldA described above.
+                            This field follows the same format as M described above.
                         </dd>
                     </dl>
                 </t>
@@ -926,6 +934,22 @@
                     <date month='July' year='2003' />
                 </front>
                 <seriesInfo name='RFC' value='3550'/>
+            </reference>
+            <reference anchor="draft-ietf-tram-stunbis-21" target="http://www.ietf.org/internet-drafts/draft-ietf-tram-stunbis-21.txt">
+                <front>
+                    <title>Session Traversal Utilities for NAT (STUN)</title>
+
+                    <author initials='M' surname='Petit-Huguenin' fullname='Marc Petit-Huguenin'><organization /></author>
+                    <author initials='G' surname='Salgueiro' fullname='Gonzalo Salgueiro'><organization /></author>
+                    <author initials='J' surname='Rosenberg' fullname='Jonathan Rosenberg'><organization /></author>
+                    <author initials='D' surname='Wing' fullname='Dan Wing'><organization /></author>
+                    <author initials='R' surname='Mahy' fullname='Rohan Mahy'><organization /></author>
+                    <author initials='P' surname='Matthews' fullname='Philip Matthews'><organization /></author>
+
+                    <date month='March' day='21' year='2019' />
+                </front>
+
+                <seriesInfo name='Internet-Draft' value='draft-ietf-tram-stunbis-21' />
             </reference>
         </references>
 
