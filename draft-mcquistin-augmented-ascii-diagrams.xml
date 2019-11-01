@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='US-ASCII'?>
 <rfc version='3' ipr='trust200902' submissionType='IETF' category='exp' docName="draft-mcquistin-augmented-ascii-diagrams-01">
     <front>
-        <title abbrev='Augmented ASCII Diagrams'>
+        <title abbrev='Augmented Packet Diagrams'>
             Describing Protocol Data Units with Augmented Packet Header Diagrams
         </title>
         <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-01' status="experimental" />
@@ -64,14 +64,14 @@
         <section anchor='intro'>
             <name>Introduction</name>
             <t>
-                ASCII packet header diagrams have become a widely used format for
+                Packet header diagrams have become a widely used format for
                 describing the syntax of binary protocols. In otherwise largely textual
                 documents, they allow for the visualisation of packet formats, reducing
                 human error, and aiding in the implementation of parsers for the protocols
                 that they specify.
             </t>
             <t>
-                <xref target="tcp-header-format"/> shows how ASCII diagrams are
+                <xref target="tcp-header-format"/> shows how packet header diagrams are
                 typically used to define binary protocol formats. As shown, this format
                 is well structured: the diagram clearly delineates each field,
                 showing their widths and positions. It should be possible to develop
@@ -108,11 +108,11 @@
                 could be developed to generate parser code for many protocols
                 just by encouraging the adoption of a consistent format. Indeed,
                 that underpins the format described by this draft: we want to
-                retain the benefits that ASCII diagrams provide, while identifying
+                retain the benefits that packet header diagrams provide, while identifying
                 the benefits of adopting a consistent format.
              </t>
             <t>
-                This document describes a consistent ASCII packet header format and
+                This document describes a consistent packet header format and
                 accompanying structured text constructs that allow for the parsing process
                 of protocol headers to be fully specified. This provides support for the
                 automatic generation of parser code. Broad design principles, that seek
@@ -121,7 +121,7 @@
             </t>
             <t>
                 This document is itself an example of the approach that it describes, with
-                the ASCII packet diagrams and structured text format described by example.
+                the packet diagrams and structured text format described by example.
             </t>
             <t>
                 This draft describes early work. As consensus builds around the
@@ -134,7 +134,7 @@
         <section anchor='background'>
             <name>Background</name>
             <t>
-                This section begins by considering how ASCII packet header diagrams are
+                This section begins by considering how packet header diagrams are
                 used in existing documents. This exposes the limitations that the current
                 usage has in terms of machine-readability, guiding the design of the
                 format that this document proposes.
@@ -148,12 +148,13 @@
             </t>
 
             <section anchor='background-ascii'>
-                <name>Limitations of current ASCII packet diagrams usage</name>
+                <name>Limitations of current packet header diagrams usage</name>
                 <t>
-                    ASCII packet header diagrams are commonplace in the IETF standards
+                    Packet header diagrams are commonplace in the IETF standards
                     documents for binary protocols. While there is no standard for how
                     these diagrams should be formatted, they have a broadly similar structure,
-                    where the layout of a protocol data unit (PDU) or structure is given in an ASCII diagram,
+                    where the layout of a protocol data unit (PDU) or structure is given in 
+                    a packet header diagram,
                     and a description list of the fields that it contains are given
                     immediately below. An example of this format is given in
                     <xref target="quic-reset-stream"/>.
@@ -189,7 +190,7 @@
                 <t>
                     However, these diagrams, and their accompanying descriptions, are
                     formatted for human readers rather than for machine parsing. As a
-                    result, while there is broad consistency in how ASCII packet diagrams
+                    result, while there is broad consistency in how packet diagrams
                     are formatted, there are a number of limitations that are prohibitive
                     to machine parsing:
                 </t>
@@ -201,7 +202,7 @@
                         <t>
                             There are two classes of consistency that are required for
                             parsability: internal consistency, within a document or diagram,
-                            and external consistency, across all documents. Given that ASCII
+                            and external consistency, across all documents. Given that 
                             packet diagrams are formatted for human readers, rather than for
                             machine parsing, there is sufficient variability in how they are
                             formatted that parsing is difficult.
@@ -235,14 +236,14 @@
 
                         <t>
                             <xref target="quic-reset-stream"/> gives an example of internal
-                            inconsistency. Here, the ASCII diagram shows a field labelled
+                            inconsistency. Here, the packet diagram shows a field labelled
                             "Application Error Code", while the accompanying description lists
                             the field as "Application Protocol Error Code". The use of an
                             abbreviated name is suitable for human readers, but makes parsing
                             the structure difficult for machines.
                             <xref target="dhcpv6-relaysrcopt"/> gives a further example, where
                             the description lists a field "Option-Code" that does not appear
-                            in the ASCII diagram. In addition, the description list describes
+                            in the packet diagram. In addition, the description list describes
                             each field as being 16 bits in length, while the diagram shows
                             the OPTION_RELAY_PORT as 13 bits, and Option-Len as 19 bits.
                             Another example of this -- where the diagram and accompanying
@@ -254,7 +255,7 @@
                         <t>
                             Comparing <xref target="quic-reset-stream"/> with
                             <xref target="dhcpv6-relaysrcopt"/> exposes external
-                            inconsistency across documents. While the ASCII diagrams
+                            inconsistency across documents. While the packet diagrams
                             themselves are broadly similar, the text surrounding the diagrams
                             is formatted differently. If machine parsing is to be made
                             possible, then this text must be structured consistently.
@@ -449,10 +450,10 @@
         </section>
 
         <section anchor='augmentedascii'>
-            <name>Augmented ASCII Packet Header Diagrams</name>
+            <name>Augmented Packet Header Diagrams</name>
             <t>
                 The design principles described in <xref target="designprinciples"/> can
-                largely be met by the existing uses of ASCII packet header diagrams. These
+                largely be met by the existing uses of packet header diagrams. These
                 diagrams aid human readability, do not require new or specialised
                 authorship tools, do not split the specification into multiple parts,
                 can express most binary protocol features, and require no changes to the
@@ -460,18 +461,18 @@
             </t>
             <t>
                 However, as discussed in <xref target="background-ascii"/> there are
-                limitations to how ASCII diagrams are used that must be addressed if they
-                are to be parsed by machine. In this section, an augmented ASCII packet
+                limitations to how packet header diagrams are used that must be addressed if they
+                are to be parsed by machine. In this section, an augmented packet
                 header diagram format is described.
             </t>
             <t>
                 The concept is first illustrated by example. This is appropriate, given the visual
                 nature of the language. In future drafts, these examples will be parsable using
-                provided tools, and a formal specification of the augmented ASCII packet
+                provided tools, and a formal specification of the augmented packet
                 diagrams will be given in <xref target="ABNF"/>.
             </t>
             <t>
-                In the augmented ASCII packet diagrams, each protocol data unit is
+                In the augmented packet diagrams, each protocol data unit is
                 described in its own section of the document.
                 This enables cross-referencing between data units using section numbering.
                 In this specification-by-example, each element of the format will be
@@ -1054,10 +1055,10 @@
             </section>
 
             <section anchor='ABNF-diagrams'>
-                <name>Augmented ASCII diagrams</name>
+                <name>Augmented packet diagrams</name>
                 <t>
                     Future revisions of this draft will include an ABNF specification for
-                    the augmented ASCII diagram format described in
+                    the augmented packet diagram format described in
                     <xref target="augmentedascii"/>. Such a specification is omitted from
                     this draft given that the format is likely to change as its syntax is
                     developed. Given the visual nature of the format, it is more
