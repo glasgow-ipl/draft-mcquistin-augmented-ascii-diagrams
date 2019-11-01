@@ -71,11 +71,14 @@
                 that they specify.
             </t>
             <t>
-                <xref target="tcp-header-format"/> shows how packet header diagrams are
-                typically used to define binary protocol formats. As shown, this format
-                is well structured: the diagram clearly delineates each field,
-                showing their widths and positions. It should be possible to develop
-                code that generates a parser for a protocol from its diagram.
+                <xref target="tcp-header-format"/> gives an example of how packet
+                header diagrams are used to define binary protocol formats. The format
+                is obviously structured. The diagram clearly delineates each field,
+                showing its width and its position within the header. The diagram is
+                designed for human headers, but is consistent enough that it should
+                be possible to develop a tool that generates a parser for this packet
+                format from the diagram.
+
             </t>
         <figure anchor="tcp-header-format">
             <name>TCP's header format (from <xref target="RFC793"/>)</name>
@@ -102,11 +105,11 @@
             </artwork>
         </figure>
             <t>
-                However, while the format of these diagrams is sufficiently
-                consistent for human readability, it varies enough within and
-                between documents to make machine parsing difficult. Tooling
-                could be developed to generate parser code for many protocols
-                just by encouraging the adoption of a consistent format. Indeed,
+                Unfortunately, the format of such packet diagrams varies both within
+                and between documents. This variation makes it difficult to build
+                tools to generate parsers from the specifications. Better tooling
+                could be developed if protocol specifications adopted a consistent
+                format for their packet descriptions. Indeed,
                 that underpins the format described by this draft: we want to
                 retain the benefits that packet header diagrams provide, while identifying
                 the benefits of adopting a consistent format.
