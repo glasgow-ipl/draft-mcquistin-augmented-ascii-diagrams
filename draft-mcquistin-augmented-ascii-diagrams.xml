@@ -83,25 +83,25 @@
         <figure anchor="tcp-header-format">
             <name>TCP's header format (from <xref target="RFC793"/>)</name>
             <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Source Port          |       Destination Port        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                        Sequence Number                        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Acknowledgment Number                      |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Data |           |U|A|P|R|S|F|                               |
-| Offset| Reserved  |R|C|S|S|Y|I|            Window             |
-|       |           |G|K|H|T|N|N|                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|           Checksum            |         Urgent Pointer        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Options                    |    Padding    |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                             data                              |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:    0                   1                   2                   3
+:    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |          Source Port          |       Destination Port        |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |                        Sequence Number                        |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |                    Acknowledgment Number                      |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |  Data |           |U|A|P|R|S|F|                               |
+:   | Offset| Reserved  |R|C|S|S|Y|I|            Window             |
+:   |       |           |G|K|H|T|N|N|                               |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |           Checksum            |         Urgent Pointer        |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |                    Options                    |    Padding    |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |                             data                              |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             </artwork>
         </figure>
             <t>
@@ -132,6 +132,35 @@
                 specification and code that parses it (and, as described above, this
                 document) will be provided.
             </t>
+
+            <figure anchor="quic-reset-stream">
+              <name>QUIC's RESET_STREAM frame format (from <xref target="QUIC-TRANSPORT"/>)</name>
+              <artwork>
+:   The RESET_STREAM frame is as follows:
+: 
+:    0                   1                   2                   3
+:    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |                        Stream ID (i)                        ...
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |  Application Error Code (16)  |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |                        Final Size (i)                       ...
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+: 
+:   RESET_STREAM frames contain the following fields:
+: 
+:   Stream ID:  A variable-length integer encoding of the Stream ID
+:      of the stream being terminated.
+: 
+:   Application Protocol Error Code:  A 16-bit application protocol
+:      error code (see Section 20.1) which indicates why the stream
+:      is being closed.
+: 
+:   Final Size: A variable-length integer indicating the final size
+:      of the stream by the RESET_STREAM sender, in unit of bytes.
+              </artwork>
+            </figure>
         </section>
 
         <section anchor='background'>
@@ -143,7 +172,7 @@
                 format that this document proposes.
             </t>
             <t>
-                While this document focuses on the machine-readability of packet header
+                While this document focuses on the machine-readability of packet format
                 diagrams, this section also discusses the use of other structured or formal
                 languages within IETF documents. Considering how and why these languages
                 are used provides an instructive contrast to the relatively incremental
@@ -151,158 +180,129 @@
             </t>
 
             <section anchor='background-ascii'>
-                <name>Limitations of current packet header diagrams usage</name>
+                <name>Limitations of Current Packet Format Diagrams</name>
                 <t>
-                    Packet header diagrams are commonplace in the IETF standards
-                    documents for binary protocols. While there is no standard for how
-                    these diagrams should be formatted, they have a broadly similar structure,
-                    where the layout of a protocol data unit (PDU) or structure is given in 
-                    a packet header diagram,
-                    and a description list of the fields that it contains are given
-                    immediately below. An example of this format is given in
-                    <xref target="quic-reset-stream"/>.
+                  Packet diagrams are frequently used in IETF standards to describe the
+                  format of binary protocols. While there is no standard for how
+                  these diagrams should be formatted, they have a broadly similar structure,
+                  where the layout of a protocol data unit (PDU) or structure is shown in
+                  diagrammatic form, followed by a description list of the fields that it
+                  contains. An example of this format, taken from the QUIC specification,
+                  is given in <xref target="quic-reset-stream"/>.
                 </t>
-                <figure anchor="quic-reset-stream">
-                    <name>QUIC's RESET_STREAM frame format (from <xref target="QUIC-TRANSPORT"/>)</name>
-                    <artwork>
-   The RESET_STREAM frame is as follows:
 
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                        Stream ID (i)                        ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  Application Error Code (16)  |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                        Final Size (i)                       ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-   RESET_STREAM frames contain the following fields:
-
-   Stream ID:  A variable-length integer encoding of the Stream ID of
-      the stream being terminated.
-
-   Application Protocol Error Code:  A 16-bit application protocol
-      error code (see Section 20.1) which indicates why the stream is
-      being closed.
-
-   Final Size:  A variable-length integer indicating the final size
-      of the stream by the RESET_STREAM sender, in unit of bytes.
-                    </artwork>
-                </figure>
                 <t>
-                    However, these diagrams, and their accompanying descriptions, are
-                    formatted for human readers rather than for machine parsing. As a
-                    result, while there is broad consistency in how packet diagrams
-                    are formatted, there are a number of limitations that are prohibitive
-                    to machine parsing:
+                  These packet format diagrams, and the accompanying descriptions, are
+                  formatted for human readers rather than for automated processing. As
+                  a result, while there is rough consistency in how packet diagrams are
+                  formatted, there are a number of limitations that make them difficult
+                  to work with programmatically:
                 </t>
                 <dl>
-                    <dt>
-                        Inconsistent syntax:
-                    </dt>
-                    <dd>
-                        <t>
-                            There are two classes of consistency that are required for
-                            parsability: internal consistency, within a document or diagram,
-                            and external consistency, across all documents. Given that 
-                            packet diagrams are formatted for human readers, rather than for
-                            machine parsing, there is sufficient variability in how they are
-                            formatted that parsing is difficult.
-                        </t>
+                  <dt>
+                    Inconsistent syntax:
+                  </dt>
+                  <dd>
+                    <t>
+                      There are two classes of consistency that are needed to support
+                      automated processing of specifications: internal consistency
+                      within a diagram or document, and external consistency across
+                      all documents.
+                    </t>
+                      <t>
+                        <xref target="quic-reset-stream"/> gives an example of internal
+                        inconsistency. Here, the packet diagram shows a field labelled
+                        "Application Error Code", while the accompanying description lists
+                        the field as "Application Protocol Error Code". The use of an
+                        abbreviated name is suitable for human readers, but makes parsing
+                        the structure difficult for machines.
 
-                        <figure anchor="dhcpv6-relaysrcopt">
-                            <name>DHCPv6's Relay Source Port Option (from <xref target="RFC8357"/>)</name>
-                            <artwork>
-   The format of the "Relay Source Port Option" is shown below:
+                        <xref target="dhcpv6-relaysrcopt"/> gives a further example, where
+                        the description includes an "Option-Code" field that does not appear
+                        in the packet diagram; and where the description states that 
+                        each field is 16 bits in length, but the diagram shows
+                        the OPTION_RELAY_PORT as 13 bits, and Option-Len as 19 bits.
 
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    OPTION_RELAY_PORT    |         Option-Len                  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    Downstream Source Port     |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                        Another example is <xref target="RFC6958"/>, where the packet
+                        format diagram showing the structure of the Burst/Gap Loss Metrics
+                        Report Block shows the Number of Bursts field as being 12 bits wide
+                        but the corresponding text describes it as 16 bits.
+                      </t>
 
-   Where:
-
-   Option-Code:  OPTION_RELAY_PORT. 16-bit value, 135.
-
-   Option-Len:  16-bit value to be set to 2.
-
-   Downstream Source Port:  16-bit value.  To be set by the IPv6
-      relay either to the downstream relay agent's UDP source port
-      used for the UDP packet, or to zero if only the local relay
-      agent uses the non-DHCP UDP port (not 547).
-                            </artwork>
-                        </figure>
-
-                        <t>
-                            <xref target="quic-reset-stream"/> gives an example of internal
-                            inconsistency. Here, the packet diagram shows a field labelled
-                            "Application Error Code", while the accompanying description lists
-                            the field as "Application Protocol Error Code". The use of an
-                            abbreviated name is suitable for human readers, but makes parsing
-                            the structure difficult for machines.
-                            <xref target="dhcpv6-relaysrcopt"/> gives a further example, where
-                            the description lists a field "Option-Code" that does not appear
-                            in the packet diagram. In addition, the description list describes
-                            each field as being 16 bits in length, while the diagram shows
-                            the OPTION_RELAY_PORT as 13 bits, and Option-Len as 19 bits.
-                            Another example of this -- where the diagram and accompanying
-                            text disagree -- is in <xref target="RFC6958"/>, where the packet
-                            header diagram showing the structure of the Burst/Gap Loss Metrics
-                            Report Block shows the Number of Bursts field as being 12 bits wide
-                            but the corresponding text describes it as 16 bits.
-                        </t>
-                        <t>
-                            Comparing <xref target="quic-reset-stream"/> with
-                            <xref target="dhcpv6-relaysrcopt"/> exposes external
-                            inconsistency across documents. While the packet diagrams
-                            themselves are broadly similar, the text surrounding the diagrams
-                            is formatted differently. If machine parsing is to be made
-                            possible, then this text must be structured consistently.
-                        </t>
+                      <t>
+                        Comparing <xref target="quic-reset-stream"/> with
+                        <xref target="dhcpv6-relaysrcopt"/> exposes external
+                        inconsistency across documents. While the packet format
+                        diagrams are broadly similar, the surrounding text is
+                        formatted differently. If machine parsing is to be made
+                        possible, then this text must be structured consistently.
+                      </t>
                     </dd>
 
                     <dt>
-                        Ambiguous constraints:
+                      Ambiguous constraints:
                     </dt>
                     <dd>
-                        The constraints that are enforced on a particular field are often
-                        described ambiguously, or in a way that cannot be parsed easily.
-                        In <xref target="dhcpv6-relaysrcopt"/>, each of the three fields
-                        in the structure is constrained. The first two fields
-                        ("Option-Code" and "Option-Len") are to be set to constant values
-                        (note the inconsistency in how these constraints are expressed in
-                        the description). However, the third field ("Downstream Source
-                        Port") can take a value from a constrained set. This constraint
-                        is expressed in prose that can easily be parsed by humans, but not
-                        by machines.
+                      The constraints that are enforced on a particular field are often
+                      described ambiguously, or in a way that cannot be parsed easily.
+                      In <xref target="dhcpv6-relaysrcopt"/>, each of the three fields
+                      in the structure is constrained. The first two fields
+                      ("Option-Code" and "Option-Len") are to be set to constant values
+                      (note the inconsistency in how these constraints are expressed in
+                      the description). However, the third field ("Downstream Source
+                      Port") can take a value from a constrained set. This constraint
+                      is expressed in prose that cannot readily by understood by machine.
                     </dd>
+
                     <dt>
-                        Poor linking between sub-structures:
+                      Poor linking between sub-structures:
                     </dt>
                     <dd>
-                        <t>
-                            Protocol data units and other structures are often comprised of
-                            sub-structures that are defined elsewhere, either in the same
-                            document, or within another document. Chaining these structures
-                            together is essential for machine parsing: the parsing process for
-                            a protocol data unit is only fully expressed if all elements can
-                            be parsed.
-                        </t>
-                        <t>
-                            <xref target="quic-reset-stream"/> highlights the difficulty that
-                            machine parsers have in chaining structures together. Two fields
-                            ("Stream ID" and "Final Size") are described as being encoded as
-                            variable-length integers; this is a structure described elsewhere
-                            in the same document. Structured text is required both alongside
-                            the definition of the containing structure and with the definition
-                            of the sub-structure, to allow a parser to link the two together.
-                        </t>
+                      <t>
+                        Protocol data units and other structures are often comprised of
+                        sub-structures that are defined elsewhere, either in the same
+                        document, or within another document. Chaining these structures
+                        together is essential for machine parsing: the parsing process for
+                        a protocol data unit is only fully expressed if all elements can
+                        be parsed.
+                      </t>
+                      <t>
+                        <xref target="quic-reset-stream"/> highlights the difficulty that
+                        machine parsers have in chaining structures together. Two fields
+                        ("Stream ID" and "Final Size") are described as being encoded as
+                        variable-length integers; this is a structure described elsewhere
+                        in the same document. Structured text is required both alongside
+                        the definition of the containing structure and with the definition
+                        of the sub-structure, to allow a parser to link the two together.
+                      </t>
                     </dd>
                 </dl>
+
+                <figure anchor="dhcpv6-relaysrcopt">
+                  <name>DHCPv6's Relay Source Port Option (from <xref target="RFC8357"/>)</name>
+                  <artwork>
+:   The format of the "Relay Source Port Option" is shown below:
+:
+:    0                   1                   2                   3
+:    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |    OPTION_RELAY_PORT    |         Option-Len                  |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:   |    Downstream Source Port     |
+:   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+:
+:   Where:
+:
+:   Option-Code:  OPTION_RELAY_PORT. 16-bit value, 135.
+:
+:   Option-Len:  16-bit value to be set to 2.
+:
+:   Downstream Source Port:  16-bit value.  To be set by the IPv6
+:      relay either to the downstream relay agent's UDP source port
+:      used for the UDP packet, or to zero if only the local relay
+:      agent uses the non-DHCP UDP port (not 547).
+                  </artwork>
+                </figure>
             </section>
 
             <section anchor='background-others'>
