@@ -73,10 +73,10 @@
             <t>
                 <xref target="tcp-header-format"/> gives an example of how packet
                 header diagrams are used to define binary protocol formats. The format
-                is obviously structured. The diagram clearly delineates each field,
-                showing its width and its position within the header. The diagram is
+                has an obvious structure: the diagram clearly delineates each field,
+                showing its width and its position within the header. This type of diagram is
                 designed for human headers, but is consistent enough that it should
-                be possible to develop a tool that generates a parser for this packet
+                be possible to develop a tool that generates a parser for the packet
                 format from the diagram.
 
             </t>
@@ -483,12 +483,13 @@
             </t>
 
             <section anchor='ascii-simple'>
-                <name>Fixed and Variable-width Field Format</name>
+                <name>PDUs with Fixed and Variable-width Fields</name>
                 <t>
-                    The simplest PDU is one that contains only a set of fixed-width
-                    fields in a known order, with no optional fields or variation
-                    in the packet format.
+                  The simplest PDU is one that contains only a set of fixed-width
+                  fields in a known order, with no optional fields or variation
+                  in the packet format.
                 </t>
+
                 <t>
                   Some packet formats include variable-width fields, where
                   the size of a field is either derived from the value of
@@ -497,39 +498,57 @@
                   fields. A packet can contain only one unspecified length
                   field, to ensure there is no ambiguity.
                 </t>
+
                 <t>
-                    This format is illustrated using the IPv4 Header Format <xref target="RFC791"/>.
+                  A PDU description is introduced by the exact phrase "A/An 
+                  _______ is formatted as follows:" at the end of a paragraph.
+                  This is followed by the PDU description itself, as a packet
+                  diagram within an &lt;artwork> element in the XML representation,
+                  starting with a header line to show to bit width of the diagram.
+                  The description of the fields follows the diagram, as an XML
+                  &lt;dl> list, after a paragraph containing the text "where:".
                 </t>
+
                 <t>
-                    A Fixed and Variable-width Field Format packet is formatted as follows:
+                  Each field of the description starts with a &lt;dt> tag
+                  comprising the field name and an optional short name in
+                  parenthesis. These are followed by a colon, the field
+                  length, and a terminating period. The following &lt;dd>
+                  tag contains a prose description of the field.
+                </t>
+
+                <t>
+                 For example, this can be illustrated using the IPv4 Header
+                 Format <xref target="RFC791"/>. An IPv4 Header is formatted
+                 as follows:
                 </t>
                 <artwork>
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |Version|   IHL |    DSCP   |ECN|         Total Length          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |         Identification        |Flags|     Fragment Offset     |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | Time to Live  |    Protocol   |        Header Checksum        |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                         Source Address                        |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                      Destination Address                      |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                            Options                          ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               :
-   :                            Payload                            :
-   :                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |Version|   IHL |    DSCP   |ECN|         Total Length          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |         Identification        |Flags|     Fragment Offset     |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | Time to Live  |    Protocol   |        Header Checksum        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                         Source Address                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                      Destination Address                      |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                            Options                          ...
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               :
+    :                            Payload                            :
+    :                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                 </artwork>
                 <t>
                     where:
                 </t>
                 <dl>
                     <dt>
-                        Version (V): 4 bits
+                        Version (V): 4 bits.
                     </dt>
                     <dd>
                         <t>
@@ -540,7 +559,7 @@
                         </t>
                     </dd>
                     <dt>
-                        Internet Header Length (IHL): 4 bits
+                        Internet Header Length (IHL): 4 bits.
                     </dt>
                     <dd>
                         This is a shorter field, whose full label is too large to be
@@ -549,19 +568,19 @@
                         in the description list.
                     </dd>
                     <dt>
-                        Differentiated Services Code Point (DSCP): 6 bits
+                        Differentiated Services Code Point (DSCP): 6 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Explicit Congestion Notification (ECN): 2 bits
+                        Explicit Congestion Notification (ECN): 2 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Total Length (TL): 2 bytes
+                        Total Length (TL): 2 bytes.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined. Where
@@ -569,55 +588,55 @@
                         length can be given in bytes rather than in bits.
                     </dd>
                     <dt>
-                        Identification: 2 bytes
+                        Identification: 2 bytes.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Flags: 3 bits
+                        Flags: 3 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Fragment Offset: 13 bits
+                        Fragment Offset: 13 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Time To Live (TTL): 1 byte
+                        Time To Live (TTL): 1 byte.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Protocol: 1 byte
+                        Protocol: 1 byte.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Header Checksum: 2 bytes
+                        Header Checksum: 2 bytes.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Source Address: 32 bits
+                        Source Address: 32 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Destination Address: 32 bits
+                        Destination Address: 32 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Options: (IHL-5)*32 bits
+                        Options: (IHL-5)*32 bits.
                     </dt>
                     <dd>
                       This is a variable-length field, whose length is defined
@@ -630,7 +649,7 @@
                       Short variable-length fields are indicated by "..." instead of a pipe at the end of the row.
                     </dd>
                     <dt>
-                        Payload: TL - ((IHL*32)/8) bytes
+                        Payload: TL - ((IHL*32)/8) bytes.
                     </dt>
                     <dd>
                       This is a multi-row variable-length field, constrained by
@@ -644,204 +663,207 @@
                 </dl>
             </section>
 
-            <section anchor="ascii-xref-part1">
-              <name>Cross-referencing Fields Format</name>
+            <section anchor="ascii-xref">
+              <name>PDUs that cross-reference Previously Defined Fields</name>
               <t>
-                  Binary formats often contain sub-structures that have been
-                  defined earlier in the document. The next section will
-                  define the syntax for this cross-referencing format: this
-                  section defines the format of the reference structure.
+                Binary formats often reference sub-structures that have been
+                defined earlier in the specification. For example, in RTP
+                <xref target="RFC3550"/>, the Contributing Source Identifiers
+                in an RTP Data Packet are defined as comprising a list of Source
+                Identifier elements. A Source Identifier is formatted as follows:
               </t>
-              <t>
-                  This format is illustrated using the Source Identifier format <xref target="RFC3550"/>.
-              </t>
-              <t>
-                  A Cross-referencing Fields Format packet is formatted as follows:
-              </t>
+
               <artwork>
-0                   1                   2                   3
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                      Source Identifier                        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                      Source Identifier                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
               <t>
                   where:
               </t>
               <dl>
                   <dt>
-                      Source Identifier: 32 bits
+                      Source Identifier: 32 bits.
                   </dt>
                   <dd>
                       This is a fixed-width field, as described previously.
                   </dd>
               </dl>
-            </section>
 
-            <section anchor='ascii-xref'>
-                <name>Cross-referencing, Sequences, and Optional Fields Format</name>
-                <t>
-                    As described in the previous section, it is desirable for one
-                    structure to refer to another in its definition. Further, these
-                    sub-structures may be referenced as part of a sequence. Finally,
-                    the presence of some fields in a format may be dependent on the
-                    values of an earlier field. In this section, we illustrate the
-                    syntax necessary to describe all three of these formats.
-                </t>
-                <t>
-                    This format is illustrated using the RTP Fixed Header Fields format <xref target="RFC3550"/>.
-                </t>
-                <t>
-                    A Cross-referencing and Sequences Format packet is formatted as follows:
-                </t>
-                <artwork>
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | V |P|X|  CC   |M|     PT      |       Sequence Number         |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                           Timestamp                           |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                Synchronization Source identifier              |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                [Contributing Source identifiers]              |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                       Header Extension                        |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                         Padding Octet                         |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+              <t>
+                The following example shows how a Source Identifier can be referenced
+                in the description of an RTP Data Packet. It also shows how the presence
+                of some fields in a format may be dependent on the values of an earlier
+                field.
+              </t>
+              <t>
+                An RTP Data Packet is formatted as follows:
+              </t>
+              <artwork>
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | V |P|X|  CC   |M|     PT      |       Sequence Number         |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                           Timestamp                           |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                Synchronization Source identifier              |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                [Contributing Source identifiers]              |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                       Header Extension                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                             Payload                           :
+    :                                                               :
+    :                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                           Padding             | Padding Count |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                 </artwork>
                 <t>
                     where:
                 </t>
                 <dl>
                     <dt>
-                        Version (V): 2 bits
+                        Version (V): 2 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Padding (P): 1 bit
+                        Padding (P): 1 bit.
                     </dt>
                     <dd>
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Extension (X): 1 bit
+                        Extension (X): 1 bit.
                     </dt>
                     <dd>
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        CSRC count (CC): 4 bits
+                        CSRC count (CC): 4 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Marker (M): 1 bit
+                        Marker (M): 1 bit.
                     </dt>
                     <dd>
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Payload Type (PT): 7 bits
+                        Payload Type (PT): 7 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Sequence Number (PT): 16 bits
+                        Sequence Number (PT): 16 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Timestamp (PT): 32 bits
+                        Timestamp (PT): 32 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Synchronization Source identifier: 1 Cross-referencing Fields Format
+                        Synchronization Source identifier: 1 * Source Identifier.
                     </dt>
                     <dd>
                       This is a field whose structure is a previously defined PDU format.
                       To indicate this, the width of the field is given in units of the
-                      cross-referenced structure (here, Cross-referencing Fields Format).
+                      cross-referenced structure (here, Source Identifier).
                     </dd>
                     <dt>
-                        Contributing Source identifiers: CC Cross-referencing Fields Format
+                        Contributing Source identifiers: CC * Source Identifier.
                     </dt>
                     <dd>
-                        Where a field is comprised of a sequence of previously defined structures, square
-                        brackets can be used to indicate this in the diagram.  The length
-                        of the sequence can be defined using the constraint expression
-                        grammar as described earlier.
+                      Where a field is comprised of a sequence of previously defined structures,
+                      square brackets can be used to indicate this in the diagram.  The length
+                      of the sequence can be defined using the constraint expression
+                      grammar as described earlier.
                     </dd>
                     <dt>
-                        Header Extension: 32 bits
+                      Header Extension: 32 bits; present only when X == 1.
                     </dt>
                     <dd>
-                        <t>
-                          Present only when X == 1. This is a field whose presence is predicated on an expression
-                          given using the constraint expression grammar described earlier.  Optional fields can be of
-                          any previously defined format (e.g., fixed- or variable-width).  Optional fields are
-                          indicated by the presence of a "Present only when [expr]." as the first line in their
-                          description.
-                        </t>
-                        <t>
-                          [Note that this example deviates from the format as described in <xref target="RFC3550"/>. As
-                           specified in that document, the Header Extension would be a cross-referenced structure. This
-                           is not shown here for brevity.]
-                        </t>
+                      <t>
+                        This is a field whose presence is predicated
+                        on an expression given using the constraint expression grammar described
+                        earlier.  Optional fields can be of any previously defined format (e.g.,
+                        fixed- or variable-width).  Optional fields are indicated by the presence
+                        of a "Present only when [expr]." as the first line in their description.
+                      </t>
+                      <t>
+                        [Note that this example deviates from the format as described in
+                        <xref target="RFC3550"/>. As specified in that document, the Header
+                        Extension would be a cross-referenced structure. This is not shown
+                        here for brevity.]
+                      </t>
                     </dd>
                     <dt>
-                        Padding Octet: 1 byte
+                      Payload.
                     </dt>
                     <dd>
-                        <t>
-                          Present only when P == 1. This is a fixed-width field, as previously defined.
-                        </t>
-                        <t>
-                          [Note that this example deviates from the format as described in <xref target="RFC3550"/>. As
-                           specified in that document, the Padding Octet would be a cross-referenced structure. This
-                           is not shown here for brevity.]
-                        </t>
+                      The length of the Payload is not specified, and hence needs to be
+                      inferred from the total length of the packet and the lengths of
+                      the known fields. There can only be one field of unspecified size
+                      in a PDU.
+                    </dd>
+                    <dt>
+                      Padding: Padding Count bytes; present only when (P == 1) and
+                      (Padding Count > 0).
+                    </dt>
+                    <dd>
+                      This is a variable size field, with size dependent on a later
+                      field in the packet. Fields can only depend on the value of a
+                      later field if they follow a field with unspecified size.
+                    </dd>
+                    <dt>
+                      Padding Count: 1 byte; present only when P == 1.
+                    </dt>
+                    <dd>
+                      This is a fixed-width field, as previously defined.
                     </dd>
                 </dl>
             </section>
 
             <section anchor='ascii-split'>
-                <name>Split-fields Format</name>
+                <name>PDUs with Non-contiguous Fields</name>
                 <t>
-                    In some binary formats, fields are striped across multiple
-                    noncontiguous bits. This is often to allow for backwards
-                    compatibility with previous definitions of the same fields
-                    in earlier documents: striping in this way allows for
-                    careful use of the possible range of values.
+                  In some binary formats, fields are striped across multiple
+                  non-contiguous bits. This is often to allow for backwards
+                  compatibility with previous definitions of the same fields
+                  in earlier documents: striping in this way allows for
+                  careful use of the possible range of values.
                 </t>
                 <t>
-                    This format is illustrated using the STUN Message Type Field format <xref target="draft-ietf-tram-stunbis-21"/>.
-                </t>
-                <t>
-                    A Split-fields Format packet is formatted as follows:
+                  This format is illustrated using the STUN Message Type
+                  <xref target="draft-ietf-tram-stunbis-21"/>.
+                  A STUN Message Type is formatted as follows:
                 </t>
                 <artwork>
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |M|M|M|M|M|C|M|M|M|C|M|M|M|M|
-   |B|A|9|8|7|1|6|5|4|0|3|2|1|0|
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     0                   1      
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |M|M|M|M|M|C|M|M|M|C|M|M|M|M|
+    |B|A|9|8|7|1|6|5|4|0|3|2|1|0|
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                 </artwork>
                 <t>
                     where:
                 </t>
                 <dl>
                     <dt>
-                        Method (M): 12 bits
+                        Method (M): 12 bits.
                     </dt>
                     <dd>
                         This field is comprised of multiple sub-fields (M0 through
@@ -852,7 +874,7 @@
                         bit labelled with 0, and subsequent bits labelled in sequence.
                     </dd>
                     <dt>
-                        Class (C): 2 bits
+                        Class (C): 2 bits.
                     </dt>
                     <dd>
                         This field follows the same format as M described above.
