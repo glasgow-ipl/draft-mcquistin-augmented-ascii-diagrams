@@ -702,9 +702,9 @@
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                           Timestamp                           |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |            Synchronization Source (SSRC) identifier           |
+   |                Synchronization Source identifier              |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |            [Contributing Source (CSRC) identifiers]           |
+   |                [Contributing Source identifiers]              |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                       Header Extension                        |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -764,7 +764,7 @@
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Synchronization Source (SSRC) identifier: 1 Cross-referencing Fields Format
+                        Synchronization Source identifier: 1 Cross-referencing Fields Format
                     </dt>
                     <dd>
                       This is a field whose structure is a previously defined PDU format.
@@ -772,7 +772,7 @@
                       cross-referenced structure (here, Cross-referencing Fields Format).
                     </dd>
                     <dt>
-                        Contributing Source (CSRC) identifiers: CC Cross-referencing Fields Format
+                        Contributing Source identifiers: CC Cross-referencing Fields Format
                     </dt>
                     <dd>
                         Where a field is comprised of a sequence of previously defined structures, square
