@@ -638,9 +638,8 @@
                       constant values: the grammar for the expression language is
                       defined in <xref target="ABNF-constraints"/>. Constraints can
                       include a previously defined field's short or full label, where one has been
-                      defined. If a field's full label contains spaces, it must be
-                      delimited using backticks (`) in constraint expressions.
-                      Short variable-length fields are indicated by "..." instead of a pipe at the end of the row.
+                      defined. Short variable-length fields are indicated by "..."
+                      instead of a pipe at the end of the row.
                     </dd>
                     <dt>
                         Payload: TL - ((IHL*32)/8) bytes.
@@ -769,18 +768,16 @@
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Synchronization Source identifier: 1 * `Source Identifier`.
+                        Synchronization Source identifier: 1 * Source Identifier.
                     </dt>
                     <dd>
                       This is a field whose structure is a previously defined PDU format.
                       To indicate this, the width of the field is expressed in terms of
-                      cross-referenced structure (here, Source Identifier). Where the
-                      name of the cross-referenced structure contains spaces, it must be
-                      delimited using backticks (`). When used in constraint expressions,
-                      PDU names refer to the length of that PDU structure.
+                      cross-referenced structure (here, Source Identifier). When used
+                      in constraint expressions, PDU names refer to the length of that PDU structure.
                     </dd>
                     <dt>
-                        Contributing Source identifiers: CC * `Source Identifier`.
+                        Contributing Source identifiers: CC * Source Identifier.
                     </dt>
                     <dd>
                       Where a field is comprised of a sequence of previously defined structures,
@@ -816,8 +813,8 @@
                       in a PDU.
                     </dd>
                     <dt>
-                      Padding: `Padding Count` bytes; present only when (P == 1) and
-                      (`Padding Count` > 0).
+                      Padding: Padding Count bytes; present only when (P == 1) and
+                      (Padding Count > 0).
                     </dt>
                     <dd>
                       This is a variable size field, with size dependent on a later
@@ -1069,7 +1066,7 @@
     add-expr  = mul-expr  add-op  mul-expr
     mul-expr  = expr      mul-op  expr
     expr      = *DIGIT / field-name /
-                "`" field-name-ws "`" / "(" expr ")"
+                field-name-ws / "(" expr ")"
 
     field-name    = *ALPHA
     field-name-ws = *(field-name " ")
