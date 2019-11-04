@@ -52,7 +52,7 @@
               This document describes a machine-readable format for specifying
               the syntax of protocol data units within a protocol specification.
               This format consists of a consistently formatted packet header
-              format diagram, followed by structured explanatory text. It is
+              diagram, followed by structured explanatory text. It is
               designed to maintain human readability while enabling support for
               automated parser generation from the specification document. This
               document is itself an example of how the format can be used.
@@ -75,7 +75,7 @@
                 header diagrams are used to define binary protocol formats. The format
                 has an obvious structure: the diagram clearly delineates each field,
                 showing its width and its position within the header. This type of diagram is
-                designed for human headers, but is consistent enough that it should
+                designed for human readers, but is consistent enough that it should
                 be possible to develop a tool that generates a parser for the packet
                 format from the diagram.
 
@@ -115,7 +115,7 @@
                 the benefits of adopting a consistent format.
              </t>
             <t>
-                This document describes a consistent packet header format and
+                This document describes a consistent packet header diagram format and
                 accompanying structured text constructs that allow for the parsing process
                 of protocol headers to be fully specified. This provides support for the
                 automatic generation of parser code. Broad design principles, that seek
@@ -124,7 +124,7 @@
             </t>
             <t>
                 This document is itself an example of the approach that it describes, with
-                the packet diagrams and structured text format described by example.
+                the packet header diagrams and structured text format described by example.
             </t>
             <t>
                 This draft describes early work. As consensus builds around the
@@ -182,7 +182,7 @@
             <section anchor='background-ascii'>
                 <name>Limitations of Current Packet Format Diagrams</name>
                 <t>
-                  Packet diagrams are frequently used in IETF standards to describe the
+                  Packet header diagrams are frequently used in IETF standards to describe the
                   format of binary protocols. While there is no standard for how
                   these diagrams should be formatted, they have a broadly similar structure,
                   where the layout of a protocol data unit (PDU) or structure is shown in
@@ -192,9 +192,9 @@
                 </t>
 
                 <t>
-                  These packet format diagrams, and the accompanying descriptions, are
+                  These packet header diagrams, and the accompanying descriptions, are
                   formatted for human readers rather than for automated processing. As
-                  a result, while there is rough consistency in how packet diagrams are
+                  a result, while there is rough consistency in how packet header diagrams are
                   formatted, there are a number of limitations that make them difficult
                   to work with programmatically:
                 </t>
@@ -404,7 +404,7 @@
                         within the same document. Such structures should form part
                         of a canonical specification of the protocol. Adding supplementary
                         machine-readable structures, in parallel to the existing
-                        human readable text, is undesirable because it could create
+                        human readable text, is undesirable because it creates
                         the potential for inconsistency.
                     </t>
                     <t>
@@ -443,7 +443,7 @@
                 <dd>
                     <t>
                         Any approach should require as few changes as possible to the way
-                        documents are formatted, authored, and published. Forcing adoption
+                        that documents are formatted, authored, and published. Forcing adoption
                         of a particular structured or formal language is incompatible with
                         the IETF's standardisation process: there are very few components
                         of standards documents that are non-optional.
@@ -474,16 +474,9 @@
                 provided tools, and a formal specification of the augmented packet
                 diagrams will be given in <xref target="ABNF"/>.
             </t>
-            <t>
-                In the augmented packet diagrams, each protocol data unit is
-                described in its own section of the document.
-                This enables cross-referencing between data units using section numbering.
-                In this specification-by-example, each element of the format will be
-                described as part of a separate PDU.
-            </t>
 
             <section anchor='ascii-simple'>
-                <name>PDUs with Fixed and Variable-width Fields</name>
+                <name>PDUs with Fixed and Variable-Width Fields</name>
                 <t>
                   The simplest PDU is one that contains only a set of fixed-width
                   fields in a known order, with no optional fields or variation
@@ -504,7 +497,7 @@
                   _______ is formatted as follows:" at the end of a paragraph.
                   This is followed by the PDU description itself, as a packet
                   diagram within an &lt;artwork> element in the XML representation,
-                  starting with a header line to show to bit width of the diagram.
+                  starting with a header line to show the bit width of the diagram.
                   The description of the fields follows the diagram, as an XML
                   &lt;dl> list, after a paragraph containing the text "where:".
                 </t>
@@ -643,7 +636,7 @@
                       by the value of the field with short label IHL (Internet
                       Header Length).  Constraint expressions can be used in place of
                       constant values: the grammar for the expression language is
-                      defined in Section <xref target="ABNF-constraints"/>. Constraints can
+                      defined in <xref target="ABNF-constraints"/>. Constraints can
                       include a previously defined field's short or full label, where one has been
                       defined. If a field's full label contains spaces, it must be
                       delimited using backticks (`) in constraint expressions.
@@ -665,7 +658,7 @@
             </section>
 
             <section anchor="ascii-xref">
-              <name>PDUs that cross-reference Previously Defined Fields</name>
+              <name>PDUs That Cross-Reference Previously Defined Fields</name>
               <t>
                 Binary formats often reference sub-structures that have been
                 defined earlier in the specification. For example, in RTP
@@ -784,7 +777,7 @@
                       cross-referenced structure (here, Source Identifier). Where the
                       name of the cross-referenced structure contains spaces, it must be
                       delimited using backticks (`). When used in constraint expressions,
-                      PDU names refer to the length of that PDU.
+                      PDU names refer to the length of that PDU structure.
                     </dd>
                     <dt>
                         Contributing Source identifiers: CC * `Source Identifier`.
@@ -841,7 +834,7 @@
             </section>
 
             <section anchor='ascii-split'>
-                <name>PDUs with Non-contiguous Fields</name>
+                <name>PDUs with Non-Contiguous Fields</name>
                 <t>
                   In some binary formats, fields are striped across multiple
                   non-contiguous bits. This is often to allow for backwards
