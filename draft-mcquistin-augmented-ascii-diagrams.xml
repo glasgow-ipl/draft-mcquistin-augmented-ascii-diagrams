@@ -459,7 +459,7 @@
                 largely be met by the existing uses of packet header diagrams. These
                 diagrams aid human readability, do not require new or specialised
                 authorship tools, do not split the specification into multiple parts,
-                can express most binary protocol features, and require no changes to the
+                can express most binary protocol features, and require no changes to
                 existing publication processes.
             </t>
             <t>
