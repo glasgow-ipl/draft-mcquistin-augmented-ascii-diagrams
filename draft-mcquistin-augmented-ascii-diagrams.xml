@@ -51,7 +51,7 @@
             <t>
               This document describes a machine-readable format for specifying
               the syntax of protocol data units within a protocol specification.
-              This format consists of a consistently formatted packet header
+              This format is comprised of a consistently formatted packet header
               diagram, followed by structured explanatory text. It is
               designed to maintain human readability while enabling support for
               automated parser generation from the specification document. This
@@ -110,7 +110,7 @@
                 tools to generate parsers from the specifications. Better tooling
                 could be developed if protocol specifications adopted a consistent
                 format for their packet descriptions. Indeed,
-                that underpins the format described by this draft: we want to
+                this underpins the format described by this draft: we want to
                 retain the benefits that packet header diagrams provide, while identifying
                 the benefits of adopting a consistent format.
              </t>
