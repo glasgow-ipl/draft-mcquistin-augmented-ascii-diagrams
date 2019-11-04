@@ -1064,9 +1064,11 @@
 
     add-expr  = mul-expr  add-op  mul-expr
     mul-expr  = expr      mul-op  expr
-    expr      = *DIGIT / field-name
+    expr      = *DIGIT / field-name /
+                "`" field-name-ws "`" / "(" expr ")"
 
-    field-name = *ALPHA
+    field-name    = *ALPHA
+    field-name-ws = *(field-name " ")
 
     mul-op  = "*" / "/" / "%"
     add-op  = "+" / "-"
