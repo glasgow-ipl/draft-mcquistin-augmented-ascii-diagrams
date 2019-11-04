@@ -137,7 +137,7 @@
               <name>QUIC's RESET_STREAM frame format (from <xref target="QUIC-TRANSPORT"/>)</name>
               <artwork>
 :   The RESET_STREAM frame is as follows:
-: 
+:
 :    0                   1                   2                   3
 :    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 :   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -147,16 +147,16 @@
 :   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 :   |                        Final Size (i)                       ...
 :   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-: 
+:
 :   RESET_STREAM frames contain the following fields:
-: 
+:
 :   Stream ID:  A variable-length integer encoding of the Stream ID
 :      of the stream being terminated.
-: 
+:
 :   Application Protocol Error Code:  A 16-bit application protocol
 :      error code (see Section 20.1) which indicates why the stream
 :      is being closed.
-: 
+:
 :   Final Size: A variable-length integer indicating the final size
 :      of the stream by the RESET_STREAM sender, in unit of bytes.
               </artwork>
@@ -219,7 +219,7 @@
 
                         <xref target="dhcpv6-relaysrcopt"/> gives a further example, where
                         the description includes an "Option-Code" field that does not appear
-                        in the packet diagram; and where the description states that 
+                        in the packet diagram; and where the description states that
                         each field is 16 bits in length, but the diagram shows
                         the OPTION_RELAY_PORT as 13 bits, and Option-Len as 19 bits.
 
@@ -500,7 +500,7 @@
                 </t>
 
                 <t>
-                  A PDU description is introduced by the exact phrase "A/An 
+                  A PDU description is introduced by the exact phrase "A/An
                   _______ is formatted as follows:" at the end of a paragraph.
                   This is followed by the PDU description itself, as a packet
                   diagram within an &lt;artwork> element in the XML representation,
@@ -643,9 +643,10 @@
                       by the value of the field with short label IHL (Internet
                       Header Length).  Constraint expressions can be used in place of
                       constant values: the grammar for the expression language is
-                      defined in Section <xref target="ABNF-constraints"/>.  Where
-                      fields labels are used in a constraint, the field being
-                      referred to must have been defined before its label is used.
+                      defined in Section <xref target="ABNF-constraints"/>. Constraints can
+                      include a previously defined field's short or full label, where one has been
+                      defined. If a field's full label contains spaces, it must be
+                      delimited using backticks (`) in constraint expressions.
                       Short variable-length fields are indicated by "..." instead of a pipe at the end of the row.
                     </dd>
                     <dt>
@@ -775,15 +776,18 @@
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Synchronization Source identifier: 1 * Source Identifier.
+                        Synchronization Source identifier: 1 * `Source Identifier`.
                     </dt>
                     <dd>
                       This is a field whose structure is a previously defined PDU format.
-                      To indicate this, the width of the field is given in units of the
-                      cross-referenced structure (here, Source Identifier).
+                      To indicate this, the width of the field is expressed in terms of
+                      cross-referenced structure (here, Source Identifier). Where the
+                      name of the cross-referenced structure contains spaces, it must be
+                      delimited using backticks (`). When used in constraint expressions,
+                      PDU names refer to the length of that PDU.
                     </dd>
                     <dt>
-                        Contributing Source identifiers: CC * Source Identifier.
+                        Contributing Source identifiers: CC * `Source Identifier`.
                     </dt>
                     <dd>
                       Where a field is comprised of a sequence of previously defined structures,
@@ -819,8 +823,8 @@
                       in a PDU.
                     </dd>
                     <dt>
-                      Padding: Padding Count bytes; present only when (P == 1) and
-                      (Padding Count > 0).
+                      Padding: `Padding Count` bytes; present only when (P == 1) and
+                      (`Padding Count` > 0).
                     </dt>
                     <dd>
                       This is a variable size field, with size dependent on a later
@@ -851,8 +855,8 @@
                   A STUN Message Type is formatted as follows:
                 </t>
                 <artwork>
-     0                   1      
-     0 1 2 3 4 5 6 7 8 9 0 1 2 3 
+     0                   1
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |M|M|M|M|M|C|M|M|M|C|M|M|M|M|
     |B|A|9|8|7|1|6|5|4|0|3|2|1|0|
