@@ -4,7 +4,7 @@
         <title abbrev='Augmented Packet Diagrams'>
             Describing Protocol Data Units with Augmented Packet Header Diagrams
         </title>
-        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-01' status="experimental" />
+        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-02' status="experimental" />
 
         <author fullname='Stephen McQuistin' initials='S.' surname='McQuistin'>
             <organization>University of Glasgow</organization>
@@ -45,7 +45,7 @@
             </address>
         </author>
 
-        <?date year='2019' month='July' day='8'/?>
+        <?date year='2019' month='November' day='12'/?>
 
         <abstract>
             <t>
@@ -876,6 +876,18 @@
                 </dl>
             </section>
 
+        </section>
+
+        <section anchor="issues">
+          <name>Open Issues</name>
+          <ul>
+            <li>
+              Need a simple syntax for defining a list of identical objects,
+              and a way of referring to the size of the enclosing packet.
+              The format cannot currently represent RFC 6716 section 3.2.3,
+              and should be able to (the underlying type system can do so).
+            </li>
+          </ul>
         </section>
 
         <section anchor='IANA'>
