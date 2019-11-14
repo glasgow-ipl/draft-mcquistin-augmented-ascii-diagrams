@@ -599,7 +599,7 @@
                         This is a fixed-width field, as previously defined.
                     </dd>
                     <dt>
-                        Time To Live (TTL): 1 byte.
+                        Time to Live (TTL): 1 byte.
                     </dt>
                     <dd>
                         This is a fixed-width field, as previously defined.
@@ -886,6 +886,17 @@
               and a way of referring to the size of the enclosing packet.
               The format cannot currently represent RFC 6716 section 3.2.3,
               and should be able to (the underlying type system can do so).
+            </li>
+            <li>
+              Need some discussion about the checks that the tooling might
+              perform, and the implications of those checks. For example,
+              the tooling checks for consistency between the diagram and
+              the description list of fields, ensuring that fields match
+              by name and width. -01 of this draft had a field that
+              mismatched because of case: is this something that the
+              tooling should identify? More broadly, what is the trade-off
+              between the rigour that the tooling can enforce, and the
+              flexibility desired/needed by authors?
             </li>
           </ul>
         </section>
