@@ -131,6 +131,10 @@
                 particular syntax of the format described, both a formal ABNF
                 specification and code that parses it (and, as described above, this
                 document) will be provided.
+                [todo: pointer to appendices]
+            </t>
+            <t>
+              [todo: highlight use of colons in examples that aren't parsed]
             </t>
 
             <figure anchor="quic-reset-stream">
@@ -274,6 +278,11 @@
                         in the same document. Structured text is required both alongside
                         the definition of the containing structure and with the definition
                         of the sub-structure, to allow a parser to link the two together.
+                      </t>
+                      <t>
+                        [todo: make a bigger point of protocol extensibility: current usage
+                         makes it difficult to see how structures/protocols change across
+                         documents]
                       </t>
                     </dd>
                 </dl>
@@ -434,6 +443,13 @@
                         tool that is simple to use and addresses the most common use
                         cases might be preferred to a complex tool that addresses all
                         use cases.
+                    </t>
+                    <t>
+                      [todo: widen this discussion to include the idea that there is a
+                       trade-off between expressiveness and the desired properties of
+                       generated parser code, in terms of computability, safety, and
+                       security. we might want to limit how expressive the language is,
+                       so as to generate instrinsicly safe parser code.]
                     </t>
                 </dd>
 
