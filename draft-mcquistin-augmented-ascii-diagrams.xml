@@ -129,9 +129,8 @@
             <t>
                 This draft describes early work. As consensus builds around the
                 particular syntax of the format described, both a formal ABNF
-                specification and code that parses it (and, as described above, this
-                document) will be provided.
-                [todo: pointer to appendices]
+                specification (<xref target="ABNF"/>) and code (<xref target="source"/>) that
+                parses it (and, as described above, this document) will be provided.
             </t>
             <t>
               [todo: highlight use of colons in examples that aren't parsed]
