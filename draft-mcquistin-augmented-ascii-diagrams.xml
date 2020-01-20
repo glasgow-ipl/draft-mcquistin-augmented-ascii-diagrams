@@ -456,11 +456,25 @@
                         use cases.
                     </t>
                     <t>
-                      [todo: widen this discussion to include the idea that there is a
-                       trade-off between expressiveness and the desired properties of
-                       generated parser code, in terms of computability, safety, and
-                       security. we might want to limit how expressive the language is,
-                       so as to generate instrinsicly safe parser code.]
+                        It may be desirable to restrict expressiveness, however, to
+                        guarantee intrinsic safety, security, and computability
+                        properties of both the generated parser code for the protocol,
+                        and the parser of the description language itself. In
+                        much the same way as the language-theoretic security
+                        (<xref target="LANGSEC"/>) community advocates for programming
+                        language design to be informed by the desired properties of
+                        the parsers for those languages, protocol designers should be
+                        aware of the implications of their design choices. The
+                        expressiveness of the description languages that they use to
+                        define their protocols can force such awareness.
+                    </t>
+                    <t>
+                        Broadly, those languages that are more expressive tend to
+                        have parsers that are more complex and less safe. As a
+                        result, while considering the other goals described in
+                        this document, description languages should attempt to be
+                        minimally expressive, and restrict protocol designs to
+                        those for which safe and secure parsers can be generated.
                     </t>
                 </dd>
 
@@ -1100,6 +1114,13 @@
                     <date month='September' year='1981' />
                 </front>
                 <seriesInfo name='RFC' value='793'/>
+            </reference>
+            <reference anchor="LANGSEC" target="http://langsec.org">
+                <front>
+                    <title>LANGSEC: Language-theoretic Security</title>
+                    
+                    <author fullname='LANGSEC'></author>
+                </front>
             </reference>
         </references>
 
