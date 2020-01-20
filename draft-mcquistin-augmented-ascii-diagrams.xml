@@ -279,11 +279,22 @@
                         the definition of the containing structure and with the definition
                         of the sub-structure, to allow a parser to link the two together.
                       </t>
-                      <t>
-                        [todo: make a bigger point of protocol extensibility: current usage
-                         makes it difficult to see how structures/protocols change across
-                         documents]
-                      </t>
+                    </dd>
+                    
+                    <dt>
+                        Lack of extension and evolution syntax:
+                    </dt>
+                    <dd>
+                        <t>
+                            Protocols are often specified across multiple documents, either
+                            because the protocol explicitly includes extension points (e.g.,
+                            profiles and payload format specifications in RTP
+                            <xref target="RFC3550"/>) or because definition of a protocol
+                            data unit has changed and evolved over time. As a result, it is
+                            essential that syntax be provided to allow for a complete
+                            definition of a protocol's parsing process to be constructed
+                            across multiple documents. 
+                        </t>
                     </dd>
                 </dl>
 
