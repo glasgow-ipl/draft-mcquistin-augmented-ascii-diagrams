@@ -549,7 +549,8 @@
                   parenthesis. These are followed by a colon, the field
                   length, an optional presence expression (described in
                   <xref target="ascii-xref"/>), and a terminating period. The following &lt;dd>
-                  tag contains a prose description of the field.
+                  tag contains a prose description of the field. Field names
+                  cannot be the same as a previously defined PDU name.
                 </t>
 
                 <t>
@@ -712,7 +713,7 @@
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                   Source Identifier (SSRC)                    |
+    |                               SSRC                            |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
               <t>
@@ -720,7 +721,7 @@
               </t>
               <dl>
                   <dt>
-                      Source Identifier (SSRC): 32 bits.
+                      SSRC: 32 bits.
                   </dt>
                   <dd>
                       This is a fixed-width field, as described previously.
@@ -810,22 +811,30 @@
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Synchronization Source identifier: 1 * SSRC.
+                        Synchronization Source identifier: 1 * Source Identifier.
                     </dt>
                     <dd>
-                      This is a field whose structure is a previously defined PDU format.
-                      To indicate this, the width of the field is expressed in terms of
-                      cross-referenced structure (here, Source Identifier). When used
-                      in constraint expressions, PDU names refer to the length of that PDU structure.
+                        This is a field whose structure is a previously defined PDU format (Source Identifier).
+                        To indicate this, the width of the field is expressed in terms of
+                        cross-referenced structure. When used in constraint expressions, PDU names refer to the
+                        length of that PDU structure.
                     </dd>
                     <dt>
-                        Contributing Source identifiers: CC * SSRC.
+                        Contributing Source identifiers: CC * Source Identifier.
                     </dt>
                     <dd>
-                      Where a field is comprised of a sequence of previously defined structures,
-                      square brackets can be used to indicate this in the diagram.  The length
-                      of the sequence can be defined using the constraint expression
-                      grammar as described earlier.
+                      <t>
+                        Where a field is comprised of a sequence of previously defined structures,
+                        square brackets can be used to indicate this in the diagram.  The length
+                        of the sequence can be defined using the constraint expression
+                        grammar as described earlier.
+                      </t>
+                      <t>
+                        In this example, both a PDU name (Source Identifier) and a field name (CC) are
+                        used in the constraint expression. The PDU name refers to the length of the
+                        PDU, while the field name refers to the value of the field. This is possible
+                        because field names cannot be the same as previously defined PDU names.
+                      </t>
                     </dd>
                     <dt>
                       Header Extension: 32 bits; present only when X == 1.
