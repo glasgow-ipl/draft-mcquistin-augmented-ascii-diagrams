@@ -547,7 +547,8 @@
                   Each field of the description starts with a &lt;dt> tag
                   comprising the field name and an optional short name in
                   parenthesis. These are followed by a colon, the field
-                  length, and a terminating period. The following &lt;dd>
+                  length, an optional presence expression (described in
+                  <xref target="ascii-xref"/>), and a terminating period. The following &lt;dd>
                   tag contains a prose description of the field.
                 </t>
 
@@ -835,7 +836,8 @@
                         on an expression given using the constraint expression grammar described
                         earlier.  Optional fields can be of any previously defined format (e.g.,
                         fixed- or variable-width).  Optional fields are indicated by the presence
-                        of a "Present only when [expr]." as the first line in their description.
+                        of "; present only when [expr]." at the end of the definition term (i.e.,
+                        the text contained within the &lt;dt> tag).
                       </t>
                       <t>
                         [Note that this example deviates from the format as described in
