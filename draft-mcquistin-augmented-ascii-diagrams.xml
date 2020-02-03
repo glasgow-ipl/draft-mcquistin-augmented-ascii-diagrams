@@ -465,14 +465,14 @@
                         language design to be informed by the desired properties of
                         the parsers for those languages, protocol designers should be
                         aware of the implications of their design choices. The
-                        expressiveness of the description languages that they use to
+                        expressiveness of the protocol description languages that they use to
                         define their protocols can force such awareness.
                     </t>
                     <t>
                         Broadly, those languages that are more expressive tend to
                         have parsers that are more complex and less safe. As a
                         result, while considering the other goals described in
-                        this document, description languages should attempt to be
+                        this document, protocol description languages should attempt to be
                         minimally expressive, and restrict protocol designs to
                         those for which safe and secure parsers can be generated.
                     </t>
