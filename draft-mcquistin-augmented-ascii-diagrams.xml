@@ -125,15 +125,15 @@
             <t>
                 This document is itself an example of the approach that it describes, with
                 the packet header diagrams and structured text format described by example.
+                Examples that do not form part of the protocol description language are
+                marked by a colon at the beginning of each line; this prevents them from
+                being parsed by the accompanying tooling.
             </t>
             <t>
                 This draft describes early work. As consensus builds around the
                 particular syntax of the format described, both a formal ABNF
                 specification (<xref target="ABNF"/>) and code (<xref target="source"/>) that
                 parses it (and, as described above, this document) will be provided.
-            </t>
-            <t>
-              [todo: highlight use of colons in examples that aren't parsed]
             </t>
 
             <figure anchor="quic-reset-stream">
@@ -279,7 +279,7 @@
                         of the sub-structure, to allow a parser to link the two together.
                       </t>
                     </dd>
-                    
+
                     <dt>
                         Lack of extension and evolution syntax:
                     </dt>
@@ -292,7 +292,7 @@
                             data unit has changed and evolved over time. As a result, it is
                             essential that syntax be provided to allow for a complete
                             definition of a protocol's parsing process to be constructed
-                            across multiple documents. 
+                            across multiple documents.
                         </t>
                     </dd>
                 </dl>
@@ -1117,7 +1117,7 @@
             <reference anchor="LANGSEC" target="http://langsec.org">
                 <front>
                     <title>LANGSEC: Language-theoretic Security</title>
-                    
+
                     <author fullname='LANGSEC'></author>
                 </front>
             </reference>
