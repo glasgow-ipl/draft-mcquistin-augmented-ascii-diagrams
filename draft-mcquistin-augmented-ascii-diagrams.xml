@@ -348,7 +348,7 @@
             <name>Design Principles</name>
             <t>
                 The use of structures that are designed to support machine readability
-                may potentially interfere with the existing ways in which protocol
+                might potentially interfere with the existing ways in which protocol
                 specifications are used and authored. To the extent that these existing uses
                 are more important than machine readability, such interference must be
                 minimised.
