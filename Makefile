@@ -57,6 +57,7 @@ all: $(TOOLS) $(PDF_FILES) $(TXT_FILES)
 
 %.txt: %.xml
 	xml2rfc --text --v3 $<
+	@egrep -ns --colour "\\bmust|required|shall|should|recommended|may|optional|FIXME\\b" $< || true
 
 # =================================================================================================
 # Rules to clean-up.
