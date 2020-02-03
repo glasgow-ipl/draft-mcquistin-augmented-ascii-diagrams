@@ -928,6 +928,23 @@
                 </dl>
             </section>
 
+            <section anchor='ascii-import'>
+                <name>Importing PDU Definitions from Other Documents</name>
+                <t>
+                  Protocols are often specified across multiple documents, either because
+                  the specification of a protocol's data units has changed over time, or
+                  because of explicit extension points contained in the protocol's original
+                  specification. To allow a document to make use of a previous PDU definition,
+                  it is possible to import PDU definitions (written in the format described in
+                  this document) from other documents.
+                </t>
+                <t>
+                  A PDU definition is imported using the exact phrase "A/An ________ is formatted as
+                  described in &lt;document identifier>". The document identifier must refer, unambiguously,
+                  to an existing document. An Internet-Draft is identified by its name. RFCs are identified by
+                  "RFC" followed by their number.
+                </t>
+            </section>
         </section>
 
         <section anchor="issues">
@@ -949,6 +966,10 @@
               tooling should identify? More broadly, what is the trade-off
               between the rigour that the tooling can enforce, and the
               flexibility desired/needed by authors?
+            </li>
+            <li>
+              Need to describe the rules governing the import of PDU definitions
+              from other documents.
             </li>
           </ul>
         </section>
