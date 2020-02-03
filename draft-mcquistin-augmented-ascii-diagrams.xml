@@ -605,19 +605,19 @@
                         Differentiated Services Code Point (DSCP): 6 bits.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Explicit Congestion Notification (ECN): 2 bits.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Total Length (TL): 2 bytes.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined. Where
+                        This is a fixed-width field, as previously discussed. Where
                         fields are an integral number of bytes in size, the field
                         length can be given in bytes rather than in bits.
                     </dd>
@@ -625,49 +625,49 @@
                         Identification: 2 bytes.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Flags: 3 bits.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Fragment Offset: 13 bits.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Time to Live (TTL): 1 byte.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Protocol: 1 byte.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Header Checksum: 2 bytes.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Source Address: 32 bits.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Destination Address: 32 bits.
                     </dt>
                     <dd>
-                        This is a fixed-width field, as previously defined.
+                        This is a fixed-width field, as previously discussed.
                     </dd>
                     <dt>
                         Options: (IHL-5)*32 bits.
