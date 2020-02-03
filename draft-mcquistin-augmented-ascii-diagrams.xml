@@ -421,7 +421,7 @@
                     <t>
                         As far as possible, machine-readable structures should not
                         replicate the human readable specification of the protocol
-                        within the same document. Such structures should form part
+                        within the same document. Machine-readable structures should form part
                         of a canonical specification of the protocol. Adding supplementary
                         machine-readable structures, in parallel to the existing
                         human readable text, is undesirable because it creates
