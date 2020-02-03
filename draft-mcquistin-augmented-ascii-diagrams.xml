@@ -711,7 +711,7 @@
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                      Source Identifier                        |
+    |                   Source Identifier (SSRC)                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
               <t>
@@ -719,7 +719,7 @@
               </t>
               <dl>
                   <dt>
-                      Source Identifier: 32 bits.
+                      Source Identifier (SSRC): 32 bits.
                   </dt>
                   <dd>
                       This is a fixed-width field, as described previously.
@@ -809,7 +809,7 @@
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Synchronization Source identifier: 1 * Source Identifier.
+                        Synchronization Source identifier: 1 * SSRC.
                     </dt>
                     <dd>
                       This is a field whose structure is a previously defined PDU format.
@@ -818,7 +818,7 @@
                       in constraint expressions, PDU names refer to the length of that PDU structure.
                     </dd>
                     <dt>
-                        Contributing Source identifiers: CC * Source Identifier.
+                        Contributing Source identifiers: CC * SSRC.
                     </dt>
                     <dd>
                       Where a field is comprised of a sequence of previously defined structures,
@@ -866,7 +866,7 @@
                       Padding Count: 1 byte; present only when P == 1.
                     </dt>
                     <dd>
-                      This is a fixed-width field, as previously defined.
+                      This is a fixed-width field, as previously discussed.
                     </dd>
                 </dl>
             </section>
