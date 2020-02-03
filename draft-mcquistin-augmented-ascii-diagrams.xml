@@ -960,6 +960,16 @@
                 automatically derived from the specification can reduce the
                 likelihood of vulnerable implementations.
             </t>
+            <t>
+                As described in <xref target="designprinciples"/>, the expressiveness
+                of a protocol description language has implications for the safety,
+                security, and computability properties of the parser for the protocol
+                description language itself, and on the generated parser code for the
+                protocols described using it. The language-theoretic security (<xref target="LANGSEC" />)
+                community explores the security implications of programming language
+                design; the principles developed in that community should guide the
+                development of protocol description languages.
+            </t>
         </section>
 
         <section anchor='Acknowledgements'>
