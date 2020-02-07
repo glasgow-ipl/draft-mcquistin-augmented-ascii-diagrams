@@ -20,3 +20,8 @@ This requires that you have the necessary software installed.  See
 
 See the
 [guidelines for contributions](https://github.com/glasgow-ipl/draft-mcquistin-augmented-ascii-diagrams/blob/master/CONTRIBUTING.md).
+
+## Acknowledgements
+
+This work is funded by the UK Engineering and Physical Sciences Research
+Council, under grant EP/R04144X/1. See [more information about the project](https://github.com/glasgow-ipl/draft-mcquistin-augmented-ascii-diagrams/blob/master/FUNDING.md).
