@@ -1209,8 +1209,12 @@
         <section anchor='source'>
             <name>Source code repository</name>
             <t>
+                The source for this draft is available from
+                <eref target="https://github.com/glasgow-ipl/draft-mcquistin-augmented-ascii-diagrams" />.
+            </t>
+            <t>
                 The source code for tooling that can be used to parse this document is available
-                from <eref target="https://github.com/lumisota/improving-protocol-standards" />.
+                from <eref target="https://github.com/glasgow-ipl/ips-protodesc-code" />.
             </t>
         </section>
     </back>
