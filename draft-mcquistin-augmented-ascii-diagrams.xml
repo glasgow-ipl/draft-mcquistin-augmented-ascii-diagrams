@@ -487,7 +487,7 @@
                         result, while considering the other goals described in
                         this document, protocol description languages should attempt to be
                         minimally expressive, and restrict protocol designs to
-                        those for which safe and secure parsers can be generated.
+                        those for which safe and secure parsers can be generated <xref target="SASSAMAN" />.
                     </t>
                 </dd>
 
@@ -1183,6 +1183,17 @@
 
                     <author fullname='LANGSEC'></author>
                 </front>
+            </reference>
+            <reference anchor="SASSAMAN" target="https://www.usenix.org/publications/login/december-2011-volume-36-number-6/halting-problems-network-stack-insecurity">
+                <front>
+                    <title>The Halting Problems of Network Stack Insecurity</title>
+
+                    <author initials='L' surname='Sassaman' fullname='Len Sassaman'><organization /></author>
+                    <author initials='M. L' surname='Patterson' fullname='Meredith L. Patterson'><organization /></author>
+                    <author initials='S' surname='Bratus' fullname='Sergey Bratus'><organization /></author>
+                    <author initials='A' surname='Shubina' fullname='Anna Shubina'><organization /></author>
+                </front>
+                <refcontent>;login: -- December 2011, Volume 36, Number 6</refcontent>
             </reference>
         </references>
 
