@@ -482,12 +482,14 @@
                         define their protocols can force such awareness.
                     </t>
                     <t>
-                        Broadly, those languages that are more expressive tend to
+                        Broadly, those languages that have grammars which are more expressive tend to
                         have parsers that are more complex and less safe. As a
                         result, while considering the other goals described in
                         this document, protocol description languages should attempt to be
-                        minimally expressive, and restrict protocol designs to
-                        those for which safe and secure parsers can be generated <xref target="SASSAMAN" />.
+                        minimally expressive, and either restrict protocol designs to
+                        those for which safe and secure parsers can be generated, or
+                        at least make protocol designers aware of the boundaries their
+                        designs cross, in terms of computability and decideability <xref target="SASSAMAN" />.
                     </t>
                 </dd>
 
