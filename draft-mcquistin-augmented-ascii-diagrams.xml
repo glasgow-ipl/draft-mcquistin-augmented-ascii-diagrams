@@ -133,7 +133,7 @@
                 of protocol headers to be fully specified. This provides support for the
                 automatic generation of parser code. Broad design principles, that seek
                 to maintain the primacy of human readability and flexibility in
-                authorship, are described, before the format itself is given.
+                writing, are described, before the format itself is given.
             </t>
             <t>
                 This document is itself an example of the approach that it describes, with
@@ -407,11 +407,11 @@
                 </dd>
 
                 <dt>
-                    Authorship tools are diverse:
+                    Writing tools are diverse:
                 </dt>
                 <dd>
                     <t>
-                        Authorship is a distributed process that involves a diverse set of
+                        Standards document writing is a distributed process that involves a diverse set of
                         tools and workflows. The introduction of machine-readable
                         structures into specifications should not require that specific tools are
                         used to produce standards documents, to ensure that disruption to
@@ -514,7 +514,7 @@
                 The design principles described in <xref target="designprinciples"/> can
                 largely be met by the existing uses of packet header diagrams. These
                 diagrams aid human readability, do not require new or specialised
-                authorship tools, do not split the specification into multiple parts,
+                tools to write, do not split the specification into multiple parts,
                 can express most binary protocol features, and require no changes to
                 existing publication processes.
             </t>
