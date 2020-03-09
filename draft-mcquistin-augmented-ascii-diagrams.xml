@@ -566,13 +566,20 @@
                 </t>
 
                 <t>
+                  PDU names must be unique, both within a document, and across
+                  all documents that are linked together (i.e., using the
+                  structured language defined in <xref target="ascii-import" />).
+                </t>
+
+                <t>
                   Each field of the description starts with a &lt;dt> tag
                   comprising the field name and an optional short name in
                   parenthesis. These are followed by a colon, the field
                   length, an optional presence expression (described in
                   <xref target="ascii-xref"/>), and a terminating period. The following &lt;dd>
                   tag contains a prose description of the field. Field names
-                  cannot be the same as a previously defined PDU name.
+                  cannot be the same as a previously defined PDU name, and must
+                  be unique within a given structure definition.
                 </t>
 
                 <t>
