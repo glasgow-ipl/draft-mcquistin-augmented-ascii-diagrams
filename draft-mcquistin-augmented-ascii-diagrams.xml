@@ -542,8 +542,15 @@
                   the size of a field is either derived from the value of
                   some previous field, or is unspecified and inferred from
                   the total size of the packet and the size of the other
-                  fields. A packet can contain only one unspecified length
-                  field, to ensure there is no ambiguity.
+                  fields.
+                </t>
+
+                <t>
+                  To ensure that there is no ambiguity, a PDU description
+                  can contain only one field whose length is unspecified.
+                  The length of a single field, where all other fields are
+                  of known (but perhaps variable) length, can be inferred
+                  from the total size of the containing PDU.
                 </t>
 
                 <t>
