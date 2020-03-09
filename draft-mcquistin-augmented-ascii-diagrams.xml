@@ -488,8 +488,8 @@
                         this document, protocol description languages should attempt to be
                         minimally expressive, and either restrict protocol designs to
                         those for which safe and secure parsers can be generated, or
-                        at least make protocol designers aware of the boundaries their
-                        designs cross, in terms of computability and decideability <xref target="SASSAMAN" />.
+                        as a minimum, ensure that protocol designers are aware of the boundaries their
+                        designs cross, in terms of computability and decidability <xref target="SASSAMAN" />.
                     </t>
                 </dd>
 
