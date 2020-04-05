@@ -957,6 +957,105 @@
                 </dl>
             </section>
 
+            <section anchor='ascii-value_constraints'>
+                <name>PDUs with Constraints on Field Values</name>
+                <t>
+                    A PDU may be defined not only by the layout and type of
+                    its fields, but also by the value of those fields. For
+                    example, field values may be constrained to be of a
+                    known exact value or to be within a range. More generally,
+                    our format enables a boolean expression to be attached to
+                    a field, which must be true for the PDU to be parsed
+                    successfully.
+                </t>
+                <t>
+                  This format is illustrated using the QUIC Long Header Packet format
+                  <xref target="QUIC-TRANSPORT"/>.
+                  A Long Header packet is formatted as follows:
+                </t>
+                <artwork>
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+
+   |1|1| T |   X   |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                             Version                           |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |   DCID Len    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                   Destination Connection ID                 ...
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |   SCID Len    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                      Source Connection ID                   ...
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                </artwork>
+                <t>
+                    where:
+                </t>
+                <dl>
+                    <dt>
+                        Header Form (HF): 1 bit; HF == 1.
+                    </dt>
+                    <dd>
+                        <t>
+                            This is a fixed-width field, constrained to be a of an known, exact value. At most one field value constraint may be given, and if provided, it must be given as a boolean expression, separated by a semi-colon in the field definition name (i.e., the text contained within the &lt;dt> tag). If present, a value constraint must follow the name, short name, and length of the field, but appear before any presence constraint, if applicable.
+                        </t>
+                        <t>
+                            The order of the field must be the same in both the diagram and description list.
+                        </t>
+                    </dd>
+                    <dt>
+                        Fixed Bit (FB): 1 bit; FB == 1.
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, with a value constraint, as previously described.
+                    </dd>
+                    <dt>
+                        Long Packet Type (T): 2 bits.
+                    </dt>
+                    <dd>
+                        This is a fixed-width field as previously described.
+                    </dd>
+                    <dt>
+                        Type-Specific Bits (X): 4 bits.
+                    </dt>
+                    <dd>
+                        This is a fixed-width field as previously described.
+                    </dd>
+                    <dt>
+                        Version: 32 bits.
+                    </dt>
+                    <dd>
+                        This is a fixed-width field as previously described.
+                    </dd>
+                    <dt>
+                        DCID Len (DLen): 1 byte; DLen &lt;= 20.
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, with a value constraint, as previously described. Note that the constraint language is not limited to equality; it is defined fully in <xref target="ABNF-constraints"/>.
+                    </dd>
+                    <dt>
+                        Destination Connection ID: (DCID Len) bytes.
+                    </dt>
+                    <dd>
+                        This is a variable-width field as previously described.
+                    </dd>
+                    <dt>
+                        SCID Len (SLen): 1 byte; SLen &lt;= 20.
+                    </dt>
+                    <dd>
+                        This is a fixed-width field, with a value constraint, as previously described.
+                    </dd>
+                    <dt>
+                        Source Connection ID: (SCID Len) bytes.
+                    </dt>
+                    <dd>
+                        This is a variable-width field as previously described.
+                    </dd>
+                </dl>
+            </section>
+    
             <section anchor='ascii-import'>
                 <name>Importing PDU Definitions from Other Documents</name>
                 <t>
@@ -1062,17 +1161,17 @@
                 </front>
                 <seriesInfo name='RFC' value='8357'/>
             </reference>
-            <reference anchor="QUIC-TRANSPORT" target="http://www.ietf.org/internet-drafts/draft-ietf-quic-transport-20.txt">
+            <reference anchor="QUIC-TRANSPORT" target="http://www.ietf.org/internet-drafts/draft-ietf-quic-transport-27.txt">
                 <front>
                     <title>QUIC: A UDP-Based Multiplexed and Secure Transport</title>
 
                     <author initials='J' surname='Iyengar' fullname='Jana Iyengar'><organization /></author>
                     <author initials='M' surname='Thomson' fullname='Martin Thomson'><organization /></author>
 
-                    <date month='April' day='23' year='2019' />
+                    <date month='February' day='21' year='2020' />
                 </front>
 
-                <seriesInfo name='Internet-Draft' value='draft-ietf-quic-transport-20' />
+                <seriesInfo name='Internet-Draft' value='draft-ietf-quic-transport-27' />
             </reference>
             <reference anchor="RFC6958" target="https://www.rfc-editor.org/info/rfc6958">
                 <front>
