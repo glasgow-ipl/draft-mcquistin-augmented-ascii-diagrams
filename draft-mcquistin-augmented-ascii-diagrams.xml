@@ -1018,7 +1018,7 @@
                         This is a fixed-width field as previously described.
                     </dd>
                     <dt>
-                        Type-Specific Bits (X): 4 bits.
+                        Type Specific Bits (X): 4 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field as previously described.
@@ -1055,7 +1055,83 @@
                     </dd>
                 </dl>
             </section>
-    
+
+            <section anchor='ascii-enums'>
+                <name>Specifying Enumerated Types</name>
+                <t>
+                  In addition to the use of the sub-structures, it is desirable to be able to define a type that
+                  may take the value of one of a set of alternative structures.
+                </t>
+               <t>
+                  The alternative structures that comprise an enumerated type are identified using the exact phrase "The &lt;enumerated type name>
+                   is one of: &lt;list of structure names>" where the list of structure names is a comma
+                  separated list (with the last element, if there is more than one element, preceded by 'or'),
+                  each optionally preceded by "a" or "an". The structure names must be defined within the document or a linked document.
+                </t>
+                <t>A PING Frame is formatted as follows:</t>
+                <artwork>
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |       1       |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                </artwork>
+                <t>
+                   where:
+                </t>
+                <dl>
+                   <dt>
+                      Frame Type (FT): 1 * Variable-Length Integer Encoding; FT == 1.
+                   </dt>
+                   <dd>
+                      Frame type, set to 1 for PING frames.
+                   </dd>
+                </dl>
+               <t>A HANDSHAKE_DONE Frame is formatted as follows:</t>
+               <artwork>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|       30      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               </artwork>
+               <t>
+                  where:
+               </t>
+               <dl>
+                  <dt>
+                     Frame Type (FT): 1 * Variable-Length Integer Encoding; FT == 30.
+                  </dt>
+                  <dd>
+                     Frame type, set to 30 for HANDSHAKE_DONE frames.
+                  </dd>
+               </dl>
+               <t>
+                  A Frame is one of: a PING Frame, or a HANDSHAKE_DONE Frame.
+               </t>
+            </section>
+ 
+            <section anchor='ascii-pdus'>
+                <name>Specifying Protocol Data Units</name>
+                <t>
+                  A document will set out different structures that are not, on their own, protocol data units.
+                  To capture the parsing or serialisation of a protocol, it is necessary to be able to identify
+                  or construct those packets that are valid PDUs. As a result, it is necessary for the document
+                  to identify those structures that are PDUs.
+                </t>
+                <t>
+                  The PDUs that comprise a protocol are identified using the exact phrase "The &lt;protocol name>
+                  protocol has the following PDUs: &lt;list of PDU names>" where the list of PDU names is a comma
+                  separated list (with the last element, if there is more than one element, preceded by 'or'),
+                  each optionally preceded by "a" or "an". The PDU names must be structure names defined in the
+                  document or a linked document. A document must contain exactly one instance of this phrase.
+                </t>
+                <t>
+                  The Example protocol has the following PDUs: a Long Header, a STUN Message Type, an IPv4 Header,
+                  and an RTP Data Packet.
+                </t>
+            </section>
+
             <section anchor='ascii-import'>
                 <name>Importing PDU Definitions from Other Documents</name>
                 <t>
