@@ -971,7 +971,7 @@
                 <t>
                   This format is illustrated using the QUIC Long Header Packet format
                   <xref target="QUIC-TRANSPORT"/>.
-                  A Long Header packet is formatted as follows:
+                  A Long Header is formatted as follows:
                 </t>
                 <artwork>
     0                   1                   2                   3
@@ -1056,6 +1056,76 @@
                 </dl>
             </section>
 
+            <section anchor='ascii-extendstructures'>
+             <name>PDUs That Extend Sub-Structures</name>
+             <t>
+                A PDU may not only use or reference existing sub-structures, but they
+                may extend them, adding new fields, or enforcing different or additional constraints.
+             </t>
+             <t>
+               Where a sub-structure is extended, the diagram may show the sub-structure as
+               a block, labelled with the sub-structure name. It may also be desirable to
+               show the sub-structure diagram in full; in this case, the fields must be
+               given in the same order and be of the same length. New field constraints
+               can be shown. Similarly, in the description list, those fields inherited
+               without change (i.e., with no change to their constraints) do not need to
+               be repeated. Those with different or additional constraints must be described,
+               and the order of the fields in the description list must match that of the
+               sub-structure and the containing structure.
+             </t>
+             <t>
+               This format is illustrated using the QUIC Retry Packet format
+               <xref target="QUIC-TRANSPORT"/>.
+               A Retry Packet is formatted as follows:</t>
+               <artwork>
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               :
+ :                          Long Header                          :
+ :                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                          Retry Token                        ...
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ +                                                               +
+ |                                                               |
+ +                     Retry Integrity Tag                       +
+ |                                                               |
+ +                                                               +
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               </artwork>
+               <t>
+                  where:
+               </t>
+               <dl>
+                  <dt>
+                     Long Packet Type (T): 2 bits; T == 3.
+                  </dt>
+                  <dd>
+                     A Retry packet uses long headers with a type value of 0x3.
+                  </dd>
+                  <dt>
+                     Retry Token
+                  </dt>
+                  <dd>
+                     An opaque token that the server can use to validate the client's address.
+                  </dd>
+                  <dt>
+                     Retry Integrity Tag: 128 bits.
+                  </dt>
+                  <dd>
+                     Retry Integrity Tag field.
+                  </dd>
+               </dl>
+               <t>
+                 As shown, the Long Header packet sub-structure is included. The Retry Packet enforces
+                 a new value constraint on the Long Packet Type (T) field. For brevity, and to highlight
+                 what has changed, the other unchanged fields are not repeated.
+               </t>
+            </section>
+            
             <section anchor='ascii-enums'>
                 <name>Specifying Enumerated Types</name>
                 <t>
