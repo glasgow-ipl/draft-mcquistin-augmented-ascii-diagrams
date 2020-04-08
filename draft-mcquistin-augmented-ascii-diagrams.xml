@@ -1125,7 +1125,54 @@
                  what has changed, the other unchanged fields are not repeated.
                </t>
             </section>
-            
+
+            <section anchor='ascii-functions'>
+              <name>Connecting Structures with Functions</name>
+              <t>
+                The parsing or serialisation of some binary formats cannot be fully described without
+                the use of functions. These functions take arguments (values from another structure),
+                perform some computation, and generate a new structure.
+              </t>
+              <t>
+                Given the goal of fully capturing the parsing or serialisation of binary protocols, it
+                is necessary to include the signature of these helper functions.
+              </t>
+              <t>
+                Function signatures are described in &lt;artwork> elements. They are constructed as
+                the word "func", followed by a space, then the name of the function. This is immediately
+                followed by a set of brackets containing a comma separated list of the function's parameters,
+                formatted as "&lt;parameter name>: &lt;parameter type>". This is followed by "->"
+                and the return type of the function, followed by a colon. 
+              </t>
+              <t>
+                The body of the function is not captured, owing to the complexity of both capturing and translating
+                arbitrary code. As a result, it can be described in whichever format is most suitable for the
+                document and its readership.
+              </t>
+              <t>
+                As an example, the "apply_protection" function is defined as:
+              </t>
+            <artwork>
+func apply_protection(first_byte: BitString,
+                      packet_number: BitString,
+                      payload: BitString)      -> Protected Packet:
+   apply packet protection to payload
+   apply header protection to first_byte and packet_number
+   construct appropriate Protected Packet based on first_byte
+   return Protected Packet
+            </artwork>
+            <t>
+              In this example, 'Protected Packet' is an existing type. BitString is a generic bitstring type, of
+              undefined length. The BitString type may be used implicitly in all documents.
+            </t>
+            <t>
+              To indicate that a structure is created from another by way of a helper function: "A/An
+              &lt;structure type A> is constructed from a &lt;structure type B> using the &lt;function name>(&lt;parameters>) function.".
+              This indicates that a structure of type A is generated using the named function. The parameters in the function call are named
+              fields from structure type B. They must match the function signature, both in number and type.
+            </t>
+            </section>
+
             <section anchor='ascii-enums'>
                 <name>Specifying Enumerated Types</name>
                 <t>
