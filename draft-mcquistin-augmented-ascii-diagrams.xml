@@ -974,21 +974,21 @@
                   A Long Header is formatted as follows:
                 </t>
                 <artwork>
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+
-   |1|1| T |   X   |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                             Version                           |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   DCID Len    |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                   Destination Connection ID                 ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   SCID Len    |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                      Source Connection ID                   ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+
+|1|1| T | R | P |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             Version                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    DCID Len   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                 Destination Connection ID (DCID)            ...
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    SCID Len   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                  Source Connection ID (SCID)                ...
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                 </artwork>
                 <t>
                     where:
@@ -1018,7 +1018,13 @@
                         This is a fixed-width field as previously described.
                     </dd>
                     <dt>
-                        Type Specific Bits (X): 4 bits.
+                        Reserved Bits (R): 2 bits.
+                    </dt>
+                    <dd>
+                        This is a fixed-width field as previously described.
+                    </dd>
+                    <dt>
+                        Packet Number Length (P): 2 bits.
                     </dt>
                     <dd>
                         This is a fixed-width field as previously described.
@@ -1036,7 +1042,7 @@
                         This is a fixed-width field, with a value constraint, as previously described. Note that the constraint language is not limited to equality; it is defined fully in <xref target="ABNF-constraints"/>.
                     </dd>
                     <dt>
-                        Destination Connection ID: (DCID Len) bytes.
+                        Destination Connection ID: DLen bytes.
                     </dt>
                     <dd>
                         This is a variable-width field as previously described.
@@ -1048,7 +1054,7 @@
                         This is a fixed-width field, with a value constraint, as previously described.
                     </dd>
                     <dt>
-                        Source Connection ID: (SCID Len) bytes.
+                        Source Connection ID: SLen bytes.
                     </dt>
                     <dd>
                         This is a variable-width field as previously described.
@@ -1101,29 +1107,64 @@
                </t>
                <dl>
                   <dt>
-                     Long Packet Type (T): 2 bits; T == 3.
+                    Long Header (LH): 1 Long Header; LH.T == 3.
                   </dt>
                   <dd>
-                     A Retry packet uses long headers with a type value of 0x3.
+                    This field is a previously defined sub-structure. Its constraints can access fields in that sub-structure. In this example, the T field of the Long Header must be equal to 3.
                   </dd>
                   <dt>
                      Retry Token
                   </dt>
                   <dd>
-                     An opaque token that the server can use to validate the client's address.
+                    This is a variable-length field as previously defined.
                   </dd>
                   <dt>
-                     Retry Integrity Tag: 128 bits.
+                    Retry Integrity Tag: 128 bits.
                   </dt>
                   <dd>
-                     Retry Integrity Tag field.
+                    This is a fixed-width field as previously defined.
                   </dd>
                </dl>
                <t>
                  As shown, the Long Header packet sub-structure is included. The Retry Packet enforces
-                 a new value constraint on the Long Packet Type (T) field. For brevity, and to highlight
-                 what has changed, the other unchanged fields are not repeated.
+                 a new value constraint on the Long Packet Type (T) field.
                </t>
+            </section>
+
+            <section anchor='ascii-store'>
+                <name>Storing Data for Parsing</name>
+                <t>
+                  The parsing process may require data from previously parsed structures. This means that
+                  data needs to be stored persistently throughout the process. This data needs to be
+                  identified.
+                </t>
+                <t>
+                  That the value of a particular field be stored upon parsing is indicated by the exact phrase "On receipt, the value of &lt;field name> is stored as &lt;stored name>." being present at the end of the description of a field (i.e., at the end of the &lt;dd> element.)
+              </t>
+                <t>An Initial Packet is formatted as follows:</t>
+                <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                                               :
+  :                          Long Header                          :
+  :                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                </artwork>
+                <t>
+                   where:
+                </t>
+                <dl>
+                   <dt>
+                      Long Header (LH): 1 Long Header; LH.T == 0.
+                   </dt>
+                   <dd>
+                      This is field is a sub-structure, with a constraint, as previously defined. On receipt, the value of LH.DCID is stored as Initial DCID.
+                   </dd>
+               </dl>
+                <t>
+                  In this example, the value of the DCID field of the Long Header sub-structure is stored as Initial DCID.
+                </t>
             </section>
 
             <section anchor='ascii-functions'>
@@ -1142,7 +1183,7 @@
                 the word "func", followed by a space, then the name of the function. This is immediately
                 followed by a set of brackets containing a comma separated list of the function's parameters,
                 formatted as "&lt;parameter name>: &lt;parameter type>". This is followed by "->"
-                and the return type of the function, followed by a colon. 
+                and the return type of the function, followed by a colon.
               </t>
               <t>
                 The body of the function is not captured, owing to the complexity of both capturing and translating
@@ -1150,23 +1191,24 @@
                 document and its readership.
               </t>
               <t>
+                  Those values that are stored persistently, as defined in <xref target="ascii-store"/>, are accessible by functions.
+            </t>
+              <t>
                 As an example, the "apply_protection" function is defined as:
               </t>
             <artwork>
-func apply_protection(first_byte: BitString,
-                      packet_number: BitString,
-                      payload: BitString)      -> Protected Packet:
+func apply_protection(to: Unprotected Packet)
+                -> Protected Packet:
    apply packet protection to payload
    apply header protection to first_byte and packet_number
    construct appropriate Protected Packet based on first_byte
    return Protected Packet
             </artwork>
             <t>
-              In this example, 'Protected Packet' is an existing type. BitString is a generic bitstring type, of
-              undefined length. The BitString type may be used implicitly in all documents.
+              In this example, 'Unprotected Packet' and 'Protected Packet' are existing types.
             </t>
             <t>
-              To indicate that a structure is created from another by way of a helper function: "A/An
+              To indicate that a structure is created from another by way of a function: "A/An
               &lt;structure type A> is constructed from a &lt;structure type B> using the &lt;function name>(&lt;parameters>) function.".
               This indicates that a structure of type A is generated using the named function. The parameters in the function call are named
               fields from structure type B. They must match the function signature, both in number and type.
@@ -1184,6 +1226,9 @@ func apply_protection(first_byte: BitString,
                    is one of: &lt;list of structure names>" where the list of structure names is a comma
                   separated list (with the last element, if there is more than one element, preceded by 'or'),
                   each optionally preceded by "a" or "an". The structure names must be defined within the document or a linked document.
+                </t>
+                <t>
+                    Where an enumerated type has only two variants, an alternative phrase can be used: "The &lt;enumerated type name> is either a &lt;variant 1 name> or &lt;variant 2 name>". The names of the variants must be defined within the document or a linked document.
                 </t>
                 <t>A PING Frame is formatted as follows:</t>
                 <artwork>
@@ -1224,10 +1269,10 @@ func apply_protection(first_byte: BitString,
                   </dd>
                </dl>
                <t>
-                  A Frame is one of: a PING Frame, or a HANDSHAKE_DONE Frame.
+                  A Frame is either a PING Frame or a HANDSHAKE_DONE Frame.
                </t>
             </section>
- 
+
             <section anchor='ascii-pdus'>
                 <name>Specifying Protocol Data Units</name>
                 <t>
@@ -1237,15 +1282,19 @@ func apply_protection(first_byte: BitString,
                   to identify those structures that are PDUs.
                 </t>
                 <t>
-                  The PDUs that comprise a protocol are identified using the exact phrase "The &lt;protocol name>
-                  protocol has the following PDUs: &lt;list of PDU names>" where the list of PDU names is a comma
-                  separated list (with the last element, if there is more than one element, preceded by 'or'),
-                  each optionally preceded by "a" or "an". The PDU names must be structure names defined in the
-                  document or a linked document. A document must contain exactly one instance of this phrase.
+                  The PDUs that comprise a protocol are identified using the
+                  exact phrase "This document describes the &lt;protocol name>
+                  protocol, The &lt;protocol name> protocol uses &lt;list of PDU
+                  names>" where the list of PDU names is a comma separated list
+                  (with the last element, if there is more than one element,
+                  preceded by 'and'), each optionally preceded by "a" or "an".
+                  The PDU names must be structure names defined in the document
+                  or a linked document. The PDU names are pluralised in the
+                  list. A document must contain exactly one instance of this
+                  phrase.
                 </t>
                 <t>
-                  The Example protocol has the following PDUs: a Long Header, a STUN Message Type, an IPv4 Header,
-                  and an RTP Data Packet.
+                  The Example protocol uses Long Headers, STUN Message Types, IPv4 Headers, and RTP Data Packets.
                 </t>
             </section>
 
