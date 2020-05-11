@@ -840,7 +840,7 @@
                         This is a fixed-width field, as described previously.
                     </dd>
                     <dt>
-                        Synchronization Source identifier: 1 * Source Identifier.
+                        Synchronization Source identifier: 1 Source Identifier.
                     </dt>
                     <dd>
                         This is a field whose structure is a previously defined PDU format (Source Identifier).
@@ -849,7 +849,7 @@
                         length of that PDU structure.
                     </dd>
                     <dt>
-                        Contributing Source identifiers: CC * Source Identifier.
+                        Contributing Source identifiers: CC Source Identifier.
                     </dt>
                     <dd>
                       <t>
@@ -894,8 +894,8 @@
                       in a PDU.
                     </dd>
                     <dt>
-                      Padding: Padding Count bytes; present only when (P == 1) and
-                      (Padding Count > 0).
+                      Padding: PC bytes; present only when (P == 1) &amp;&amp;
+                      (PC > 0).
                     </dt>
                     <dd>
                       This is a variable size field, with size dependent on a later
@@ -903,7 +903,7 @@
                       later field if they follow a field with unspecified size.
                     </dd>
                     <dt>
-                      Padding Count: 1 byte; present only when P == 1.
+                      Padding Count (PC): 1 byte; present only when P == 1.
                     </dt>
                     <dd>
                       This is a fixed-width field, as previously discussed.
@@ -998,12 +998,7 @@
                         Header Form (HF): 1 bit; HF == 1.
                     </dt>
                     <dd>
-                        <t>
-                            This is a fixed-width field, constrained to be a of an known, exact value. At most one field value constraint may be given, and if provided, it must be given as a boolean expression, separated by a semi-colon in the field definition name (i.e., the text contained within the &lt;dt> tag). If present, a value constraint must follow the name, short name, and length of the field, but appear before any presence constraint, if applicable.
-                        </t>
-                        <t>
-                            The order of the field must be the same in both the diagram and description list.
-                        </t>
+                            This is a fixed-width field, constrained to be a of an known, exact value. At most one field value constraint may be given, and if provided, it must be given as a boolean expression, separated by a semi-colon in the field definition name (i.e., the text contained within the &lt;dt> tag). If present, a value constraint must follow the name, short name, and length of the field, but appear before any presence constraint, if applicable. The order of the field must be the same in both the diagram and description list.
                     </dd>
                     <dt>
                         Fixed Bit (FB): 1 bit; FB == 1.
@@ -1294,7 +1289,7 @@ func apply_protection(to: Unprotected Packet)
                   phrase.
                 </t>
                 <t>
-                  The Example protocol uses Long Headers, STUN Message Types, IPv4 Headers, and RTP Data Packets.
+                  This document describes the Example protocol. The Example protocol uses Long Headers, STUN Message Types, IPv4 Headers, and RTP Data Packets.
                 </t>
             </section>
 
@@ -1315,6 +1310,7 @@ func apply_protection(to: Unprotected Packet)
                   "RFC" followed by their number.
                 </t>
             </section>
+
         </section>
 
         <section anchor="issues">
