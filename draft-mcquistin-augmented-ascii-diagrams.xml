@@ -856,7 +856,8 @@
                         Where a field is comprised of a sequence of previously defined structures,
                         square brackets can be used to indicate this in the diagram.  The length
                         of the sequence can be defined using the constraint expression
-                        grammar as described earlier.
+                        grammar as described earlier. Where the length is unknown, the type of each
+                        element of the sequence must be given in square brackets.
                       </t>
                       <t>
                         In this example, both a PDU name (Source Identifier) and a field name (CC) are
