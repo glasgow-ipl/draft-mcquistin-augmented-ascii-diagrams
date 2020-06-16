@@ -1249,7 +1249,7 @@ func apply_protection(to: Unprotected Packet)
                 </t>
                 <dl>
                    <dt>
-                      Frame Type (FT): 1 * Variable-Length Integer Encoding; FT == 1.
+                      Frame Type (FT): 1 Variable-Length Integer Encoding; FT == 1.
                    </dt>
                    <dd>
                       Frame type, set to 1 for PING frames.
@@ -1268,7 +1268,7 @@ func apply_protection(to: Unprotected Packet)
                </t>
                <dl>
                   <dt>
-                     Frame Type (FT): 1 * Variable-Length Integer Encoding; FT == 30.
+                     Frame Type (FT): 1 Variable-Length Integer Encoding; FT == 30.
                   </dt>
                   <dd>
                      Frame type, set to 30 for HANDSHAKE_DONE frames.
