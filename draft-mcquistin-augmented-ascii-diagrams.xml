@@ -1570,7 +1570,7 @@ func apply_protection(to: Unprotected Packet)
     expr      = *DIGIT / field-name /
                 field-name-ws / "(" expr ")"
 
-    field-name    = *ALPHA
+    field-name    = ALPHA *(ALPHA / DIGIT)
     field-name-ws = *(field-name " ")
 
     pow-op  = "^"
