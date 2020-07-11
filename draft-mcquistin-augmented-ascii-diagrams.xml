@@ -1466,6 +1466,16 @@ func apply_protection(to: Unprotected Packet)
                 </front>
                 <seriesInfo name='RFC' value='5234'/>
             </reference>
+            <reference anchor="RFC7405" target="https://www.rfc-editor.org/info/rfc7405">
+              <front>
+                <title>Case-Sensitive String Support in ABNF</title>
+                
+                <author initials='P' surname='Kyzivat' fullname='Paul Kyzivat'><organization /></author>
+                
+                <date month='December' year='2014' />
+              </front>
+              <seriesInfo name='RFC' value='7405'/>
+            </reference>
             <reference anchor="ASN1">
                 <front>
                     <title>ITU-T Recommendation X.680, X.681, X.682, and X.683</title>
@@ -1559,26 +1569,25 @@ func apply_protection(to: Unprotected Packet)
             <section anchor='ABNF-constraints'>
                 <name>Constraint Expressions</name>
                 <sourcecode type="abnf">
-    cond-expr = eq-expr "?" cond-expr ":" eq-expr
-    eq-expr   = bool-expr eq-op   bool-expr
-    bool-expr = ord-expr  bool-op ord-expr
-    ord-expr  = add-expr  ord-op  add-expr
-
-    add-expr  = mul-expr  add-op  mul-expr
-    mul-expr  = pow-expr  mul-op  pow-expr
-    pow-expr  = expr      pow-op  expr
-    expr      = *DIGIT / field-name /
-                field-name-ws / "(" expr ")"
-
-    field-name    = ALPHA *(ALPHA / DIGIT)
-    field-name-ws = *(field-name " ")
-
-    pow-op  = "^"
-    mul-op  = "*" / "/" / "%"
-    add-op  = "+" / "-"
-    ord-op  = "&lt;=" / "&lt;" / "&gt;=" / "&gt;"
-    bool-op = "&amp;&amp;" / "||" / "!"
-    eq-op   = "==" / "!="
+constant = %x31-39 *(%x30-39)  ; natural numbers without leading 0s
+short-name = ALPHA *(ALPHA / DIGIT / "-" / "_")
+name = short-name *(" " short-name)
+sp = [" "] ; optional space in expression
+bool-expr = "(" sp bool-expr sp ")" /
+           "!" sp bool-expr / 
+           bool-expr sp bool-op sp bool-expr /
+           bool-expr sp "?" sp expr sp ":" sp expr /
+           expr sp cmp-op sp expr
+bool-op = "&amp;&amp;" / "||"
+cmp-op = "==" / "!=" / "&lt;" / "&lt;=" / ">" / ">="
+expr = "(" sp expr sp ")" /
+      expr sp op sp expr /
+      bool-expr "?" expr ":" expr /
+      name / short-name "." short-name /
+      constant
+op = "+" / "-" / "*" / "/" / "%" / "^"
+length = expr sp unit / "[" sp name sp "]"
+unit = %s"bit" / %s"bits" / %s"byte" / %s"bytes" / name
                 </sourcecode>
             </section>
 
