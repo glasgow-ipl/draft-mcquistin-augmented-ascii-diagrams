@@ -1382,12 +1382,13 @@ func apply_protection(to: Unprotected Packet)
         <section anchor='Acknowledgements'>
             <name>Acknowledgements</name>
             <t>
-                The authors would like to thank David Southgate for preparing
-                a prototype implementation of some of the ideas described here.
+              The authors would like to thank Marc Petit-Huguenin for
+              extensive feedback on the draft, including work on formalising
+              the constraint syntax as given in <xref target="ABNF-constraints" />.
             </t>
             <t>
-                The authors would like to thank Marc Petit-Huguenin for
-                feedback on the draft.
+                The authors would like to thank David Southgate for preparing
+                a prototype implementation of some of the ideas described here.
             </t>
             <t>
                 This work has received funding from the UK Engineering and Physical
