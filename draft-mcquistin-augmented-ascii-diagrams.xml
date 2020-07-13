@@ -1249,7 +1249,7 @@ func apply_protection(to: Unprotected Packet)
                 </t>
                 <dl>
                    <dt>
-                      Frame Type (FT): 1 Variable-Length Integer Encoding; FT == 1.
+                      Frame Type (FT): 1 Variable-Length Integer Encoding; FT.T == 1.
                    </dt>
                    <dd>
                       Frame type, set to 1 for PING frames.
@@ -1268,7 +1268,7 @@ func apply_protection(to: Unprotected Packet)
                </t>
                <dl>
                   <dt>
-                     Frame Type (FT): 1 Variable-Length Integer Encoding; FT == 30.
+                     Frame Type (FT): 1 Variable-Length Integer Encoding; FT.T == 30.
                   </dt>
                   <dd>
                      Frame type, set to 30 for HANDSHAKE_DONE frames.
@@ -1290,7 +1290,7 @@ func apply_protection(to: Unprotected Packet)
                 <t>
                   The PDUs that comprise a protocol are identified using the
                   exact phrase "This document describes the &lt;protocol name>
-                  protocol, The &lt;protocol name> protocol uses &lt;list of PDU
+                  protocol. The &lt;protocol name> protocol uses &lt;list of PDU
                   names>" where the list of PDU names is a comma separated list
                   (with the last element, if there is more than one element,
                   preceded by 'and'), each optionally preceded by "a" or "an".
