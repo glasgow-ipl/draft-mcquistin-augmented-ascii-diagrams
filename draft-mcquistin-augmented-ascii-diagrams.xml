@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='US-ASCII'?>
-<rfc version='3' ipr='trust200902' submissionType='IETF' docName='draft-mcquistin-augmented-ascii-diagrams-07' category='exp'>
+<rfc version='3' ipr='trust200902' submissionType='IETF' docName='draft-mcquistin-augmented-ascii-diagrams-08' category='exp'>
     <front>
         <title abbrev='Augmented Packet Diagrams'>
             Describing Protocol Data Units with Augmented Packet Header Diagrams
         </title>
-        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-07' status="experimental" />
+        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-08' status="experimental" />
 
         <author fullname='Stephen McQuistin' initials='S.' surname='McQuistin'>
             <organization>University of Glasgow</organization>
@@ -948,7 +948,7 @@
                 </t>
                 <dl>
                     <dt>
-                        Method (M): 12 bits.
+                        Method (M): 12 bits (split fields).
                     </dt>
                     <dd>
                         This field is comprised of multiple sub-fields (M0 through
@@ -959,7 +959,7 @@
                         bit labelled with 0, and subsequent bits labelled in sequence.
                     </dd>
                     <dt>
-                        Class (C): 2 bits.
+                        Class (C): 2 bits (split fields).
                     </dt>
                     <dd>
                         This field follows the same format as M described above.
@@ -1118,7 +1118,7 @@
                     This field is a previously defined sub-structure. Its constraints can access fields in that sub-structure. In this example, the T field of the Long Header must be equal to 3.
                   </dd>
                   <dt>
-                     Retry Token
+                     Retry Token.
                   </dt>
                   <dd>
                     This is a variable-length field as previously defined.
@@ -1258,7 +1258,7 @@ func apply_protection(to: Unprotected Packet)
                 </t>
                 <dl>
                    <dt>
-                      Frame Type (FT): 1 Variable-Length Integer Encoding; FT.T == 1.
+                      Frame Type (FT): 1 Variable Length Integer Encoding; FT.T == 1.
                    </dt>
                    <dd>
                       Frame type, set to 1 for PING frames.
@@ -1277,7 +1277,7 @@ func apply_protection(to: Unprotected Packet)
                </t>
                <dl>
                   <dt>
-                     Frame Type (FT): 1 Variable-Length Integer Encoding; FT.T == 30.
+                     Frame Type (FT): 1 Variable Length Integer Encoding; FT.T == 30.
                   </dt>
                   <dd>
                      Frame type, set to 30 for HANDSHAKE_DONE frames.
