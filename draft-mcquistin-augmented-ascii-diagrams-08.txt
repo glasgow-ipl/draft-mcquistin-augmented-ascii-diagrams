@@ -863,7 +863,7 @@ Internet-Draft          Augmented Packet Diagrams          November 2020
 
    where:
 
-   Method (M): 12 bits (split fields).  This field is comprised of
+   Method (M): 12 bits (split field).  This field is comprised of
       multiple sub-fields (M0 through MB) as shown in the diagram.  That
       these sub-fields should be concatenated, after parsing, into a
       single field is indicated by their being labelled using the 'M'
@@ -871,7 +871,7 @@ Internet-Draft          Augmented Packet Diagrams          November 2020
       least significant bit labelled with 0, and subsequent bits
       labelled in sequence.
 
-   Class (C): 2 bits (split fields).  This field follows the same format
+   Class (C): 2 bits (split field).  This field follows the same format
       as M described above.
 
 4.4.  PDUs with Constraints on Field Values

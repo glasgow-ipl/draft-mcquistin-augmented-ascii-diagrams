@@ -948,7 +948,7 @@
                 </t>
                 <dl>
                     <dt>
-                        Method (M): 12 bits (split fields).
+                        Method (M): 12 bits (split field).
                     </dt>
                     <dd>
                         This field is comprised of multiple sub-fields (M0 through
@@ -959,7 +959,7 @@
                         bit labelled with 0, and subsequent bits labelled in sequence.
                     </dd>
                     <dt>
-                        Class (C): 2 bits (split fields).
+                        Class (C): 2 bits (split field).
                     </dt>
                     <dd>
                         This field follows the same format as M described above.
