@@ -583,12 +583,15 @@
                 <t>
                   Each field of the description starts with a &lt;dt> tag
                   comprising the field name and an optional short name in
-                  parenthesis. These are followed by a colon, the field
+		  parenthesis. These are followed by a colon, the field
                   length, an optional presence expression (described in
-                  <xref target="ascii-xref"/>), and a terminating period. The following &lt;dd>
-                  tag contains a prose description of the field. Field names
-                  cannot be the same as a previously defined PDU name, and must
-                  be unique within a given structure definition.
+		  <xref target="ascii-xref"/>), an optional comma separated
+		  list of directives that describe how to parse the field, and 
+		  a terminating period. Currently, only one parser directive 
+		  "split field" (described in <xref target='ascii-split'/>) is defined. 
+		  The following &lt;dd> tag contains a prose description of the field.
+		  Field names cannot be the same as a previously
+		  defined PDU name, and must be unique within a given structure definition.
                 </t>
 
                 <t>
@@ -928,7 +931,9 @@
                   non-contiguous bits. This is often to allow for backwards
                   compatibility with previous definitions of the same fields
                   in earlier documents: striping in this way allows for
-                  careful use of the possible range of values.
+		  careful use of the possible range of values. The parser
+		  directive "split field" is used to indicate the use
+		  of the same field name across mutiple bits. 
                 </t>
                 <t>
                   This format is illustrated using the STUN Message Type
