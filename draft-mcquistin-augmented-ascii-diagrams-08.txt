@@ -5,9 +5,15 @@
 Network Working Group                                       S. McQuistin
 Internet-Draft                                                   V. Band
 Intended status: Experimental                                   D. Jacob
+<<<<<<< HEAD
 Expires: 6 November 2021                                   C. S. Perkins
                                                    University of Glasgow
                                                               5 May 2021
+=======
+Expires: 31 May 2021                                       C. S. Perkins
+                                                   University of Glasgow
+                                                        27 November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
   Describing Protocol Data Units with Augmented Packet Header Diagrams
@@ -38,11 +44,19 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
+<<<<<<< HEAD
    This Internet-Draft will expire on 6 November 2021.
 
 Copyright Notice
 
    Copyright (c) 2021 IETF Trust and the persons identified as the
+=======
+   This Internet-Draft will expire on 31 May 2021.
+
+Copyright Notice
+
+   Copyright (c) 2020 IETF Trust and the persons identified as the
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +67,15 @@ Copyright Notice
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 1]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 1]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    extracted from this document must include Simplified BSD License text
@@ -109,9 +129,15 @@ Table of Contents
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 2]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 2]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    :    0                   1                   2                   3
@@ -165,9 +191,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 3]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 3]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    This draft describes early work.  As consensus builds around the
@@ -221,9 +253,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 4]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 4]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    :   The RESET_STREAM frame is as follows:
@@ -277,9 +315,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 5]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 5]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
       Protocol Error Code".  The use of an abbreviated name is suitable
@@ -333,9 +377,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 6]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 6]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
       result, it is essential that syntax be provided to allow for a
@@ -389,9 +439,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 7]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 7]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    In this section, the broad design principles that underpin the format
@@ -445,9 +501,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 8]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 8]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
       structures should not replicate the human readable specification
@@ -501,9 +563,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021                [Page 9]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                  [Page 9]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    Minimise required change:  Any approach should require as few changes
@@ -549,6 +617,7 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
    field, where all other fields are of known (but perhaps variable)
    length, can be inferred from the total size of the containing PDU.
 
+<<<<<<< HEAD
    A PDU description is introduced by the exact phrase "A/An _______ is
    formatted as follows" within a paragraph.  This is followed by the
    PDU description itself, as a packet diagram within an <artwork>
@@ -565,11 +634,34 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
    the diagram.  The description of the fields follows the diagram, as
    an XML list (either <dl> or hanging <list>), after a paragraph that
    begins with the text "where:".
+=======
+
+
+
+
+
+
+
+
+McQuistin, et al.          Expires 31 May 2021                 [Page 10]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+
+
+   A PDU description is introduced by the exact phrase "A/An _______ is
+   formatted as follows:" at the end of a paragraph.  This is followed
+   by the PDU description itself, as a packet diagram within an
+   <artwork> element in the XML representation, starting with a header
+   line to show the bit width of the diagram.  The description of the
+   fields follows the diagram, as an XML <dl> list, after a paragraph
+   containing the text "where:".
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
    PDU names must be unique, both within a document, and across all
    documents that are linked together (i.e., using the structured
    language defined in Section 4.10).
 
+<<<<<<< HEAD
    Each field is defined by a structured text definition and a prose
    description.  The structured text definition comprises the field name
    and an optional short name in parenthesis.  These are followed by a
@@ -582,6 +674,18 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
    given in the following <dd> element or within the same <t> element.
    Prose descriptions may include structured text (e.g., as defined in
    Section 4.6).
+=======
+   Each field of the description starts with a <dt> tag comprising the
+   field name and an optional short name in parenthesis.  These are
+   followed by a colon, the field length, an optional presence
+   expression (described in Section 4.2), an optional comma separated
+   list of directives that describe how to parse the field, and a
+   terminating period.  Currently, only one parser directive "split
+   field" (described in Section 4.3) is defined.  The following <dd> tag
+   contains a prose description of the field.  Field names cannot be the
+   same as a previously defined PDU name, and must be unique within a
+   given structure definition.
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
    For example, this can be illustrated using the IPv4 Header Format
    [RFC791].  An IPv4 Header is formatted as follows:
@@ -608,6 +712,7 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
    where:
 
+<<<<<<< HEAD
    Version (V): 4 bits.  This is a fixed-width field, whose full label
 
 
@@ -618,6 +723,17 @@ McQuistin, et al.        Expires 6 November 2021               [Page 11]
 Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
+=======
+
+
+
+McQuistin, et al.          Expires 31 May 2021                 [Page 11]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+
+
+   Version (V): 4 bits.  This is a fixed-width field, whose full label
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
       is shown in the diagram.  The field's width -- 4 bits -- is given
       in the label of the description list, separated from the field's
       label by a colon.
@@ -665,6 +781,7 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
       length is defined by the value of the field with short label IHL
       (Internet Header Length).  Constraint expressions can be used in
       place of constant values: the grammar for the expression language
+<<<<<<< HEAD
       is defined in Appendix A.1.  Constraints can include a previously
 
 
@@ -674,6 +791,17 @@ McQuistin, et al.        Expires 6 November 2021               [Page 12]
 Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
+=======
+
+
+
+McQuistin, et al.          Expires 31 May 2021                 [Page 12]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+
+
+      is defined in Appendix A.1.  Constraints can include a previously
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
       defined field's short or full label, where one has been defined.
       Short variable-length fields are indicated by "..." instead of a
       pipe at the end of the row.
@@ -724,10 +852,16 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 
 McQuistin, et al.        Expires 6 November 2021               [Page 13]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 13]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
         0                   1                   2                   3
@@ -781,9 +915,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 14]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 14]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
       field whose structure is a previously defined PDU format (Source
@@ -812,8 +952,12 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
       can be of any previously defined format (e.g., fixed- or variable-
       width).  Optional fields are indicated by the presence of ";
       present only when [expr]." at the end of the definition term
+<<<<<<< HEAD
       (i.e., the text contained within the <dt> tag or "hangText"
       attribute).
+=======
+      (i.e., the text contained within the <dt> tag).
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
       [Note that this example deviates from the format as described in
       [RFC3550].  As specified in that document, the Header Extension
@@ -823,9 +967,13 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
    Payload.  The length of the Payload is not specified, and hence needs
       to be inferred from the total length of the packet and the lengths
       of the known fields.  There can only be one field of unspecified
+<<<<<<< HEAD
       size in a PDU.  Fields where the length is not specified may also
       denote this with the phrase "variable length" in place of the
       length definition.
+=======
+      size in a PDU.
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
    Padding: PC bytes; present only when (P == 1) && (PC > 0).  This is a
       variable size field, with size dependent on a later field in the
@@ -837,9 +985,18 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 15]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+
+
+
+McQuistin, et al.          Expires 31 May 2021                 [Page 15]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
 4.3.  PDUs with Non-Contiguous Fields
@@ -848,7 +1005,12 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
    contiguous bits.  This is often to allow for backwards compatibility
    with previous definitions of the same fields in earlier documents:
    striping in this way allows for careful use of the possible range of
+<<<<<<< HEAD
    values.
+=======
+   values.  The parser directive "split field" is used to indicate the
+   use of the same field name across mutiple bits.
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
    This format is illustrated using the STUN Message Type
    [draft-ietf-tram-stunbis-21].  A STUN Message Type is formatted as
@@ -892,10 +1054,16 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 
 McQuistin, et al.        Expires 6 November 2021               [Page 16]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 16]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
     0                   1                   2                   3
@@ -920,11 +1088,19 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
       constrained to be a of an known, exact value.  At most one field
       value constraint may be given, and if provided, it must be given
       as a boolean expression, separated by a semi-colon in the field
+<<<<<<< HEAD
       definition name (i.e., the text contained within the <dt> tag or
       "hangText" attribute).  If present, a value constraint must follow
       the name, short name, and length of the field, but appear before
       any presence constraint, if applicable.  The order of the field
       must be the same in both the diagram and description list.
+=======
+      definition name (i.e., the text contained within the <dt> tag).
+      If present, a value constraint must follow the name, short name,
+      and length of the field, but appear before any presence
+      constraint, if applicable.  The order of the field must be the
+      same in both the diagram and description list.
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
    Fixed Bit (FB): 1 bit; FB == 1.  This is a fixed-width field, with a
       value constraint, as previously described.
@@ -949,9 +1125,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 17]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 17]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    Destination Connection ID: DLen bytes.  This is a variable-width
@@ -1005,9 +1187,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 18]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 18]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    Long Header (LH): 1 Long Header; LH.T == 3.  This field is a
@@ -1033,7 +1221,11 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
    That the value of a particular field be stored upon parsing is
    indicated by the exact phrase "On receipt, the value of <field name>
    is stored as <stored name>." being present at the end of the
+<<<<<<< HEAD
    description of a field (i.e., at the end of the <dd> or <t> element.)
+=======
+   description of a field (i.e., at the end of the <dd> element.)
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
    An Initial Packet is formatted as follows:
 
@@ -1061,9 +1253,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 19]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 19]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
 4.7.  Connecting Structures with Functions
@@ -1117,9 +1315,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 20]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 20]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    that a PDU B is generated by passing PDU A into the named function.
@@ -1173,9 +1377,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 21]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 21]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    A Frame is either a PING Frame or a HANDSHAKE_DONE Frame.
@@ -1229,9 +1439,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 22]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 22]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    *  Need some discussion about the checks that the tooling might
@@ -1285,9 +1501,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 23]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 23]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
    [RFC8357]  Deering, S. and R. Hinden, "Generalized UDP Source Port
@@ -1341,9 +1563,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 24]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 24]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
               Utilities for NAT (STUN)", Work in Progress, Internet-
@@ -1371,25 +1599,43 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
               McQuistin, S., Band, V., Jacob, D., and C. S. Perkins,
               "Describing UDP with Augmented Packet Header Diagrams",
               Work in Progress, Internet-Draft, draft-mcquistin-
+<<<<<<< HEAD
               augmented-udp-example-01, 5 May 2021,
               <http://www.ietf.org/internet-drafts/draft-mcquistin-
               augmented-udp-01.txt>.
+=======
+              augmented-udp-example-00, 2 November 2020,
+              <http://www.ietf.org/internet-drafts/draft-mcquistin-
+              augmented-udp-00.txt>.
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
    [draft-mcquistin-augmented-tcp-example]
               McQuistin, S., Band, V., Jacob, D., and C. S. Perkins,
               "Describing TCP with Augmented Packet Header Diagrams",
               Work in Progress, Internet-Draft, draft-mcquistin-
+<<<<<<< HEAD
               augmented-tcp-example-01, 5 May 2021,
               <http://www.ietf.org/internet-drafts/draft-mcquistin-
               augmented-tcp-example-01.txt>.
+=======
+              augmented-udp-example-00, 2 November 2020,
+              <http://www.ietf.org/internet-drafts/draft-mcquistin-
+              augmented-tcp-example-00.txt>.
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
    [draft-mcquistin-quic-augmented-diagrams]
               McQuistin, S., Band, V., Jacob, D., and C. S. Perkins,
               "Describing QUIC's Protocol Data Units with Augmented
               Packet Header Diagrams", Work in Progress, Internet-Draft,
+<<<<<<< HEAD
               draft-mcquistin-quic-augmented-diagrams-04, 5 May 2021,
               <http://www.ietf.org/internet-drafts/draft-mcquistin-quic-
               augmented-diagrams-04.txt>.
+=======
+              draft-mcquistin-quic-augmented-diagrams-03, 2 November
+              2020, <http://www.ietf.org/internet-drafts/draft-
+              mcquistin-quic-augmented-diagrams-03.txt>.
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
 
@@ -1397,9 +1643,15 @@ Internet-Draft          Augmented Packet Diagrams               May 2021
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 25]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 25]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
 Appendix A.  ABNF specification
@@ -1423,7 +1675,11 @@ A.1.  Constraint Expressions
          name / short-name "." short-name /
          constant
    op = "+" / "-" / "*" / "/" / "%" / "^"
+<<<<<<< HEAD
    length = expr sp unit / "[" sp name sp "]" / "variable length"
+=======
+   length = expr sp unit / "[" sp name sp "]"
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
    unit = %s"bit" / %s"bits" / %s"byte" / %s"bytes" / name
 
 A.2.  Augmented packet diagrams
@@ -1453,9 +1709,15 @@ Appendix B.  Tooling & source code
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 26]
 
 Internet-Draft          Augmented Packet Diagrams               May 2021
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 26]
+
+Internet-Draft          Augmented Packet Diagrams          November 2020
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc
 
 
 Authors' Addresses
@@ -1509,4 +1771,8 @@ Authors' Addresses
 
 
 
+<<<<<<< HEAD
 McQuistin, et al.        Expires 6 November 2021               [Page 27]
+=======
+McQuistin, et al.          Expires 31 May 2021                 [Page 27]
+>>>>>>> 3ccf2cb6e85831ff3e48e86ad995849685cd69cc

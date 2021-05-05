@@ -1405,6 +1405,10 @@ func apply_protection(to: Unprotected Packet)
               the constraint syntax as given in <xref target="ABNF-constraints" />.
             </t>
             <t>
+              Wesley Eddy provided valuable feedback on the description format through
+              adopting it in <xref target="draft-ietf-tcpm-rfc793bis" />.
+            </t>
+            <t>
                 The authors would like to thank David Southgate for preparing
                 a prototype implementation of some of the ideas described here.
             </t>
@@ -1623,6 +1627,17 @@ func apply_protection(to: Unprotected Packet)
 
                 <seriesInfo name='Internet-Draft' value='draft-mcquistin-quic-augmented-diagrams-04' />
             </reference>
+            <reference anchor="draft-ietf-tcpm-rfc793bis" target="http://www.ietf.org/internet-drafts/draft-ietf-tcpm-rfc793bis-21.txt">
+               <front>
+                   <title>Transmission Control Protocol (TCP) Specification</title>
+  
+                   <author initials='W' surname='Eddy' fullname='Wesley Eddy'><organization /></author>
+  
+                   <date month='May' day='3' year='2021' />
+               </front>
+  
+               <seriesInfo name='Internet-Draft' value='draft-ietf-tcpm-rfc793bis-21' />
+           </reference>
         </references>
 
         <section anchor='ABNF'>
