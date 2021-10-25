@@ -1827,7 +1827,7 @@ func apply_protection(to: Unprotected Packet)
                 </front>
                 <refcontent>;login: -- December 2011, Volume 36, Number 6</refcontent>
             </reference>
-            <reference anchor="draft-mcquistin-augmented-udp-example" target="http://www.ietf.org/internet-drafts/draft-mcquistin-augmented-udp-01.txt">
+            <reference anchor="draft-mcquistin-augmented-udp-example" target="http://www.ietf.org/internet-drafts/draft-mcquistin-augmented-udp-02.txt">
                 <front>
                     <title>Describing UDP with Augmented Packet Header Diagrams</title>
 
@@ -1836,10 +1836,10 @@ func apply_protection(to: Unprotected Packet)
                     <author initials='D' surname='Jacob' fullname='Dejice Jacob'><organization /></author>
                     <author initials='C. S.' surname='Perkins' fullname='Colin Perkins'><organization /></author>
 
-                    <date month='May' day='5' year='2021' />
+                    <date month='October' day='25' year='2021' />
                 </front>
 
-                <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-udp-example-01' />
+                <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-udp-example-02' />
             </reference>
             <reference anchor="draft-mcquistin-augmented-tcp-example" target="http://www.ietf.org/internet-drafts/draft-mcquistin-augmented-tcp-example-02.txt">
                 <front>
@@ -1855,7 +1855,7 @@ func apply_protection(to: Unprotected Packet)
 
                 <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-tcp-example-02' />
             </reference>
-            <reference anchor="draft-mcquistin-quic-augmented-diagrams" target="http://www.ietf.org/internet-drafts/draft-mcquistin-quic-augmented-diagrams-04.txt">
+            <reference anchor="draft-mcquistin-quic-augmented-diagrams" target="http://www.ietf.org/internet-drafts/draft-mcquistin-quic-augmented-diagrams-05.txt">
                 <front>
                     <title>Describing QUIC's Protocol Data Units with Augmented Packet Header Diagrams</title>
 
@@ -1864,7 +1864,7 @@ func apply_protection(to: Unprotected Packet)
                     <author initials='D' surname='Jacob' fullname='Dejice Jacob'><organization /></author>
                     <author initials='C. S.' surname='Perkins' fullname='Colin Perkins'><organization /></author>
 
-                    <date month='May' day='5' year='2021' />
+                    <date month='October' day='25' year='2021' />
                 </front>
 
                 <seriesInfo name='Internet-Draft' value='draft-mcquistin-quic-augmented-diagrams-04' />
