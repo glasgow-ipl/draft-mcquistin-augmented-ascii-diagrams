@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='US-ASCII'?>
-<rfc version='3' ipr='trust200902' submissionType='IETF' docName='draft-mcquistin-augmented-ascii-diagrams-09' category='exp'>
+<rfc version='3' ipr='trust200902' submissionType='IETF' docName='draft-mcquistin-augmented-ascii-diagrams-10' category='exp'>
     <front>
         <title abbrev='Augmented Packet Diagrams'>
             Describing Protocol Data Units with Augmented Packet Header Diagrams
         </title>
-        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-09' status="experimental" />
+        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-10' status="experimental" />
 
         <author fullname='Stephen McQuistin' initials='S.' surname='McQuistin'>
             <organization>University of Glasgow</organization>
@@ -58,7 +58,7 @@
             </address>
         </author>
 
-        <?date year='2021' month='November' day='25'/?>
+        <?date year='2022' month='March' day='7'/?>
 
         <abstract>
             <t>
@@ -566,8 +566,12 @@
 
                 <t>
                   A PDU description is introduced by the exact phrase "A/An
-                  _______ is formatted as follows" within a paragraph.
-                  This is followed by the PDU description itself, as a packet
+                  _______ is formatted as follows" within a paragraph. Optionally, this
+                  phrase can include a note or comment, delimited by commas, immediately
+                  following the PDU name. That is, "A/An _______, with an optional
+                  comment, is formatted as follows" can be used to introduce a PDU
+                  description.
+                  The introductory phrase is followed by the PDU description itself, as a packet
                   diagram within an &lt;artwork> element (itself optionally
                   within a &lt;figure> element) in the XML representation,
                   starting with a header line to show the bit width of the diagram.
@@ -588,7 +592,9 @@
                   the field name and an optional short name in parenthesis.
                   These are followed by a colon, the field length, an optional
                   presence expression (described in <xref target="ascii-xref" />),
-                  and a terminating period. Field names cannot be the same as a
+                  and a terminating period. Text following the terminating period is not
+                  parsed, and this space can be used for optional notes or comments.
+                  Field names cannot be the same as a
                   previously defined PDU name, and must be unique within a given
                   structure definition. The structured text definition is given
                   either in a &lt;dt> tag (if using a &lt;dl>) or as the "hangText"
@@ -914,12 +920,18 @@
                     </dd>
                     <dt>
                       Padding: PC bytes; present only when (P == 1) &amp;&amp;
-                      (PC > 0).
+                      (PC > 0). Note that PC is defined below.
                     </dt>
                     <dd>
-                      This is a variable size field, with size dependent on a later
-                      field in the packet. Fields can only depend on the value of a
-                      later field if they follow a field with unspecified size.
+                    	<t>
+                      	This is a variable size field, with size dependent on a later
+                      	field in the packet. Fields can only depend on the value of a
+                     	 later field if they follow a field with unspecified size.
+                     	</t>
+                     	<t>
+                     	The comment (i.e., "Note that PC is defined below") following the
+                     	expression is not parsed.
+                     	</t>
                     </dd>
                     <dt>
                       Padding Count (PC): 1 byte; present only when P == 1.
@@ -1466,9 +1478,14 @@ func apply_protection(to: Unprotected Packet)
                    is one of: &lt;list of structure names>" where the list of structure names is a comma
                   separated list (with the last element, if there is more than one element, preceded by 'or'),
                   each optionally preceded by "a" or "an". The structure names must be defined within the document or a linked document.
+                  Optionally, this phrase can include a note or comment, delimited by commas, immediately
+                  following the enumerated type name. That is, "The &lt;enumerated type name>, with an
+                  optional comment, is one of: &lt;list of structure names>" can be used to define an enumerated type.
                 </t>
+                
                 <t>
                     Where an enumerated type has only two variants, an alternative phrase can be used: "The &lt;enumerated type name> is either a &lt;variant 1 name> or &lt;variant 2 name>". The names of the variants must be defined within the document or a linked document.
+                    An optional note or comment can be included with this alternative phrasing: "The &lt;enumerated type name>, with an optional comment, is either a &lt;variant 1 name> or &lt;variant 2 name>" can be used.
                 </t>
                      <t>
                       An EOL Option is formatted as follows:
@@ -1869,16 +1886,16 @@ func apply_protection(to: Unprotected Packet)
 
                 <seriesInfo name='Internet-Draft' value='draft-mcquistin-quic-augmented-diagrams-04' />
             </reference>
-            <reference anchor="draft-ietf-tcpm-rfc793bis" target="http://www.ietf.org/internet-drafts/draft-ietf-tcpm-rfc793bis-25.txt">
+            <reference anchor="draft-ietf-tcpm-rfc793bis" target="http://www.ietf.org/internet-drafts/draft-ietf-tcpm-rfc793bis-27.txt">
                <front>
                    <title>Transmission Control Protocol (TCP) Specification</title>
   
                    <author initials='W' surname='Eddy' fullname='Wesley Eddy'><organization /></author>
   
-                   <date month='September' day='7' year='2021' />
+                   <date month='February' day='22' year='2022' />
                </front>
   
-               <seriesInfo name='Internet-Draft' value='draft-ietf-tcpm-rfc793bis-25' />
+               <seriesInfo name='Internet-Draft' value='draft-ietf-tcpm-rfc793bis-27' />
            </reference>
         </references>
 
