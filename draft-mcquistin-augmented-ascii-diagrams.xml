@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='US-ASCII'?>
-<rfc version='3' ipr='trust200902' submissionType='IETF' docName='draft-mcquistin-augmented-ascii-diagrams-10' category='exp'>
+<rfc version='3' ipr='trust200902' submissionType='IETF' docName='draft-mcquistin-augmented-ascii-diagrams-12' category='exp'>
     <front>
         <title abbrev='Augmented Packet Diagrams'>
             Describing Protocol Data Units with Augmented Packet Header Diagrams
         </title>
-        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-10' status="experimental" />
+        <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-12' status="experimental" />
 
         <author fullname='Stephen McQuistin' initials='S.' surname='McQuistin'>
             <organization>University of Glasgow</organization>
@@ -58,7 +58,7 @@
             </address>
         </author>
 
-        <?date year='2022' month='March' day='7'/?>
+        <?date year='2022' month='September' day='5'/?>
 
         <abstract>
             <t>
@@ -148,13 +148,9 @@
                 specification (<xref target="ABNF"/>) will be provided.
             </t>
             <t>
-                Example specifications of a number of IETF protocols described using the
-                Augmented Packet Header Diagram format are available. These documents
-                describe UDP <xref target="draft-mcquistin-augmented-udp-example"/>,
-                TCP <xref target="draft-mcquistin-augmented-tcp-example"/>, and QUIC
-                <xref target="draft-mcquistin-quic-augmented-diagrams"/>. Code that parses
-                those documents and automatically generates parser code for the described
-                protocols is described in <xref target="source"/>.
+                Code that parses
+                documents written using this format, and that automatically generates parser code for the described
+                protocols, is described in <xref target="source"/>.
             </t>
 
         </section>
@@ -366,6 +362,829 @@
             </section>
         </section>
 
+        <section anchor='augmentedascii'>
+            <name>Augmented Packet Header Diagrams</name>
+            <t>
+                As discussed in <xref target="background-ascii"/> there are
+                limitations to how packet header diagrams are used that must be addressed if they
+                are to be parsed by machine. In this section, an augmented packet
+                header diagram format is described. The principles that underpin the design of
+                this format are discussed in <xref target="designprinciples"/>.
+            </t>
+            <t>
+                The concept is illustrated by example, with accompanying explanatory descriptions.
+                This is appropriate, given the visual nature of the language. In future drafts a formal specification of the format will be given in <xref target="ABNF"/>.
+            </t>
+
+            <section anchor='ascii-simple'>
+                <name>Defining Protocol Data Units</name>
+                <t>
+                  The simplest PDU is one that contains only a set of fixed-width
+                  fields in a known order, with no optional fields or variation
+                  in the packet format.
+                </t>
+
+                <t>
+                  Some packet formats include variable-width fields, where
+                  the size of a field is either derived from the value of
+                  some previous field, or is unspecified and inferred from
+                  the total size of the packet and the size of the other
+                  fields.
+                </t>
+
+                <t>
+                  To ensure that there is no ambiguity, a PDU description
+                  can contain only one field whose length is unspecified.
+                  The length of a single field, where all other fields are
+                  of known (but perhaps variable) length, can be inferred
+                  from the total size of the containing PDU.
+                </t>
+
+                <t>
+                  A PDU description is introduced by the exact phrase "A/An
+                  _______ is formatted as follows" within a paragraph. Optionally, this
+                  phrase can include a note or comment, delimited by commas, immediately
+                  following the PDU name. That is, "A/An _______, with an optional
+                  comment, is formatted as follows" can be used to introduce a PDU
+                  description.
+                  The introductory phrase is followed by the PDU description itself, as a packet
+                  diagram within an &lt;artwork> element (itself optionally
+                  within a &lt;figure> element) in the XML representation,
+                  starting with a header line to show the bit width of the diagram.
+                  The description of the fields follows the diagram, as an XML
+                  list (either &lt;dl> or hanging &lt;list>), after a paragraph
+                  that begins with the text "where:".
+                </t>
+
+                <t>
+                  PDU names must be unique, both within a document, and across
+                  all documents that are linked together (i.e., using the
+                  structured language defined in <xref target="ascii-import" />).
+                </t>
+
+                <t>
+                  Each field is defined by a structured text definition and a
+                  prose description. The structured text definition comprises
+                  the field name and an optional short name in parenthesis.
+                  These are followed by a colon, the field length, an optional
+                  presence expression,
+                  and, optionally, a terminating period. Text following the terminating period is not
+                  parsed, and this space can be used for optional notes or comments.
+                  Field names cannot be the same as a
+                  previously defined PDU name, and must be unique within a given
+                  structure definition. The structured text definition is given
+                  either in a &lt;dt> tag (if using a &lt;dl>) or as the "hangText"
+                  (if using a hanging &lt;list>) of a &lt;t> element. The field's
+                  prose description is given in the following &lt;dd> element or
+                  within the same &lt;t> element. Prose descriptions may include
+                  structured text (e.g., as defined in <xref target="ascii-store" />).
+                </t>
+
+                <t>
+                  A PDU may be defined not only by the layout and type of
+                  its fields, but also by the value of those fields. For
+                  example, field values may be constrained to be of a
+                  known exact value or to be within a range. More generally,
+                  our format enables a boolean expression to be attached to
+                  a field, which must be true for the PDU to be parsed
+                  successfully.
+                </t>
+                
+                <t>
+                  In addition, a PDU may contain fields that have a size that is specified in terms
+                  of the value of another field. So far, our constraint syntax can be
+                  used to specify the length of fields in known units (of bits, bytes,
+                  or other structures). If the units are of variable-width, then it may
+                  not be possible to specify the length of the sequence. However, it is
+                  still necessary to be able to constraint the overall width of the
+                  field. To support this, our constraint syntax includes a "size"
+                  function that evaluates to the width, in bits, of the given named
+                  field.
+                </t>
+                
+                <t>
+                 These elements can be illustrated using the TCP Header format
+                 <xref target="RFC9293"/>.  A TCP Header is formatted as follows:
+                </t>
+                <artwork>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Source Port          |       Destination Port        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        Sequence Number                        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Acknowledgment Number                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Data |       |C|E|U|A|P|R|S|F|                               |
+| Offset| Rsrvd |W|C|R|C|S|S|Y|I|         Window Size           |
+|       |       |R|E|G|K|H|T|N|N|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|           Checksum            |         Urgent Pointer        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                          [Options]                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               :
+:                            Payload                            :
+:                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                </artwork>
+                <t>
+                  where:
+                </t>
+                <dl>
+                  <dt>
+                    Source Port: 16 bits.
+                  </dt>
+                  <dd>
+                    <t>
+                      This is a fixed-width field, whose full label is shown in the diagram.
+                      The field's width -- 16 bits -- is given in the label of the description list,
+                      separated from the field's label by a colon.
+                     </t>
+                 </dd>
+                 <dt>
+                     Destination Port: 2 bytes.
+                 </dt>
+                 <dd>
+                     <t>
+                       This is a fixed-width field as previously described. Where fields
+                       are an integral number of bytes in size, the field length can be
+                       given in bytes rather than in bits.
+                     </t>
+                 </dd>
+                 <dt>
+                     Sequence Number: 32 bits.
+                 </dt>
+                 <dd>
+                     <t>
+                       This is a fixed-width field as previously described.
+                     </t>
+                 </dd>
+                 <dt>
+                     Acknowledgment Number: 32 bits.
+                 </dt>
+                 <dd>
+                     <t>
+                       This is a fixed-width field as previously described.
+                     </t>
+                 </dd>
+                 <dt>
+                     Data Offset (DOffset): 4 bits; DOffset >= 5.
+                 </dt>
+                 <dd>
+                     <t>
+                       This is a fixed-width field, with a constraint on its value. At
+                       most one field value constraint may be given per field, and if
+                       provided, it must be given as a boolean expression, separated by a
+                       semi-colon in the field definition name (i.e., the text contained
+                       within the &lt;dt> tag or "hangText" attribute). If present, a
+                       value constraint must follow the name, short name, and length of
+                       the field, but appear before any presence constraint, if
+                       applicable. The order of the field must be the same in both the
+                       diagram and description list. An ABNF grammar for constraint
+                       expressions is given in <xref target="ABNF-constraints"/>
+                     </t>
+                 </dd>
+                 <dt>
+                     Reserved (Rsrvd): 4 bits; Rsrvd == 0.
+                 </dt>
+                 <dd>
+                     <t>
+                       This is a fixed-width field, with a value constraint, as previously
+                       described. This is a shorter field, whose full label is too large
+                       to be shown in the diagram. A short label (Rsrvd) is used in the
+                       diagram, and this short label is provided, in brackets, after the
+                       full label in the description list.
+                     </t>
+                 </dd>
+                 <dt>
+                    Control bits:
+                 </dt>
+                 <dd>
+                    <t>Optionally, field description lists can be nested. If the XML element (either a
+                    &lt;dd> or a &lt;t>) containing the description of a field contains an XML list (either &lt;dl> or
+                    hanging &lt;list>) as its last element, then this nested list will be parsed for fields, and the
+                  outer description will be ignored. In this example, "Control bits" describes the group of 8 single
+                bit fields that are described in the list that follows; it is these single bit fields that
+                will form part of the structure.</t>
+                    <dl>
+                       <dt>
+                           CWR: 1 bit.
+                       </dt>
+                       <dd>
+                           <t>
+                               This is a fixed-width field as previously described.
+                           </t>
+                       </dd>
+                       <dt>
+                           ECE: 1 bit.
+                       </dt>
+                       <dd>
+                           <t>
+                               This is a fixed-width field as previously described.
+                           </t>
+                       </dd>
+                       <dt>
+                           URG: 1 bit.
+                       </dt>
+                       <dd>
+                           <t>
+                               This is a fixed-width field as previously described.
+                           </t>
+                       </dd>
+                       <dt>
+                           ACK: 1 bit.
+                       </dt>
+                       <dd>
+                           <t>
+                               This is a fixed-width field as previously described.
+                           </t>
+                       </dd>
+                       <dt>
+                           PSH: 1 bit.
+                       </dt>
+                       <dd>
+                           <t>
+                                This is a fixed-width field as previously described.
+                           </t>
+                       </dd>
+                       <dt>
+                           RST: 1 bit.
+                       </dt>
+                       <dd>
+                           <t>
+                               This is a fixed-width field as previously described.
+                           </t>
+                       </dd>
+                       <dt>
+                           SYN: 1 bit.
+                       </dt>
+                       <dd>
+                           <t>
+                               This is a fixed-width field, with a value constraint, as previously described.
+                           </t>
+                       </dd>
+                       <dt>
+                           FIN: 1 bit; (FIN == 0) || (SYN == 0).
+                       </dt>
+                       <dd>
+                           <t>
+                               This is a fixed-width field, with a value constraint, as previously described.
+                           </t>
+                       </dd>
+                    </dl>
+                 </dd>
+                 <dt>
+                     Window Size: 16 bits.
+                 </dt>
+                 <dd>
+                     <t>
+                       This is a fixed-width field as previously described.
+                     </t>
+                 </dd>
+                 <dt>
+                     Checksum: 16 bits.
+                 </dt>
+                 <dd>
+                     <t>
+                       This is a fixed-width field as previously described.
+                     </t>
+                 </dd>
+                 <dt>
+                     Urgent Pointer: 16 bits.
+                 </dt>
+                 <dd>
+                     <t>
+                        This is a fixed-width field as previously described.
+                     </t>
+                 </dd>
+                 <dt>
+                     Options: [TCP Option]; size(Options) == (DOffset-5)*32; present only when DOffset > 5.
+                 </dt>
+                 <dd>
+                     <t>
+                       This is a variable-width field that is comprised of a sequence
+                       of TCP Option sub-structures. TCP Option is an enumerated type,
+                       to be defined in <xref target="ascii-enums"/>. As defined, the
+                       TCP Option type can be either 2 or 3 bytes, depending on the
+                       option type. As a result, it is not possible to specify the
+                       number of TCP Option structures that the Option field will
+                       contain. However, the overall size of the field can be 
+                       constrained. The "size(Options) == (DOffset-5)*32" makes use
+                       of the "size" function. This evaluates to the size, in bits, of
+                       the named field. The argument passed to the "size" field must
+                       be the name of the field being defined, or of a previously
+                       defined field.
+                     </t>
+                     <t>
+                       The "DOffset" field contains the number of 32-bit words that
+                       are present in the TCP Header. By default, with no TCP options,
+                       this is 5. As a result, the size of the Options field is
+                       constrained to the value of DOffset, less 5, and multiplied to
+                       get the value in bits.
+                     </t>
+                     <t>
+                       The presence of the "Options" field is predicated on an expression.
+                       Optional fields are indicated by the presence of "; present only when [expr]."
+                       at the end of the definition term (i.e., the text contained
+                       within the &lt;dt> tag or "hangText" attribute).
+                     </t>
+                 </dd>
+                 <dt>
+                     Payload.
+                 </dt>
+                 <dd>
+                    This is a multi-row variable-length field, denoted by the ":" notation in the
+                    diagram. The length of the Payload is not specified, and hence needs to
+                    be inferred from the total length of the packet and the lengths of the
+                    known fields. There can only be one field of unspecified size in a PDU
+                    Fields where the length is not specified may also denote this with the
+                    phrase "variable length" in place of the length definition.
+                 </dd>
+            </dl>
+        </section> 
+
+        <section anchor="ascii-xref">
+          <name>Cross-Referencing Previously Defined Fields</name>
+          <t>
+            Binary formats often reference sub-structures that have been
+            defined earlier in the specification. For example, in TCP
+            <xref target="RFC9293"/>, the SACK Range Option is defined in terms of
+            of SACK blocks. A SACK Block is formatted as follows:
+          </t>
+
+          <artwork>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           Left Edge                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                          Right Edge                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+          </artwork>
+          <t>
+              where:
+          </t>
+          <dl>
+              <dt>
+                  Left Edge: 4 bytes.
+              </dt>
+              <dd>
+                  This is a fixed-width field, as described previously.
+              </dd>
+              <dt>
+                  Right Edge: 4 bytes.
+              </dt>
+              <dd>
+                  This is a fixed-width field, as described previously.
+              </dd>
+          </dl>
+
+          <t>
+            The SACK Block sub-structure is then used in the definition of the
+            SACK Range Option.
+          </t>
+          <t>
+            A SACK Range Option is formatted as follows:
+          </t>
+          <artwork>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|       5       |     Length    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                            [Blocks]                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            </artwork>
+            <t>
+                where:
+            </t>
+            <dl>
+                <dt>
+                    Option Kind (Kind): 1 byte; Kind == 5.
+                </dt>
+                <dd>
+                    This is a fixed-width field, as described previously.
+                </dd>
+                <dt>
+                    Option Length (Length): 1 byte.
+                </dt>
+                <dd>
+                    This is a fixed-width field, as described previously.
+                </dd>
+                <dt>
+                    Blocks: (Length-2)/8 SACK Blocks.
+                </dt>
+                <dd>
+                  <t>
+                    Where a field is comprised of a sequence of previously defined structures,
+                    square brackets can be used to indicate this in the diagram.  The length
+                    of the sequence can be defined using the constraint expression
+                    grammar as described earlier. Where the length is unknown, the type of each
+                    element of the sequence must be given in square brackets.
+                  </t>
+                  <t>
+                    In this example, both a PDU name (SACK Block) and a field name (Length) are
+                    used in the constraint expression. This is possible
+                    because field names cannot be the same as previously defined PDU names.
+                  </t>
+                </dd>
+            </dl>
+        </section>
+
+        <section anchor='ascii-enums'>
+            <name>Specifying Enumerated Types</name>
+            <t>
+              In addition to the use of the sub-structures, it is desirable to be able to define a type that
+              may take the value of one of a set of alternative structures.
+            </t>
+           <t>
+              The alternative structures that comprise an enumerated type are identified using the exact phrase "The &lt;enumerated type name>
+               is one of: &lt;list of structure names>" where the list of structure names is a comma
+              separated list (with the last element, if there is more than one element, preceded by 'or'),
+              each optionally preceded by "a" or "an". The structure names must be defined within the document or a linked document.
+              Optionally, this phrase can include a note or comment, delimited by commas, immediately
+              following the enumerated type name. That is, "The &lt;enumerated type name>, with an
+              optional comment, is one of: &lt;list of structure names>" can be used to define an enumerated type. In both
+              cases, the colon is optional; for example, "The &lt;enumerated type name> is one of &lt;list of structure
+              names>" is valid.
+            </t>
+        
+            <t>
+                Where an enumerated type has only two variants, an alternative phrase can be used: "The &lt;enumerated type name> is either a &lt;variant 1 name> or &lt;variant 2 name>". The names of the variants must be defined within the document or a linked document.
+                An optional note or comment can be included with this alternative phrasing: "The &lt;enumerated type name>, with an optional comment, is either a &lt;variant 1 name> or &lt;variant 2 name>" can be used.
+            </t>
+                 <t>
+                  An EOL Option is formatted as follows:
+                 </t>
+                 <artwork>
+0
+0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+
+|       0       |
++-+-+-+-+-+-+-+-+
+                 </artwork>
+                 <t>
+                     where:
+                 </t>
+                 <dl>
+                     <dt>
+                         Option Kind (Kind): 1 byte; Kind == 0.
+                     </dt>
+                     <dd>
+                         <t>
+                            This is a fixed-width field, with a value constraint, as previously described.
+                         </t>
+                     </dd>
+                 </dl>
+           <t>
+           A TCP Option is either an EOL Option or a SACK Range Option.
+           </t>
+        </section>
+
+            <section anchor='ascii-split'>
+                        <name>Splitting Fields</name>
+                        <t>
+                          In some binary formats, fields are striped across multiple
+                          non-contiguous bits. This is often to allow for backwards
+                          compatibility with previous definitions of the same fields
+                          in earlier documents: striping in this way allows for
+                          careful use of the possible range of values.
+                        </t>
+                        <t>
+                          This format is illustrated using the STUN Message Type
+                          <xref target="draft-ietf-tram-stunbis-21"/>.
+                          A STUN Message Type is formatted as follows:
+                        </t>
+                        <artwork>
+ 0                   1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|M|M|M|M|M|C|M|M|M|C|M|M|M|M|
+|B|A|9|8|7|1|6|5|4|0|3|2|1|0|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                        </artwork>
+                        <t>
+                            where:
+                        </t>
+                        <dl>
+                            <dt>
+                                Method (M): 12 bits (split field).
+                            </dt>
+                            <dd>
+                                This field is comprised of multiple sub-fields (M0 through
+                                MB) as shown in the diagram. That these sub-fields should be
+                                concatenated, after parsing, into a single field is indicated
+                                by their being labelled using the 'M' short field name
+                                followed by a single hexadecimal digit, with the least significant
+                                bit labelled with 0, and subsequent bits labelled in sequence.
+                            </dd>
+                            <dt>
+                                Class (C): 2 bits (split field).
+                            </dt>
+                            <dd>
+                                This field follows the same format as M described above.
+                            </dd>
+                        </dl>
+                    </section>                        
+
+            <section anchor='ascii-extendstructures'>
+             <name>Extending Sub-Structures</name>
+             <t>
+                A PDU may not only use or reference existing sub-structures, but they
+                may extend them, adding new fields, or enforcing different or additional constraints.
+             </t>
+             <t>
+               Where a sub-structure is extended, the diagram may show the sub-structure as
+               a block, labelled with the sub-structure name. It may also be desirable to
+               show the sub-structure diagram in full; in this case, the fields must be
+               given in the same order and be of the same length. New field constraints
+               can be shown. Similarly, in the description list, those fields inherited
+               without change (i.e., with no change to their constraints) do not need to
+               be repeated. Those with different or additional constraints must be described,
+               and the order of the fields in the description list must match that of the
+               sub-structure and the containing structure.
+             </t>
+             <t>
+               This can be illustrated using QUIC <xref target="QUIC-TRANSPORT"/>.
+               A Long Header is formatted as follows:</t>
+               <artwork>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+
+|1|1| T | R | P |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             Version                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    DCID Len   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                 Destination Connection ID (DCID)            ...
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    SCID Len   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                  Source Connection ID (SCID)                ...
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            </artwork>
+            <t>
+                where:
+            </t>
+            <dl>
+               <dt>
+                  Header Form (HF): 1 bit; HF == 1.
+               </dt>
+               <dd>
+                  This is a fixed-width field, with a value constraint, as previously described.
+               </dd>
+               <dt>
+                  Fixed Bit (FB): 1 bit; FB == 1.
+               </dt>
+               <dd>
+                  This is a fixed-width field, with a value constraint, as previously described.
+               </dd>
+               <dt>
+                  Long Packet Type (T): 2 bits.
+               </dt>
+               <dd>
+                  This is a fixed-width field as previously described.
+               </dd>
+               <dt>
+                  Reserved Bits (R): 2 bits.
+               </dt>
+               <dd>
+                  This is a fixed-width field as previously described.
+               </dd>
+               <dt>
+                  Packet Number Length (P): 2 bits.
+               </dt>
+               <dd>
+                  This is a fixed-width field as previously described.
+               </dd>
+               <dt>
+                  Version ID (VID): 1 Version.
+               </dt>
+               <dd>
+                  This is a fixed-width field as previously described.
+               </dd>
+               <dt>
+                  DCID Len (DLen): 1 byte; DLen &lt;= 20.
+               </dt>
+               <dd>
+                  This is a fixed-width field, with a value constraint, as previously described.
+               </dd>
+               <dt>
+                  Destination Connection ID (DCID): DLen bytes.
+               </dt>
+               <dd>
+                  This is a fixed-width field, with a length constraint, as previously described.
+               </dd>
+               <dt>
+                  SCID Len (SLen): 1 byte; SLen &lt;= 20.
+               </dt>
+               <dd>
+                  This is a fixed-width field, with a value constraint, as previously described.
+               </dd>
+               <dt>
+                  Source Connection ID (SCID): SLen bytes.
+               </dt>
+               <dd>
+                  This is a variable-width field as previously described.
+               </dd>
+            </dl>
+             <t>
+               The syntax for extending sub-structures can be illustrated with the QUIC Retry Packet format
+               <xref target="QUIC-TRANSPORT"/>.
+               A Retry Packet is formatted as follows:</t>
+               <artwork>
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               :
+ :                          Long Header                          :
+ :                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                          Retry Token                        ...
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ +                                                               +
+ |                                                               |
+ +                     Retry Integrity Tag                       +
+ |                                                               |
+ +                                                               +
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               </artwork>
+               <t>
+                  where:
+               </t>
+               <dl>
+                  <dt>
+                    Long Header (LH): 1 Long Header; LH.T == 3.
+                  </dt>
+                  <dd>
+                    This field is a previously defined sub-structure. Its constraints can access fields in that sub-structure. In this example, the T field of the Long Header must be equal to 3.
+                  </dd>
+                  <dt>
+                     Retry Token.
+                  </dt>
+                  <dd>
+                    This is a variable-length field as previously defined.
+                  </dd>
+                  <dt>
+                    Retry Integrity Tag: 128 bits.
+                  </dt>
+                  <dd>
+                    This is a fixed-width field as previously defined.
+                  </dd>
+               </dl>
+               <t>
+                 As shown, the Long Header packet sub-structure is included. The Retry Packet enforces
+                 a new value constraint on the Long Packet Type (T) field.
+               </t>
+            </section>
+
+            <section anchor='ascii-store'>
+                <name>Storing Data for Parsing</name>
+                <t>
+                  The parsing process may require data from previously parsed structures. This means that
+                  data needs to be stored persistently throughout the process. This data needs to be
+                  identified.
+                </t>
+                <t>
+                  That the value of a particular field be stored upon parsing is indicated by the exact phrase "On receipt, the value of &lt;field name> is stored as &lt;stored name>." being present at the end of the description of a field (i.e., at the end of the &lt;dd> or &lt;t> element.)
+              </t>
+                <t>An Initial Packet is formatted as follows:</t>
+                <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                                               :
+  :                          Long Header                          :
+  :                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                </artwork>
+                <t>
+                   where:
+                </t>
+                <dl>
+                   <dt>
+                      Long Header (LH): 1 Long Header; LH.T == 0.
+                   </dt>
+                   <dd>
+                      This is field is a sub-structure, with a constraint, as previously defined. On receipt, the value of LH.DCID is stored as Initial DCID.
+                   </dd>
+               </dl>
+                <t>
+                  In this example, the value of the DCID field of the Long Header sub-structure is stored as Initial DCID.
+                </t>
+            </section>
+
+            <section anchor='ascii-functions'>
+              <name>Connecting Structures with Functions</name>
+              <t>
+                The parsing or serialisation of some binary formats cannot be fully described without
+                the use of functions. These functions take arguments (values from another structure),
+                perform some computation, and generate a new structure.
+              </t>
+              <t>
+                Given the goal of fully capturing the parsing or serialisation of binary protocols, it
+                is necessary to include the signature of these helper functions.
+              </t>
+              <t>
+                Function signatures are described in &lt;artwork> elements. They are constructed as
+                the word "func", followed by a space, then the name of the function. This is immediately
+                followed by a set of brackets containing a comma separated list of the function's parameters,
+                formatted as "&lt;parameter name>: &lt;parameter type>". This is followed by "->"
+                and the return type of the function, followed by a colon.
+              </t>
+              <t>
+                The body of the function is not captured, owing to the complexity of both capturing and translating
+                arbitrary code. As a result, it can be described in whichever format is most suitable for the
+                document and its readership.
+              </t>
+              <t>
+                  Those values that are stored persistently, as defined in <xref target="ascii-store"/>, are accessible by functions.
+            </t>
+              <t>
+                As an example, the "apply_protection" function is defined as:
+              </t>
+            <artwork>
+func apply_protection(to: Unprotected Packet)
+                -> Protected Packet:
+   apply packet protection to payload
+   apply header protection to first_byte and packet_number
+   construct appropriate Protected Packet based on first_byte
+   return Protected Packet
+            </artwork>
+            <t>
+              In this example, 'Unprotected Packet' and 'Protected Packet' are existing types.
+            </t>
+            <t>
+                To indicate that a PDU is created from another by way of a
+                function, the sentence "A/An &lt;PDU name A> is parsed from a
+                &lt;PDU name B> using the &lt;function name> function" is used.
+                This indicates that a PDU A is generated by passing PDU B into
+                the named function. The function must take a single parameter,
+                of the same type as PDU B, and return a PDU B.
+            </t>
+            <t>
+                To indicate that a PDU can be serialised to another by way of a
+                function, the sentence "A/An &lt;PDU name A> is serialised to a
+                &lt;PDU name B> using the &lt;function name> function" is used.
+                This indicates that a PDU B is generated by passing PDU A into
+                the named function. The function must take a single parameter,
+                of the same type as PDU A, and return a PDU B.
+            </t>
+            </section>
+
+            <section anchor='ascii-pdus'>
+                <name>Specifying Protocols</name>
+                <t>
+                  A document will set out different structures that are not, on their own, protocol data units.
+                  To capture the parsing or serialisation of a protocol, it is necessary to be able to identify
+                  or construct those packets that are valid PDUs. As a result, it is necessary for the document
+                  to identify those structures that are PDUs.
+                </t>
+                <t>
+                  The PDUs that comprise a protocol are identified using the
+                  exact phrase "This document describes the &lt;protocol name>
+                  protocol. The &lt;protocol name> protocol uses &lt;list of PDU
+                  names>" where the list of PDU names is a comma separated list
+                  (with the last element, if there is more than one element,
+                  preceded by 'and'), each optionally preceded by "a" or "an".
+                  As a short-form, the variation "This document
+                  describes the &lt;protocol name>, which uses &lt;list of PDU
+                  names>" can be used as an alternative. The PDU names must be structure
+                  names defined in the document
+                  or a linked document. The PDU names are pluralised in the
+                  list. A document must contain exactly one instance of this
+                  phrase.
+                </t>
+                <t>
+                  This document describes the Example protocol. The Example protocol uses Long Headers, STUN Message Types, IPv4 Headers, RTP Data Packets, and TCP Headers.
+                </t>
+            </section>
+
+            <section anchor='ascii-import'>
+                <name>Importing Definitions from Other Documents</name>
+                <t>
+                  Protocols are often specified across multiple documents, either because
+                  the specification of a protocol's data units has changed over time, or
+                  because of explicit extension points contained in the protocol's original
+                  specification. To allow a document to make use of a previous PDU definition,
+                  it is possible to import PDU definitions (written in the format described in
+                  this document) from other documents.
+                </t>
+                <t>
+                  A PDU definition is imported using the exact phrase "A/An ________ is formatted as
+                  described in &lt;document identifier>". The document identifier must refer, unambiguously,
+                  to an existing document. An Internet-Draft is identified by its name. RFCs are identified by
+                  "RFC" followed by their number.
+                </t>
+            </section>
+
+        </section>
+
         <section anchor='designprinciples'>
             <name>Design Principles</name>
             <t>
@@ -517,1115 +1336,6 @@
             </dl>
         </section>
 
-        <section anchor='augmentedascii'>
-            <name>Augmented Packet Header Diagrams</name>
-            <t>
-                The design principles described in <xref target="designprinciples"/> can
-                largely be met by the existing uses of packet header diagrams. These
-                diagrams aid human readability, do not require new or specialised
-                tools to write, do not split the specification into multiple parts,
-                can express most binary protocol features, and require no changes to
-                existing publication processes.
-            </t>
-            <t>
-                However, as discussed in <xref target="background-ascii"/> there are
-                limitations to how packet header diagrams are used that must be addressed if they
-                are to be parsed by machine. In this section, an augmented packet
-                header diagram format is described.
-            </t>
-            <t>
-                The concept is first illustrated by example. This is appropriate, given the visual
-                nature of the language. In future drafts, these examples will be parsable using
-                provided tools, and a formal specification of the augmented packet
-                diagrams will be given in <xref target="ABNF"/>.
-            </t>
-
-            <section anchor='ascii-simple'>
-                <name>PDUs with Fixed and Variable-Width Fields</name>
-                <t>
-                  The simplest PDU is one that contains only a set of fixed-width
-                  fields in a known order, with no optional fields or variation
-                  in the packet format.
-                </t>
-
-                <t>
-                  Some packet formats include variable-width fields, where
-                  the size of a field is either derived from the value of
-                  some previous field, or is unspecified and inferred from
-                  the total size of the packet and the size of the other
-                  fields.
-                </t>
-
-                <t>
-                  To ensure that there is no ambiguity, a PDU description
-                  can contain only one field whose length is unspecified.
-                  The length of a single field, where all other fields are
-                  of known (but perhaps variable) length, can be inferred
-                  from the total size of the containing PDU.
-                </t>
-
-                <t>
-                  A PDU description is introduced by the exact phrase "A/An
-                  _______ is formatted as follows" within a paragraph. Optionally, this
-                  phrase can include a note or comment, delimited by commas, immediately
-                  following the PDU name. That is, "A/An _______, with an optional
-                  comment, is formatted as follows" can be used to introduce a PDU
-                  description.
-                  The introductory phrase is followed by the PDU description itself, as a packet
-                  diagram within an &lt;artwork> element (itself optionally
-                  within a &lt;figure> element) in the XML representation,
-                  starting with a header line to show the bit width of the diagram.
-                  The description of the fields follows the diagram, as an XML
-                  list (either &lt;dl> or hanging &lt;list>), after a paragraph
-                  that begins with the text "where:".
-                </t>
-
-                <t>
-                  PDU names must be unique, both within a document, and across
-                  all documents that are linked together (i.e., using the
-                  structured language defined in <xref target="ascii-import" />).
-                </t>
-
-                <t>
-                  Each field is defined by a structured text definition and a
-                  prose description. The structured text definition comprises
-                  the field name and an optional short name in parenthesis.
-                  These are followed by a colon, the field length, an optional
-                  presence expression (described in <xref target="ascii-xref" />),
-                  and a terminating period. Text following the terminating period is not
-                  parsed, and this space can be used for optional notes or comments.
-                  Field names cannot be the same as a
-                  previously defined PDU name, and must be unique within a given
-                  structure definition. The structured text definition is given
-                  either in a &lt;dt> tag (if using a &lt;dl>) or as the "hangText"
-                  (if using a hanging &lt;list>) of a &lt;t> element. The field's
-                  prose description is given in the following &lt;dd> element or
-                  within the same &lt;t> element. Prose descriptions may include
-                  structured text (e.g., as defined in <xref target="ascii-store" />).
-                </t>
-
-                <t>
-                 For example, this can be illustrated using the IPv4 Header
-                 Format <xref target="RFC791"/>. An IPv4 Header is formatted
-                 as follows:
-                </t>
-                <artwork>
-     0                   1                   2                   3
-     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |Version|   IHL |    DSCP   |ECN|         Total Length          |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |         Identification        |Flags|     Fragment Offset     |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    | Time to Live  |    Protocol   |        Header Checksum        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                         Source Address                        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                      Destination Address                      |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                            Options                          ...
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                                                               :
-    :                            Payload                            :
-    :                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                </artwork>
-                <t>
-                    where:
-                </t>
-                <dl>
-                    <dt>
-                        Version (V): 4 bits.
-                    </dt>
-                    <dd>
-                        <t>
-                            This is a fixed-width field, whose full label is shown
-                            in the diagram. The field's width -- 4 bits -- is given
-                            in the label of the description list, separated from the
-                            field's label by a colon.
-                        </t>
-                    </dd>
-                    <dt>
-                        Internet Header Length (IHL): 4 bits.
-                    </dt>
-                    <dd>
-                        This is a shorter field, whose full label is too large to be
-                        shown in the diagram. A short label (IHL) is used in the diagram, and this
-                        short label is provided, in brackets, after the full label
-                        in the description list.
-                    </dd>
-                    <dt>
-                        Differentiated Services Code Point (DSCP): 6 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Explicit Congestion Notification (ECN): 2 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Total Length (TL): 2 bytes.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed. Where
-                        fields are an integral number of bytes in size, the field
-                        length can be given in bytes rather than in bits.
-                    </dd>
-                    <dt>
-                        Identification: 2 bytes.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Flags: 3 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Fragment Offset: 13 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Time to Live (TTL): 1 byte.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Protocol: 1 byte.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Header Checksum: 2 bytes.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Source Address: 32 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Destination Address: 32 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as previously discussed.
-                    </dd>
-                    <dt>
-                        Options: (IHL-5)*32 bits.
-                    </dt>
-                    <dd>
-                      This is a variable-length field, whose length is defined
-                      by the value of the field with short label IHL (Internet
-                      Header Length).  Constraint expressions can be used in place of
-                      constant values: the grammar for the expression language is
-                      defined in <xref target="ABNF-constraints"/>. Constraints can
-                      include a previously defined field's short or full label, where one has been
-                      defined. Short variable-length fields are indicated by "..."
-                      instead of a pipe at the end of the row.
-                    </dd>
-                    <dt>
-                        Payload: TL - ((IHL*32)/8) bytes.
-                    </dt>
-                    <dd>
-                      This is a multi-row variable-length field, constrained by
-                      the values of fields TL and IHL.  Instead of the "..." notation,
-                      ":" is used to indicate that the field is variable-length.
-                      The use of ":" instead of "..." indicates the field is likely
-                      to be a longer, multi-row field.  However, semantically, there
-                      is no difference: these different notations are for the benefit
-                      of human readers.
-                    </dd>
-                </dl>
-            </section>
-
-            <section anchor="ascii-xref">
-              <name>PDUs That Cross-Reference Previously Defined Fields</name>
-              <t>
-                Binary formats often reference sub-structures that have been
-                defined earlier in the specification. For example, in RTP
-                <xref target="RFC3550"/>, the Contributing Source Identifiers
-                in an RTP Data Packet are defined as comprising a list of Source
-                Identifier elements. A Source Identifier is formatted as follows:
-              </t>
-
-              <artwork>
-     0                   1                   2                   3
-     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                               SSRC                            |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-              </artwork>
-              <t>
-                  where:
-              </t>
-              <dl>
-                  <dt>
-                      SSRC: 32 bits.
-                  </dt>
-                  <dd>
-                      This is a fixed-width field, as described previously.
-                  </dd>
-              </dl>
-
-              <t>
-                The following example shows how a Source Identifier can be referenced
-                in the description of an RTP Data Packet. It also shows how the presence
-                of some fields in a format may be dependent on the values of an earlier
-                field.
-              </t>
-              <t>
-                An RTP Data Packet is formatted as follows:
-              </t>
-              <artwork>
-     0                   1                   2                   3
-     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    | V |P|X|  CC   |M|     PT      |       Sequence Number         |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                           Timestamp                           |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                Synchronization Source identifier              |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                [Contributing Source identifiers]              |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                       Header Extension                        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                             Payload                           :
-    :                                                               :
-    :                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                           Padding             | Padding Count |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                </artwork>
-                <t>
-                    where:
-                </t>
-                <dl>
-                    <dt>
-                        Version (V): 2 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as described previously.
-                    </dd>
-                    <dt>
-                        Padding (P): 1 bit.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as described previously.
-                    </dd>
-                    <dt>
-                        Extension (X): 1 bit.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as described previously.
-                    </dd>
-                    <dt>
-                        CSRC count (CC): 4 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as described previously.
-                    </dd>
-                    <dt>
-                        Marker (M): 1 bit.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as described previously.
-                    </dd>
-                    <dt>
-                        Payload Type (PT): 7 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as described previously.
-                    </dd>
-                    <dt>
-                        Sequence Number (PT): 16 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as described previously.
-                    </dd>
-                    <dt>
-                        Timestamp (PT): 32 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, as described previously.
-                    </dd>
-                    <dt>
-                        Synchronization Source identifier: 1 Source Identifier.
-                    </dt>
-                    <dd>
-                        This is a field whose structure is a previously defined PDU format (Source Identifier).
-                        To indicate this, the width of the field is expressed in terms of
-                        cross-referenced structure. When used in constraint expressions, PDU names refer to the
-                        length of that PDU structure.
-                    </dd>
-                    <dt>
-                        Contributing Source identifiers: CC Source Identifier.
-                    </dt>
-                    <dd>
-                      <t>
-                        Where a field is comprised of a sequence of previously defined structures,
-                        square brackets can be used to indicate this in the diagram.  The length
-                        of the sequence can be defined using the constraint expression
-                        grammar as described earlier. Where the length is unknown, the type of each
-                        element of the sequence must be given in square brackets.
-                      </t>
-                      <t>
-                        In this example, both a PDU name (Source Identifier) and a field name (CC) are
-                        used in the constraint expression. The PDU name refers to the length of the
-                        PDU, while the field name refers to the value of the field. This is possible
-                        because field names cannot be the same as previously defined PDU names.
-                      </t>
-                    </dd>
-                    <dt>
-                      Header Extension: 32 bits; present only when X == 1.
-                    </dt>
-                    <dd>
-                      <t>
-                        This is a field whose presence is predicated
-                        on an expression given using the constraint expression grammar described
-                        earlier.  Optional fields can be of any previously defined format (e.g.,
-                        fixed- or variable-width).  Optional fields are indicated by the presence
-                        of "; present only when [expr]." at the end of the definition term (i.e.,
-                        the text contained within the &lt;dt> tag or "hangText" attribute).
-                      </t>
-                      <t>
-                        [Note that this example deviates from the format as described in
-                        <xref target="RFC3550"/>. As specified in that document, the Header
-                        Extension would be a cross-referenced structure. This is not shown
-                        here for brevity.]
-                      </t>
-                    </dd>
-                    <dt>
-                      Payload.
-                    </dt>
-                    <dd>
-                      The length of the Payload is not specified, and hence needs to be
-                      inferred from the total length of the packet and the lengths of
-                      the known fields. There can only be one field of unspecified size
-                      in a PDU. Fields where the length is not specified may also denote
-                      this with the phrase "variable length" in place of the length
-                      definition.
-                    </dd>
-                    <dt>
-                      Padding: PC bytes; present only when (P == 1) &amp;&amp;
-                      (PC > 0). Note that PC is defined below.
-                    </dt>
-                    <dd>
-                    	<t>
-                      	This is a variable size field, with size dependent on a later
-                      	field in the packet. Fields can only depend on the value of a
-                     	 later field if they follow a field with unspecified size.
-                     	</t>
-                     	<t>
-                     	The comment (i.e., "Note that PC is defined below") following the
-                     	expression is not parsed.
-                     	</t>
-                    </dd>
-                    <dt>
-                      Padding Count (PC): 1 byte; present only when P == 1.
-                    </dt>
-                    <dd>
-                      This is a fixed-width field, as previously discussed.
-                    </dd>
-                </dl>
-            </section>
-
-            <section anchor='ascii-split'>
-                <name>PDUs with Non-Contiguous Fields</name>
-                <t>
-                  In some binary formats, fields are striped across multiple
-                  non-contiguous bits. This is often to allow for backwards
-                  compatibility with previous definitions of the same fields
-                  in earlier documents: striping in this way allows for
-                  careful use of the possible range of values.
-                </t>
-                <t>
-                  This format is illustrated using the STUN Message Type
-                  <xref target="draft-ietf-tram-stunbis-21"/>.
-                  A STUN Message Type is formatted as follows:
-                </t>
-                <artwork>
-     0                   1
-     0 1 2 3 4 5 6 7 8 9 0 1 2 3
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |M|M|M|M|M|C|M|M|M|C|M|M|M|M|
-    |B|A|9|8|7|1|6|5|4|0|3|2|1|0|
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                </artwork>
-                <t>
-                    where:
-                </t>
-                <dl>
-                    <dt>
-                        Method (M): 12 bits (split field).
-                    </dt>
-                    <dd>
-                        This field is comprised of multiple sub-fields (M0 through
-                        MB) as shown in the diagram. That these sub-fields should be
-                        concatenated, after parsing, into a single field is indicated
-                        by their being labelled using the 'M' short field name
-                        followed by a single hexadecimal digit, with the least significant
-                        bit labelled with 0, and subsequent bits labelled in sequence.
-                    </dd>
-                    <dt>
-                        Class (C): 2 bits (split field).
-                    </dt>
-                    <dd>
-                        This field follows the same format as M described above.
-                    </dd>
-                </dl>
-            </section>
-
-            <section anchor='ascii-value_constraints'>
-                <name>PDUs with Constraints on Field Values</name>
-                <t>
-                    A PDU may be defined not only by the layout and type of
-                    its fields, but also by the value of those fields. For
-                    example, field values may be constrained to be of a
-                    known exact value or to be within a range. More generally,
-                    our format enables a boolean expression to be attached to
-                    a field, which must be true for the PDU to be parsed
-                    successfully.
-                </t>
-                <t>
-                  This format is illustrated using the QUIC Long Header Packet format
-                  <xref target="QUIC-TRANSPORT"/>.
-                  A Long Header is formatted as follows:
-                </t>
-                <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+
-|1|1| T | R | P |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                             Version                           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    DCID Len   |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                 Destination Connection ID (DCID)            ...
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    SCID Len   |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  Source Connection ID (SCID)                ...
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                </artwork>
-                <t>
-                    where:
-                </t>
-                <dl>
-                    <dt>
-                        Header Form (HF): 1 bit; HF == 1.
-                    </dt>
-                    <dd>
-                            This is a fixed-width field, constrained to be a of an known, exact value. At most one field value constraint may be given, and if provided, it must be given as a boolean expression, separated by a semi-colon in the field definition name (i.e., the text contained within the &lt;dt> tag or "hangText" attribute). If present, a value constraint must follow the name, short name, and length of the field, but appear before any presence constraint, if applicable. The order of the field must be the same in both the diagram and description list.
-                    </dd>
-                    <dt>
-                        Fixed Bit (FB): 1 bit; FB == 1.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, with a value constraint, as previously described.
-                    </dd>
-                    <dt>
-                        Long Packet Type (T): 2 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field as previously described.
-                    </dd>
-                    <dt>
-                        Reserved Bits (R): 2 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field as previously described.
-                    </dd>
-                    <dt>
-                        Packet Number Length (P): 2 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field as previously described.
-                    </dd>
-                    <dt>
-                        Version: 32 bits.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field as previously described.
-                    </dd>
-                    <dt>
-                        DCID Len (DLen): 1 byte; DLen &lt;= 20.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, with a value constraint, as previously described. Note that the constraint language is not limited to equality; it is defined fully in <xref target="ABNF-constraints"/>.
-                    </dd>
-                    <dt>
-                        Destination Connection ID: DLen bytes.
-                    </dt>
-                    <dd>
-                        This is a variable-width field as previously described.
-                    </dd>
-                    <dt>
-                        SCID Len (SLen): 1 byte; SLen &lt;= 20.
-                    </dt>
-                    <dd>
-                        This is a fixed-width field, with a value constraint, as previously described.
-                    </dd>
-                    <dt>
-                        Source Connection ID: SLen bytes.
-                    </dt>
-                    <dd>
-                        This is a variable-width field as previously described.
-                    </dd>
-                </dl>
-            </section>
-
-            <section anchor='ascii-size_constraints'>
-                <name>PDUs with Constraints on Field Sizes</name>
-                <t>
-                    A PDU may contain fields that have a size that is specified in terms
-                    of the value of another field. So far, our constraint syntax can be
-                    used to specify the length of fields in known units (of bits, bytes,
-                    or other structures). If the units are of variable-width, then it may
-                    not be possible to specify the length of the sequence. However, it is
-                    still necessary to be able to constraint the overall width of the
-                    field. To support this, our constraint syntax includes a "size"
-                    function that evaluates to the width, in bits, of the given named
-                    field.
-                </t>
-                <t>
-                  This syntax is illustrated using the TCP Header format
-                  <xref target="draft-ietf-tcpm-rfc793bis"/>.
-                  A TCP Header is formatted as follows:
-                 </t>
-                 <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Source Port          |       Destination Port        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                        Sequence Number                        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Acknowledgment Number                      |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Data |       |C|E|U|A|P|R|S|F|                               |
-| Offset| Rsrvd |W|C|R|C|S|S|Y|I|         Window Size           |
-|       |       |R|E|G|K|H|T|N|N|                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|           Checksum            |         Urgent Pointer        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                          [Options]                            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                                                               :
-:                            Payload                            :
-:                                                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                 </artwork>
-                 <t>
-                     where:
-                 </t>
-                 <dl>
-                     <dt>
-                         Source Port: 16 bits.
-                     </dt>
-                     <dd>
-                         <t>
-                            This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Destination Port: 16 bits.
-                     </dt>
-                     <dd>
-                         <t>
-                           This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Sequence Number: 32 bits.
-                     </dt>
-                     <dd>
-                         <t>
-                           This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Acknowledgment Number: 32 bits.
-                     </dt>
-                     <dd>
-                         <t>
-                           This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Data Offset (DOffset): 4 bits; DOffset >= 5.
-                     </dt>
-                     <dd>
-                         <t>
-                           This is a fixed-width field, with a value constraint, as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Reserved (Rsrvd): 4 bits; Rsrvd == 0.
-                     </dt>
-                     <dd>
-                         <t>
-                           This is a fixed-width field, with a value constraint, as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         CWR: 1 bit.
-                     </dt>
-                     <dd>
-                         <t>
-                             This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         ECE: 1 bit.
-                     </dt>
-                     <dd>
-                         <t>
-                             This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         URG: 1 bit.
-                     </dt>
-                     <dd>
-                         <t>
-                             This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         ACK: 1 bit.
-                     </dt>
-                     <dd>
-                         <t>
-                             This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         PSH: 1 bit.
-                     </dt>
-                     <dd>
-                         <t>
-                              This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         RST: 1 bit.
-                     </dt>
-                     <dd>
-                         <t>
-                             This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         SYN: 1 bit.
-                     </dt>
-                     <dd>
-                         <t>
-                             This is a fixed-width field, with a value constraint, as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         FIN: 1 bit; (FIN == 0) || (SYN == 0).
-                     </dt>
-                     <dd>
-                         <t>
-                             This is a fixed-width field, with a value constraint, as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Window Size: 16 bits.
-                     </dt>
-                     <dd>
-                         <t>
-                           This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Checksum: 16 bits.
-                     </dt>
-                     <dd>
-                         <t>
-                           This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Urgent Pointer: 16 bits.
-                     </dt>
-                     <dd>
-                         <t>
-                            This is a fixed-width field as previously described.
-                         </t>
-                     </dd>
-                     <dt>
-                         Options: [TCP Option]; size(Options) == (DOffset-5)*32; present only when DOffset > 5.
-                     </dt>
-                     <dd>
-                         <t>
-                           This is a variable-width field that is comprised of a sequence
-                           of TCP Option sub-structures. TCP Option is an enumerated type,
-                           to be defined in <xref target="ascii-enums"/>. As defined, the
-                           TCP Option type can be either 2 or 3 bytes, depending on the
-                           option type. As a result, it is not possible to specify the
-                           number of TCP Option structures that the Option field will
-                           contain. However, the overall size of the field can be 
-                           constrained. The "size(Options) == (DOffset-5)*32" makes use
-                           of the "size" function. This evaluates to the size, in bits, of
-                           the named field. The argument passed to the "size" field must
-                           be the name of the field being defined, or of a previously
-                           defined field.
-                         </t>
-                         <t>
-                           The "DOffset" field contains the number of 32-bit words that
-                           are present in the TCP Header. By default, with no TCP options,
-                           this is 5. As a result, the size of the Options field is
-                           constrained to the value of DOffset, less 5, and multiplied to
-                           get the value in bits.
-                         </t>
-                     </dd>
-                     <dt>
-                         Payload.
-                     </dt>
-                     <dd>
-                         This is a variable-width field as previously described.
-                     </dd>
-                </dl>
-            </section>
-
-            <section anchor='ascii-extendstructures'>
-             <name>PDUs That Extend Sub-Structures</name>
-             <t>
-                A PDU may not only use or reference existing sub-structures, but they
-                may extend them, adding new fields, or enforcing different or additional constraints.
-             </t>
-             <t>
-               Where a sub-structure is extended, the diagram may show the sub-structure as
-               a block, labelled with the sub-structure name. It may also be desirable to
-               show the sub-structure diagram in full; in this case, the fields must be
-               given in the same order and be of the same length. New field constraints
-               can be shown. Similarly, in the description list, those fields inherited
-               without change (i.e., with no change to their constraints) do not need to
-               be repeated. Those with different or additional constraints must be described,
-               and the order of the fields in the description list must match that of the
-               sub-structure and the containing structure.
-             </t>
-             <t>
-               This format is illustrated using the QUIC Retry Packet format
-               <xref target="QUIC-TRANSPORT"/>.
-               A Retry Packet is formatted as follows:</t>
-               <artwork>
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               :
- :                          Long Header                          :
- :                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                          Retry Token                        ...
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- +                                                               +
- |                                                               |
- +                     Retry Integrity Tag                       +
- |                                                               |
- +                                                               +
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-               </artwork>
-               <t>
-                  where:
-               </t>
-               <dl>
-                  <dt>
-                    Long Header (LH): 1 Long Header; LH.T == 3.
-                  </dt>
-                  <dd>
-                    This field is a previously defined sub-structure. Its constraints can access fields in that sub-structure. In this example, the T field of the Long Header must be equal to 3.
-                  </dd>
-                  <dt>
-                     Retry Token.
-                  </dt>
-                  <dd>
-                    This is a variable-length field as previously defined.
-                  </dd>
-                  <dt>
-                    Retry Integrity Tag: 128 bits.
-                  </dt>
-                  <dd>
-                    This is a fixed-width field as previously defined.
-                  </dd>
-               </dl>
-               <t>
-                 As shown, the Long Header packet sub-structure is included. The Retry Packet enforces
-                 a new value constraint on the Long Packet Type (T) field.
-               </t>
-            </section>
-
-            <section anchor='ascii-store'>
-                <name>Storing Data for Parsing</name>
-                <t>
-                  The parsing process may require data from previously parsed structures. This means that
-                  data needs to be stored persistently throughout the process. This data needs to be
-                  identified.
-                </t>
-                <t>
-                  That the value of a particular field be stored upon parsing is indicated by the exact phrase "On receipt, the value of &lt;field name> is stored as &lt;stored name>." being present at the end of the description of a field (i.e., at the end of the &lt;dd> or &lt;t> element.)
-              </t>
-                <t>An Initial Packet is formatted as follows:</t>
-                <artwork>
-   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                                                               :
-  :                          Long Header                          :
-  :                                                               |
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                </artwork>
-                <t>
-                   where:
-                </t>
-                <dl>
-                   <dt>
-                      Long Header (LH): 1 Long Header; LH.T == 0.
-                   </dt>
-                   <dd>
-                      This is field is a sub-structure, with a constraint, as previously defined. On receipt, the value of LH.DCID is stored as Initial DCID.
-                   </dd>
-               </dl>
-                <t>
-                  In this example, the value of the DCID field of the Long Header sub-structure is stored as Initial DCID.
-                </t>
-            </section>
-
-            <section anchor='ascii-functions'>
-              <name>Connecting Structures with Functions</name>
-              <t>
-                The parsing or serialisation of some binary formats cannot be fully described without
-                the use of functions. These functions take arguments (values from another structure),
-                perform some computation, and generate a new structure.
-              </t>
-              <t>
-                Given the goal of fully capturing the parsing or serialisation of binary protocols, it
-                is necessary to include the signature of these helper functions.
-              </t>
-              <t>
-                Function signatures are described in &lt;artwork> elements. They are constructed as
-                the word "func", followed by a space, then the name of the function. This is immediately
-                followed by a set of brackets containing a comma separated list of the function's parameters,
-                formatted as "&lt;parameter name>: &lt;parameter type>". This is followed by "->"
-                and the return type of the function, followed by a colon.
-              </t>
-              <t>
-                The body of the function is not captured, owing to the complexity of both capturing and translating
-                arbitrary code. As a result, it can be described in whichever format is most suitable for the
-                document and its readership.
-              </t>
-              <t>
-                  Those values that are stored persistently, as defined in <xref target="ascii-store"/>, are accessible by functions.
-            </t>
-              <t>
-                As an example, the "apply_protection" function is defined as:
-              </t>
-            <artwork>
-func apply_protection(to: Unprotected Packet)
-                -> Protected Packet:
-   apply packet protection to payload
-   apply header protection to first_byte and packet_number
-   construct appropriate Protected Packet based on first_byte
-   return Protected Packet
-            </artwork>
-            <t>
-              In this example, 'Unprotected Packet' and 'Protected Packet' are existing types.
-            </t>
-            <t>
-                To indicate that a PDU is created from another by way of a
-                function, the sentence "A/An &lt;PDU name A> is parsed from a
-                &lt;PDU name B> using the &lt;function name> function" is used.
-                This indicates that a PDU A is generated by passing PDU B into
-                the named function. The function must take a single parameter,
-                of the same type as PDU B, and return a PDU B.
-            </t>
-            <t>
-                To indicate that a PDU can be serialised to another by way of a
-                function, the sentence "A/An &lt;PDU name A> is serialised to a
-                &lt;PDU name B> using the &lt;function name> function" is used.
-                This indicates that a PDU B is generated by passing PDU A into
-                the named function. The function must take a single parameter,
-                of the same type as PDU A, and return a PDU B.
-            </t>
-            </section>
-
-            <section anchor='ascii-enums'>
-                <name>Specifying Enumerated Types</name>
-                <t>
-                  In addition to the use of the sub-structures, it is desirable to be able to define a type that
-                  may take the value of one of a set of alternative structures.
-                </t>
-               <t>
-                  The alternative structures that comprise an enumerated type are identified using the exact phrase "The &lt;enumerated type name>
-                   is one of: &lt;list of structure names>" where the list of structure names is a comma
-                  separated list (with the last element, if there is more than one element, preceded by 'or'),
-                  each optionally preceded by "a" or "an". The structure names must be defined within the document or a linked document.
-                  Optionally, this phrase can include a note or comment, delimited by commas, immediately
-                  following the enumerated type name. That is, "The &lt;enumerated type name>, with an
-                  optional comment, is one of: &lt;list of structure names>" can be used to define an enumerated type.
-                </t>
-                
-                <t>
-                    Where an enumerated type has only two variants, an alternative phrase can be used: "The &lt;enumerated type name> is either a &lt;variant 1 name> or &lt;variant 2 name>". The names of the variants must be defined within the document or a linked document.
-                    An optional note or comment can be included with this alternative phrasing: "The &lt;enumerated type name>, with an optional comment, is either a &lt;variant 1 name> or &lt;variant 2 name>" can be used.
-                </t>
-                     <t>
-                      An EOL Option is formatted as follows:
-                     </t>
-                     <artwork>
- 0
- 0 1 2 3 4 5 6 7
-+-+-+-+-+-+-+-+-+
-|       0       |
-+-+-+-+-+-+-+-+-+
-                     </artwork>
-                     <t>
-                         where:
-                     </t>
-                     <dl>
-                         <dt>
-                             Option Kind (Kind): 1 byte; Kind == 0.
-                         </dt>
-                         <dd>
-                             <t>
-                                This is a fixed-width field, with a value constraint, as previously described.
-                             </t>
-                         </dd>
-                     </dl>
-                     <t>
-                      A Window Scale Factor Option is formatted as follows:
-                     </t>
-                     <artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       3       |     Length    | Window Scale  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                     </artwork>
-                     <t>
-                         where:
-                     </t>
-                     <dl>
-                         <dt>
-                             Option Kind (Kind): 1 byte; Kind == 3.
-                         </dt>
-                         <dd>
-                             <t>
-                                This is a fixed-width field, with a value constraint, as previously described.
-                             </t>
-                         </dd>
-                         <dt>
-                             Option Length (Length): 1 byte; Length == 3.
-                         </dt>
-                         <dd>
-                             <t>
-                                This is a fixed-width field, with a value constraint, as previously described.
-                             </t>
-                         </dd>
-                         <dt>
-                             Window Scale Factor: 1 byte.
-                         </dt>
-                         <dd>
-                             <t>
-                                 This is a fixed-width field, as previously described.
-                             </t>
-                         </dd>
-                     </dl>
-               <t>
-               A TCP Option is either an EOL Option or a Window Scale Factor Option.
-               </t>
-            </section>
-
-            <section anchor='ascii-pdus'>
-                <name>Specifying Protocol Data Units</name>
-                <t>
-                  A document will set out different structures that are not, on their own, protocol data units.
-                  To capture the parsing or serialisation of a protocol, it is necessary to be able to identify
-                  or construct those packets that are valid PDUs. As a result, it is necessary for the document
-                  to identify those structures that are PDUs.
-                </t>
-                <t>
-                  The PDUs that comprise a protocol are identified using the
-                  exact phrase "This document describes the &lt;protocol name>
-                  protocol. The &lt;protocol name> protocol uses &lt;list of PDU
-                  names>" where the list of PDU names is a comma separated list
-                  (with the last element, if there is more than one element,
-                  preceded by 'and'), each optionally preceded by "a" or "an".
-                  The PDU names must be structure names defined in the document
-                  or a linked document. The PDU names are pluralised in the
-                  list. A document must contain exactly one instance of this
-                  phrase.
-                </t>
-                <t>
-                  This document describes the Example protocol. The Example protocol uses Long Headers, STUN Message Types, IPv4 Headers, RTP Data Packets, and TCP Headers.
-                </t>
-            </section>
-
-            <section anchor='ascii-import'>
-                <name>Importing PDU Definitions from Other Documents</name>
-                <t>
-                  Protocols are often specified across multiple documents, either because
-                  the specification of a protocol's data units has changed over time, or
-                  because of explicit extension points contained in the protocol's original
-                  specification. To allow a document to make use of a previous PDU definition,
-                  it is possible to import PDU definitions (written in the format described in
-                  this document) from other documents.
-                </t>
-                <t>
-                  A PDU definition is imported using the exact phrase "A/An ________ is formatted as
-                  described in &lt;document identifier>". The document identifier must refer, unambiguously,
-                  to an existing document. An Internet-Draft is identified by its name. RFCs are identified by
-                  "RFC" followed by their number.
-                </t>
-            </section>
-
-        </section>
-
-        <section anchor="issues">
-          <name>Open Issues</name>
-          <ul>
-            <li>
-              Need a simple syntax for defining a list of identical objects,
-              and a way of referring to the size of the enclosing packet.
-              The format cannot currently represent RFC 6716 section 3.2.3,
-              and should be able to (the underlying type system can do so).
-            </li>
-            <li>
-              Need some discussion about the checks that the tooling might
-              perform, and the implications of those checks. For example,
-              the tooling checks for consistency between the diagram and
-              the description list of fields, ensuring that fields match
-              by name and width. -01 of this draft had a field that
-              mismatched because of case: is this something that the
-              tooling should identify? More broadly, what is the trade-off
-              between the rigour that the tooling can enforce, and the
-              flexibility desired/needed by authors?
-            </li>
-            <li>
-              Need to describe the rules governing the import of PDU definitions
-              from other documents.
-            </li>
-          </ul>
-        </section>
-
         <section anchor='IANA'>
             <name>IANA Considerations</name>
             <t>
@@ -1663,7 +1373,7 @@ func apply_protection(to: Unprotected Packet)
             </t>
             <t>
               Wesley Eddy provided valuable feedback on the description format through
-              adopting it in <xref target="draft-ietf-tcpm-rfc793bis" />.
+              adopting it in <xref target="RFC9293" />.
             </t>
             <t>
                 The authors would like to thank David Southgate for preparing
@@ -1844,59 +1554,27 @@ func apply_protection(to: Unprotected Packet)
                 </front>
                 <refcontent>;login: -- December 2011, Volume 36, Number 6</refcontent>
             </reference>
-            <reference anchor="draft-mcquistin-augmented-udp-example" target="http://www.ietf.org/internet-drafts/draft-mcquistin-augmented-udp-02.txt">
+            <reference anchor="RFC9293" target="https://www.rfc-editor.org/info/rfc9293">
                 <front>
-                    <title>Describing UDP with Augmented Packet Header Diagrams</title>
-
-                    <author initials='S' surname='McQuistin' fullname='Stephen McQuistin'><organization /></author>
-                    <author initials='V' surname='Band' fullname='Vivian Band'><organization /></author>
-                    <author initials='D' surname='Jacob' fullname='Dejice Jacob'><organization /></author>
-                    <author initials='C. S.' surname='Perkins' fullname='Colin Perkins'><organization /></author>
-
-                    <date month='October' day='25' year='2021' />
+                    <title>Transmission Control Protocol</title>
+            
+                    <author initials='W' surname='Eddy' fullname='Wesley M. Eddy'><organization /></author>
+            
+                    <date month='August' year='2022' />
                 </front>
-
-                <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-udp-example-02' />
+                <seriesInfo name='RFC' value='9293'/>
             </reference>
-            <reference anchor="draft-mcquistin-augmented-tcp-example" target="http://www.ietf.org/internet-drafts/draft-mcquistin-augmented-tcp-example-02.txt">
+            
+            <reference anchor="RFC768" target="https://www.rfc-editor.org/info/rfc768">
                 <front>
-                    <title>Describing TCP with Augmented Packet Header Diagrams</title>
-
-                    <author initials='S' surname='McQuistin' fullname='Stephen McQuistin'><organization /></author>
-                    <author initials='V' surname='Band' fullname='Vivian Band'><organization /></author>
-                    <author initials='D' surname='Jacob' fullname='Dejice Jacob'><organization /></author>
-                    <author initials='C. S.' surname='Perkins' fullname='Colin Perkins'><organization /></author>
-
-                    <date month='October' day='25' year='2021' />
+                    <title>User Datagram Protocol</title>
+            
+                    <author initials='J' surname='Postel' fullname='Jon Postel'><organization /></author>
+            
+                    <date month='August' year='1980' />
                 </front>
-
-                <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-tcp-example-02' />
+                <seriesInfo name='RFC' value='768'/>
             </reference>
-            <reference anchor="draft-mcquistin-quic-augmented-diagrams" target="http://www.ietf.org/internet-drafts/draft-mcquistin-quic-augmented-diagrams-05.txt">
-                <front>
-                    <title>Describing QUIC's Protocol Data Units with Augmented Packet Header Diagrams</title>
-
-                    <author initials='S' surname='McQuistin' fullname='Stephen McQuistin'><organization /></author>
-                    <author initials='V' surname='Band' fullname='Vivian Band'><organization /></author>
-                    <author initials='D' surname='Jacob' fullname='Dejice Jacob'><organization /></author>
-                    <author initials='C. S.' surname='Perkins' fullname='Colin Perkins'><organization /></author>
-
-                    <date month='October' day='25' year='2021' />
-                </front>
-
-                <seriesInfo name='Internet-Draft' value='draft-mcquistin-quic-augmented-diagrams-04' />
-            </reference>
-            <reference anchor="draft-ietf-tcpm-rfc793bis" target="http://www.ietf.org/internet-drafts/draft-ietf-tcpm-rfc793bis-27.txt">
-               <front>
-                   <title>Transmission Control Protocol (TCP) Specification</title>
-  
-                   <author initials='W' surname='Eddy' fullname='Wesley Eddy'><organization /></author>
-  
-                   <date month='February' day='22' year='2022' />
-               </front>
-  
-               <seriesInfo name='Internet-Draft' value='draft-ietf-tcpm-rfc793bis-27' />
-           </reference>
         </references>
 
         <section anchor='ABNF'>
@@ -1952,8 +1630,8 @@ unit = %s"bit" / %s"bits" / %s"byte" / %s"bytes" / name
                 from <eref target="https://github.com/glasgow-ipl/ips-protodesc-code" />. This tooling
                 supports the automatic generation of Rust parser code from protocol descriptions written
                 in the Augmented Packet Header Diagram format. It also provides test harnesses that
-                demonstrate that example descriptions of UDP <xref target="draft-mcquistin-augmented-udp-example" />
-                and TCP <xref target="draft-mcquistin-augmented-udp-example" /> function as expected.
+                demonstrate that the description of TCP <xref target="RFC9293" /> written in this format can
+                be used to generate parser code.
             </t>
         </section>
     </back>
