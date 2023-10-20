@@ -7,12 +7,12 @@
         <seriesInfo name='Internet-Draft' value='draft-mcquistin-augmented-ascii-diagrams-12' status="experimental" />
 
         <author fullname='Stephen McQuistin' initials='S.' surname='McQuistin'>
-            <organization>University of Glasgow</organization>
+            <organization>University of St Andrews</organization>
             <address>
                 <postal>
-                    <street>School of Computing Science</street>
-                    <city>Glasgow</city>
-                    <code>G12 8QQ</code>
+                    <street>School of Computer Science</street>
+                    <city>St Andrews</city>
+                    <code>KY16 9AJ</code>
                     <country>UK</country>
                 </postal>
                 <email>sm@smcquistin.uk</email>
