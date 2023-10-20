@@ -375,7 +375,9 @@
                 The concept is illustrated by example, with accompanying explanatory descriptions.
                 This is appropriate, given the visual nature of the language. In future drafts a formal specification of the format will be given in <xref target="ABNF"/>.
             </t>
-
+            <t>
+              The format described in this document aligns with an underlying data model, the Network Packet Representation, outlined in <xref target="NETWORKING2021" />. Using a typed data model to express the syntax of protocols, and the way that they are parsed, allows for safety and complexity properties to be defined and enforced.  This underlying representation is independent of the description language used: the Augmented Packet Header Diagrams format, defined in the sections that follow, is only one such approach.
+            </t>
             <section anchor='ascii-simple'>
                 <name>Defining Protocol Data Units</name>
                 <t>
@@ -1564,6 +1566,19 @@ func apply_protection(to: Unprotected Packet)
                 </front>
                 <seriesInfo name='RFC' value='768'/>
             </reference>
+            
+            <reference anchor="NETWORKING2021" target="http://dl.ifip.org/db/conf/networking/networking2021/1570702659.pdf">
+                <front>
+                    <title>Investigating Automatic Code Generation for Network Packet Parsing</title>
+            
+                    <author initials='S' surname='McQuistin' fullname='Stephen McQuistin'><organization /></author>
+                    <author initials='V' surname='Band' fullname='Vivian Band'><organization /></author>
+                    <author initials='D' surname='Jacob' fullname='Dejice Jacob'><organization /></author>
+                    <author initials='C' surname='Perkins' fullname='Colin Perkins'><organization /></author>
+                </front>
+                <refcontent>Proceedings of the 20th International IFIP TC6 Networking Conference, Networking 2021, Espoo, Finland, June 21-24, 2021</refcontent>
+            </reference>
+
         </references>
 
         <section anchor='ABNF'>
