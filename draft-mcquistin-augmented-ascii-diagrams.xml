@@ -41,7 +41,7 @@
                     <code>G12 8QQ</code>
                     <country>UK</country>
                 </postal>
-                <email>d.jacob.1@research.gla.ac.uk</email>
+                <email>dejice.jacob@glasgow.ac.uk</email>
             </address>
         </author>
 
@@ -129,7 +129,7 @@
              </t>
             <t>
                 This document describes a consistent packet header diagram format and
-                accompanying structured text constructs that allow for the parsing process
+                accompanying structured text phrases that allow for the parsing process
                 of protocol headers to be fully specified. This provides support for the
                 automatic generation of parser code. Broad design principles, that seek
                 to maintain the primacy of human readability and flexibility in
@@ -408,11 +408,9 @@
                   comment, is formatted as follows" can be used to introduce a PDU
                   description.
                   The introductory phrase is followed by the PDU description itself, as a packet
-                  diagram within an &lt;artwork> element (itself optionally
-                  within a &lt;figure> element) in the XML representation,
+                  diagram,
                   starting with a header line to show the bit width of the diagram.
-                  The description of the fields follows the diagram, as an XML
-                  list (either &lt;dl> or hanging &lt;list>), after a paragraph
+                  The description list of the fields follows the diagram, after a paragraph
                   that begins with the text "where:".
                 </t>
 
@@ -432,11 +430,7 @@
                   parsed, and this space can be used for optional notes or comments.
                   Field names cannot be the same as a
                   previously defined PDU name, and must be unique within a given
-                  structure definition. The structured text definition is given
-                  either in a &lt;dt> tag (if using a &lt;dl>) or as the "hangText"
-                  (if using a hanging &lt;list>) of a &lt;t> element. The field's
-                  prose description is given in the following &lt;dd> element or
-                  within the same &lt;t> element. Prose descriptions may include
+                  structure definition. Prose descriptions may include
                   structured text (e.g., as defined in <xref target="ascii-store" />).
                 </t>
 
@@ -537,8 +531,7 @@
                        This is a fixed-width field, with a constraint on its value. At
                        most one field value constraint may be given per field, and if
                        provided, it must be given as a boolean expression, separated by a
-                       semi-colon in the field definition name (i.e., the text contained
-                       within the &lt;dt> tag or "hangText" attribute). If present, a
+                       semi-colon in the field definition name. If present, a
                        value constraint must follow the name, short name, and length of
                        the field, but appear before any presence constraint, if
                        applicable. The order of the field must be the same in both the
@@ -562,10 +555,7 @@
                     Control bits:
                  </dt>
                  <dd>
-                    <t>Optionally, field description lists can be nested. If the XML element (either a
-                    &lt;dd> or a &lt;t>) containing the description of a field contains an XML list (either &lt;dl> or
-                    hanging &lt;list>) as its last element, then this nested list will be parsed for fields, and the
-                  outer description will be ignored. In this example, "Control bits" describes the group of 8 single
+                    <t>Optionally, field description lists can be nested. In this example, "Control bits" describes the group of 8 single
                 bit fields that are described in the list that follows; it is these single bit fields that
                 will form part of the structure.</t>
                     <dl>
@@ -687,8 +677,7 @@
                      <t>
                        The presence of the "Options" field is predicated on an expression.
                        Optional fields are indicated by the presence of "; present only when [expr]."
-                       at the end of the definition term (i.e., the text contained
-                       within the &lt;dt> tag or "hangText" attribute).
+                       at the end of the definition term.
                      </t>
                  </dd>
                  <dt>
@@ -1051,7 +1040,7 @@
                   identified.
                 </t>
                 <t>
-                  That the value of a particular field be stored upon parsing is indicated by the exact phrase "On receipt, the value of &lt;field name> is stored as &lt;stored name>." being present at the end of the description of a field (i.e., at the end of the &lt;dd> or &lt;t> element.)
+                  That the value of a particular field be stored upon parsing is indicated by the exact phrase "On receipt, the value of &lt;field name> is stored as &lt;stored name>." being present at the end of the description of a field.
               </t>
                 <t>An Initial Packet is formatted as follows:</t>
                 <artwork>
@@ -1091,7 +1080,7 @@
                 is necessary to include the signature of these helper functions.
               </t>
               <t>
-                Function signatures are described in &lt;artwork> elements. They are constructed as
+                Function signatures are constructed by
                 the word "func", followed by a space, then the name of the function. This is immediately
                 followed by a set of brackets containing a comma separated list of the function's parameters,
                 formatted as "&lt;parameter name>: &lt;parameter type>". This is followed by "->"
