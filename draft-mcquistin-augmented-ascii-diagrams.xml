@@ -143,12 +143,12 @@
                 being parsed by the accompanying tooling.
             </t>
             <t>
-                This draft describes early work. As consensus builds around the
-                particular syntax of the format described, a formal ABNF
-                specification (<xref target="ABNF"/>) will be provided.
+              The goal of this draft is to define a format that, with minimal change on the part of authors, provides benefits to the users of those documents that adopt it. An explicit non-goal of this work, as will be further discussed in <xref target="designprinciples" />, is to be prescriptive about how the format should be adopted. For example, alterations to the underlying XML format of RFCs are out-of-scope.
             </t>
             <t>
-                Code that parses
+                This draft describes early work. As consensus builds around the
+                particular syntax of the format described, a formal ABNF
+                specification (<xref target="ABNF"/>) will be provided. Code that parses
                 documents written using this format, and that automatically generates parser code for the described
                 protocols, is described in <xref target="source"/>.
             </t>
