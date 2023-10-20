@@ -376,10 +376,9 @@
                 This is appropriate, given the visual nature of the language. In future drafts a formal specification of the format will be given in <xref target="ABNF"/>.
             </t>
             <t>
-<<<<<<< HEAD
               The format described in this document aligns with an underlying data model, the Network Packet Representation, outlined in <xref target="NETWORKING2021" />. Using a typed data model to express the syntax of protocols, and the way that they are parsed, allows for safety and complexity properties to be defined and enforced.  This underlying representation is independent of the description language used: the Augmented Packet Header Diagrams format, defined in the sections that follow, is only one such approach.
             </t>
-=======
+            <t>
               Our examples are drawn from the specifications of TCP <xref target="RFC9293"/>,
               STUN <xref target="RFC8489"/>, and QUIC <xref target="QUIC-TRANSPORT"/>. These examples
               are illustrative only of the Augmented Packet Header Diagram format that we define in
@@ -388,7 +387,6 @@
               does not use packet header diagrams to describe the syntax of the protocol.
             </t>
               
->>>>>>> master
             <section anchor='ascii-simple'>
                 <name>Defining Protocol Data Units</name>
                 <t>
