@@ -77,11 +77,11 @@
         <section anchor='intro'>
             <name>Introduction</name>
             <t>
-                Packet header diagrams have become a widely used format for
+                Packet header diagrams are widely used for
                 describing the syntax of binary protocols. In otherwise largely textual
-                documents, they allow for the visualisation of packet formats, reducing
-                human error, and aiding in the implementation of parsers for the protocols
-                that they specify.
+                documents, they allow for the visualisation of packet formats in a readily
+                understandable manner, aiding the implementation of parsers for the
+                protocols that they describe.
             </t>
             <t>
                 <xref target="tcp-header-format"/> gives an example of how packet
@@ -94,7 +94,7 @@
 
             </t>
         <figure anchor="tcp-header-format">
-            <name>TCP's header format (from <xref target="RFC793"/>)</name>
+            <name>The TCP packet header format (from <xref target="RFC793"/>)</name>
             <artwork>
 :    0                   1                   2                   3
 :    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -119,7 +119,7 @@
         </figure>
             <t>
                 Unfortunately, the format of such packet diagrams varies both within
-                and between documents. This variation makes it difficult to build
+                and between documents in the RFC series. This variation makes it difficult to build
                 tools to generate parsers from the specifications. Better tooling
                 could be developed if protocol specifications adopted a consistent
                 format for their packet descriptions. Indeed,
@@ -129,21 +129,23 @@
              </t>
             <t>
                 This document describes a consistent packet header diagram format and
-                accompanying structured text phrases that allow for the parsing process
-                of protocol headers to be fully specified. This provides support for the
-                automatic generation of parser code. Broad design principles, that seek
-                to maintain the primacy of human readability and flexibility in
+                accompanying structured text phrases, collectively known as Augmented
+                Packet Header Diagrams, that fully specify the syntax of protocol data
+                units allowing for the automated generation of packet parsing code.
+                Broad design principles, that
+                maintain the primacy of human readability and flexibility in
                 writing, are described, before the format itself is given.
             </t>
             <t>
                 This document is itself an example of the approach that it describes, with
                 the packet header diagrams and structured text format described by example.
-                Examples that do not form part of the protocol description language are
-                marked by a colon at the beginning of each line; this prevents them from
+                Packet header diagrams that do not use the Augmented Packet Header Diagram
+                format are marked by a colon at the beginning of each line, as in
+                <xref target="tcp-header-format"/>; this prevents them from
                 being parsed by the accompanying tooling.
             </t>
             <t>
-              The goal of this draft is to define a format that, with minimal change on the part of authors, provides benefits to the users of those documents that adopt it. An explicit non-goal of this work, as will be further discussed in <xref target="designprinciples" />, is to be prescriptive about how the format should be adopted. For example, alterations to the underlying XML format of RFCs are out-of-scope.
+              The goal of this document is to define a format that, with minimal effort on the part of authors, provides benefits to the users of those documents that adopt it. An explicit non-goal of this work, as will be further discussed in <xref target="designprinciples" />, is to be prescriptive about how the format should be adopted. For example, alterations to the underlying XML format of RFCs are out-of-scope.
             </t>
             <t>
                 This draft describes early work. As consensus builds around the
