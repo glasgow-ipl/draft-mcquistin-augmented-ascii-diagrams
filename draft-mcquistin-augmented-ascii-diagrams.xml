@@ -160,13 +160,13 @@
         <section anchor='background'>
             <name>Background</name>
             <t>
-                This section begins by considering how packet header diagrams are
-                used in existing documents. This exposes the limitations that the current
+                We begin by considering how packet header diagrams are currently
+                used within the RFC series. This exposes the limitations that the current
                 usage has in terms of machine-readability, guiding the design of the
-                format that this document proposes.
+                augmented packet header format that we propose.
             </t>
             <t>
-                While this document focuses on the machine-readability of packet format
+                While this document focuses on machine-readability of packet header
                 diagrams, this section also discusses the use of other structured or formal
                 languages within IETF documents. Considering how and why these languages
                 are used provides an instructive contrast to the relatively incremental
@@ -174,7 +174,17 @@
             </t>
 
             <section anchor='background-ascii'>
-                <name>Limitations of Current Packet Format Diagrams</name>
+                <name>Limitations of Current Packet Header Diagrams</name>
+
+                <t>
+                  Packet header diagrams are frequently used in IETF standards to describe the
+                  format of binary protocols. While there is no standard for how
+                  these diagrams should be formatted, they have a broadly similar structure,
+                  where the layout of a protocol data unit (PDU) or structure is shown in
+                  diagrammatic form, followed by a description of the fields that it
+                  contains. An example of this format, taken from a draft of the QUIC specification,
+                  is given in <xref target="quic-reset-stream"/>.
+                </t>
 
                 <figure anchor="quic-reset-stream">
                   <name>QUIC's RESET_STREAM frame format (from <xref target="QUIC-TRANSPORT"/>)</name>
@@ -204,16 +214,6 @@
 :      of the stream by the RESET_STREAM sender, in unit of bytes.
                   </artwork>
                 </figure>
-
-                <t>
-                  Packet header diagrams are frequently used in IETF standards to describe the
-                  format of binary protocols. While there is no standard for how
-                  these diagrams should be formatted, they have a broadly similar structure,
-                  where the layout of a protocol data unit (PDU) or structure is shown in
-                  diagrammatic form, followed by a description list of the fields that it
-                  contains. An example of this format, taken from the QUIC specification,
-                  is given in <xref target="quic-reset-stream"/>.
-                </t>
 
                 <t>
                   These packet header diagrams, and the accompanying descriptions, are
@@ -285,7 +285,8 @@
                       <t>
                         Protocol data units and other structures are often comprised of
                         sub-structures that are defined elsewhere, either in the same
-                        document, or within another document. Chaining these structures
+                        document or within a related document (e.g., a base protocol
+                        specification document and a set of extensions). Chaining these structures
                         together is essential for machine parsing: the parsing process for
                         a protocol data unit is only fully expressed if all elements can
                         be parsed.
@@ -297,7 +298,7 @@
                         variable-length integers; this is a structure described elsewhere
                         in the same document. Structured text is required both alongside
                         the definition of the containing structure and with the definition
-                        of the sub-structure, to allow a parser to link the two together.
+                        of the sub-structure to allow a parser to link the two together.
                       </t>
                     </dd>
 
@@ -319,7 +320,7 @@
                 </dl>
 
                 <figure anchor="dhcpv6-relaysrcopt">
-                  <name>DHCPv6's Relay Source Port Option (from <xref target="RFC8357"/>)</name>
+                  <name>The DHCPv6 Relay Source Port Option (from <xref target="RFC8357"/>)</name>
                   <artwork>
 :   The format of the "Relay Source Port Option" is shown below:
 :
