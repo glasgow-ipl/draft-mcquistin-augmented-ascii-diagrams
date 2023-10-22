@@ -393,33 +393,37 @@
             <section anchor='ascii-simple'>
                 <name>Defining Protocol Data Units</name>
                 <t>
-                  A PDU description is introduced by the exact phrase "A/An
-                  _______ is formatted as follows" within a paragraph. Optionally, this
+                  The Augmented Packet Header Diagram format introduces a new protocol
+                  data unit description using the exact phrase "A _______ is formatted
+                  as follows" within a paragraph (the phrasing "An ______ is formatted
+                  as follows" can also be used). Optionally, this
                   phrase can include a note or comment, delimited by commas, immediately
                   following the PDU name. That is, "A/An _______, with an optional
                   comment, is formatted as follows" can be used to introduce a PDU
                   description.
-                  The introductory phrase is followed by the PDU description itself, as a packet
+                  This introductory phrase is followed by the PDU description itself, as a packet
                   diagram,
                   starting with a header line to show the bit width of the diagram.
-                  The description list of the fields follows the diagram, after a paragraph
+                  The description of the fields follows the diagram, after a paragraph
                   that begins with the text "where:".
                 </t>
 
                 <t>
                   PDU names must be unique, both within a document, and across
-                  all documents that are linked together (i.e., using the
-                  structured language defined in <xref target="ascii-import" />).
+                  all documents that are linked together using the
+                  structured language defined in <xref target="ascii-import" />.
                 </t>
 
                 <t>
-                  Each field is defined by a structured text definition and a
+                  Each field in the PDU is defined by a field in the packet header
+                  diagram, a structured text definition, and a
                   prose description. The structured text definition comprises
                   the field name and an optional short name in parenthesis.
                   These are followed by a colon, the field length, an optional expression
                   constraining the value of the field, an optional presence constraint,
-                  and, optionally, a terminating period. Text following the terminating period is not
-                  parsed, and this space can be used for optional notes or comments.
+                  and, optionally, a terminating period.
+                  The prose following the terminating period provides space for 
+                  optional notes or comments.
                   Field names cannot be the same as a
                   previously defined PDU name, and must be unique within a given
                   structure definition. Prose descriptions may include
@@ -428,19 +432,19 @@
 
                 <t>
                   A PDU may be defined not only by the layout and type of
-                  its fields, but also by the value of those fields. For
-                  example, field values may be constrained to be of a
-                  known exact value or to be within a range. The "Data Offset" and
+                  its fields, but also by the values of those fields. For
+                  example, field values may be constrained to some known value
+                  or to be within a range. The "Data Offset" and
                   "Reserved" fields in the example below make use of value constraints.
-                  More generally,
-                  our format enables a boolean expression to be attached to
+                  More generally, the augmented packet header diagram
+                  format enables a boolean expression to be attached to
                   a field, which must be true for the PDU to be parsed
                   successfully.
                 </t>
                 
                 <t>
                   In addition, a PDU may contain fields that have a size that is specified in terms
-                  of the value of another field. Our constraint syntax can be
+                  of the value of another field. The constraint syntax can be
                   used to specify the length of fields in known units (of bits, bytes,
                   or other structures). In the example below, the "Options" field is defined in units of
                   "TCP Option" structures, and this is indicated by square brackets in the
@@ -450,7 +454,7 @@
                   If the units are of variable-width, then it may
                   not be possible to specify the length of the sequence. However, it is
                   still necessary to be able to constrain the overall width of the
-                  field. To support this, our constraint syntax includes a "size"
+                  field. To support this, the constraint syntax includes a "size"
                   function that evaluates to the width, in bits, of the given named
                   field. The "Options" field in the example below makes use of this
                   syntax to constrain the size of the field.
@@ -466,7 +470,8 @@
                  This grammar is used across value, size, and presence constraint expressions.
                  </t>
                 <t>
-                 These elements can be illustrated using the TCP Header format
+                  The elements of an augmented packet header diagram 
+                  can be illustrated using the TCP Header format
                  <xref target="RFC9293"/>.  A TCP Header is formatted as follows:
                 </t>
                 <artwork>
@@ -502,7 +507,7 @@
                   <dd>
                     <t>
                       This is a fixed-width field, whose full label is shown in the diagram.
-                      The field's width -- 16 bits -- is given in the label of the description list,
+                      The field's width, 16 bits, is given in this description,
                       separated from the field's label by a colon.
                      </t>
                  </dd>
@@ -692,7 +697,8 @@
                      Payload.
                  </dt>
                  <dd>
-                    This is a multi-row variable-length field, denoted in the diagram by the ":" notation in the
+                   This is a multi-row variable-length field, denoted in the packet header
+                   diagram by the ":" notation in the
                     field's border. The length of the Payload is not specified, and hence needs to
                     be inferred from the total length of the packet and the lengths of the
                     known fields. There can only be one field of unspecified size in a PDU
@@ -1141,6 +1147,11 @@ func apply_protection(to: Unprotected Packet)
             </artwork>
             <t>
               In this example, 'Unprotected Packet' and 'Protected Packet' are existing types.
+              The text in the function body is not interpreted.
+            </t>
+            <t>
+              A common use of functions is to specify operations used during
+              packet parsing and serialisation.
             </t>
             <t>
                 To indicate that a PDU is created from another by way of a
