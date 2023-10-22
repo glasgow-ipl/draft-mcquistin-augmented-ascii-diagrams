@@ -376,10 +376,10 @@
             </t>
             <t>
                 The concept is illustrated by example, with accompanying explanatory descriptions.
-                This is appropriate, given the visual nature of the language. In future drafts a formal specification of the format will be given in <xref target="ABNF"/>.
+                This is appropriate, given the visual nature of the language. A formal specification of the grammar for the augmented packet header diagrams is given in <xref target="ABNF"/>.
             </t>
             <t>
-              The format described in this document aligns with an underlying data model, the Network Packet Representation, outlined in <xref target="NETWORKING2021" />. Using a typed data model to express the syntax of protocols, and the way that they are parsed, allows for safety and complexity properties to be defined and enforced.  This underlying representation is independent of the description language used: the Augmented Packet Header Diagrams format, defined in the sections that follow, is only one such approach.
+              The augmented packet header diagram format described in this document aligns with an underlying protocol data model, the Network Packet Representation, outlined in <xref target="NETWORKING2021" />. Using a typed data model to express the syntax of protocols, and the way that they are parsed, allows for safety and complexity properties to be defined and enforced.  This underlying representation is independent of the description language used: the Augmented Packet Header Diagram format, defined in the sections that follow, is only one such approach.
             </t>
             <t>
               Our examples are drawn from the specifications of TCP <xref target="RFC9293"/>,
