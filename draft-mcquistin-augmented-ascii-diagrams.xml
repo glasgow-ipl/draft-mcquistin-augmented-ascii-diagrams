@@ -1491,16 +1491,6 @@ func apply_protection(to: Unprotected Packet)
                 </front>
                 <seriesInfo name='RFC' value='5234'/>
             </reference>
-            <reference anchor="RFC7405" target="https://www.rfc-editor.org/info/rfc7405">
-              <front>
-                <title>Case-Sensitive String Support in ABNF</title>
-
-                <author initials='P' surname='Kyzivat' fullname='Paul Kyzivat'><organization /></author>
-
-                <date month='December' year='2014' />
-              </front>
-              <seriesInfo name='RFC' value='7405'/>
-            </reference>
             <reference anchor="ASN1">
                 <front>
                     <title>ITU-T Recommendation X.680, X.681, X.682, and X.683</title>
@@ -1549,16 +1539,6 @@ func apply_protection(to: Unprotected Packet)
 
                 <seriesInfo name='RFC' value='8489' />
             </reference>
-            <reference anchor="RFC791" target="https://www.rfc-editor.org/info/rfc791">
-                <front>
-                    <title>Internet Protocol</title>
-
-                    <author initials='J' surname='Postel' fullname='Jon Postel'><organization /></author>
-
-                    <date month='September' year='1981' />
-                </front>
-                <seriesInfo name='RFC' value='791'/>
-            </reference>
             <reference anchor="RFC793" target="https://www.rfc-editor.org/info/rfc793">
                 <front>
                     <title>Transmission Control Protocol</title>
@@ -1596,17 +1576,6 @@ func apply_protection(to: Unprotected Packet)
                     <date month='August' year='2022' />
                 </front>
                 <seriesInfo name='RFC' value='9293'/>
-            </reference>
-            
-            <reference anchor="RFC768" target="https://www.rfc-editor.org/info/rfc768">
-                <front>
-                    <title>User Datagram Protocol</title>
-            
-                    <author initials='J' surname='Postel' fullname='Jon Postel'><organization /></author>
-            
-                    <date month='August' year='1980' />
-                </front>
-                <seriesInfo name='RFC' value='768'/>
             </reference>
             
             <reference anchor="NETWORKING2021" target="http://dl.ifip.org/db/conf/networking/networking2021/1570702659.pdf">
