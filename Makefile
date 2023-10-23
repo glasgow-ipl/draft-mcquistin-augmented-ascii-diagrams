@@ -50,7 +50,7 @@ PDF_FILES = draft-mcquistin-augmented-ascii-diagrams.pdf
 TXT_FILES = draft-mcquistin-augmented-ascii-diagrams.txt
 
 # Master build rule:
-all: $(TOOLS) $(PDF_FILES) $(TXT_FILES)
+all: $(PDF_FILES) $(TXT_FILES)
 
 %.pdf: %.txt
 	enscript -q -lc -f Courier11 -M A4 -p - $< | ps2pdf - $@
